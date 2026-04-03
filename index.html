@@ -1095,3 +1095,1031 @@
 
 </body>
 </html>
+  }
+  .btn-add:hover { background: #059669; }
+  .btn-export {
+    background: #2563eb;
+    color: white;
+  }
+  .btn-export:hover { background: #1d4ed8; }
+  .btn-import {
+    background: #8b5cf6;
+    color: white;
+  }
+  .btn-import:hover { background: #7c3aed; }
+  .btn-share {
+    background: #f97316;
+    color: white;
+  }
+  .btn-share:hover { background: #ea580c; }
+  .btn-filter {
+    background: #e2e8f0;
+    color: #475569;
+  }
+  .btn-filter:hover { background: #cbd5e1; }
+  .btn-filter.active-all { background: #1e293b; color: white; }
+  .btn-filter.active-blue { background: var(--color-blue); color: white; }
+  .btn-filter.active-white { background: var(--color-white-team); color: white; }
+  .filter-group {
+    display: flex;
+    gap: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+  }
+  .filter-group button {
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .filter-group button:last-child { border-right: none; }
+  .btn-collab {
+    background: #ec4899;
+    color: white;
+  }
+  .btn-collab:hover { background: #db2777; }
+  .btn-reset {
+    background: #e2e8f0;
+    color: #475569;
+  }
+  .btn-reset:hover { background: #cbd5e1; }
+
+  .online-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .online-indicator.online {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  .online-indicator.offline {
+    background: #f1f5f9;
+    color: #64748b;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .online .status-dot { background: #10b981; }
+  .offline .status-dot { background: #94a3b8; }
+  .collab-instructions ol {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+    line-height: 1.7;
+  }
+  .collab-instructions summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem 2rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+  }
+
+  .day-column {
+    position: relative;
+    border-left: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+  }
+  .day-column:not(:first-child) { border-left: none; }
+
+  .day-header {
+    text-align: center;
+    padding: 0.75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    background: #f1f5f9;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .day-body {
+    position: relative;
+    height: calc(var(--hour-height) * (var(--timeline-end) - var(--timeline-start)));
+  }
+
+  .hour-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #e2e8f0;
+    height: 0;
+    z-index: 0;
+  }
+  .hour-label {
+    position: absolute;
+    left: 4px;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    color: #94a3b8;
+    z-index: 1;
+    background: #f8fafc;
+    padding: 0 2px;
+  }
+
+  .event-block {
+    position: absolute;
+    left: 40px;
+    right: 4px;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 5;
+    transition: box-shadow 0.15s;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .event-block:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 6;
+  }
+
+  .event-block.team-blue {
+    background: var(--color-blue-light);
+    border-left: 4px solid var(--color-blue);
+    color: #1e3a5f;
+  }
+  .event-block.team-white {
+    background: var(--color-white-light);
+    border-left: 4px solid var(--color-white-team);
+    color: #334155;
+  }
+  .event-block.assembly-blue {
+    background: var(--color-blue-assembly);
+    border-left: 4px dashed var(--color-blue);
+    color: #1e3a5f;
+    opacity: 0.75;
+  }
+  .event-block.assembly-white {
+    background: var(--color-white-assembly);
+    border-left: 4px dashed var(--color-white-team);
+    color: #334155;
+    opacity: 0.75;
+  }
+  .event-block.type-meal {
+    background: var(--color-meal-light);
+    border-left: 4px solid var(--color-meal);
+    color: #92400e;
+  }
+  .event-block.type-accommodation {
+    background: var(--color-accommodation-light);
+    border-left: 4px solid var(--color-accommodation);
+    color: #5b21b6;
+  }
+  .event-block.type-activity {
+    background: var(--color-activity-light);
+    border-left: 4px solid var(--color-activity);
+    color: #065f46;
+  }
+  .event-block.type-travel {
+    background: var(--color-travel-light);
+    border-left: 4px solid var(--color-travel);
+    color: #991b1b;
+  }
+  .event-block.type-other {
+    background: var(--color-other-light);
+    border-left: 4px solid var(--color-other);
+    color: #164e63;
+  }
+
+  .event-time { font-weight: 700; font-size: 0.7rem; }
+  .event-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .event-detail { font-size: 0.65rem; opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Split events into left/right when overlapping for same day */
+  .event-block.col-left { right: 52%; }
+  .event-block.col-right { left: calc(48% + 20px); }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  .modal label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    color: #475569;
+  }
+  .modal input, .modal select, .modal textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+  }
+  .modal textarea { resize: vertical; min-height: 60px; }
+  .modal-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    justify-content: flex-end;
+  }
+  .modal-buttons button {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .btn-save { background: #2563eb; color: white; }
+  .btn-save:hover { background: #1d4ed8; }
+  .btn-cancel { background: #e2e8f0; color: #475569; }
+  .btn-cancel:hover { background: #cbd5e1; }
+  .btn-delete { background: #ef4444; color: white; }
+  .btn-delete:hover { background: #dc2626; }
+
+  @media (max-width: 768px) {
+    .calendar {
+      grid-template-columns: 1fr;
+    }
+    .day-column { border-left: 1px solid #e2e8f0; }
+    header h1 { font-size: 1.2rem; }
+  }
+
+  @media print {
+    body { background: white; font-size: 11px; }
+    header { padding: 0.75rem; background: #1e40af !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .toolbar, .legend { display: none !important; }
+    .calendar { max-width: 100%; padding: 0; }
+    .event-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .modal-overlay { display: none !important; }
+    .day-column { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏑 Örebrocupen 2026 — Segeltorps IBK</h1>
+  <p>P15/16 • 17–19 april 2026 • Örebro</p>
+</header>
+
+<div class="toolbar">
+  <div class="filter-group">
+    <button class="btn-filter active-all" id="filter-all" onclick="setFilter('all')">Alla</button>
+    <button class="btn-filter" id="filter-blue" onclick="setFilter('blue')">Lag Blå</button>
+    <button class="btn-filter" id="filter-white" onclick="setFilter('white')">Lag Vit</button>
+  </div>
+  <button class="btn-add" onclick="openAddEventModal()">+ Lägg till händelse</button>
+  <button class="btn-collab" onclick="openCollabModal()">Samarbeta online</button>
+  <div class="online-indicator offline" id="onlineIndicator"><span class="status-dot"></span> Lokal</div>
+  <button class="btn-share" onclick="exportAsHtml()">Dela som HTML</button>
+  <button class="btn-export" onclick="exportData()">Spara till fil</button>
+  <button class="btn-import" onclick="document.getElementById('importFile').click()">Ladda från fil</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+  <button class="btn-reset" onclick="resetAll()">Återställ allt</button>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:#dbeafe;border-left:3px solid #2563eb"></div>Lag Blå – match</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#93bbfd;border-left:3px dashed #2563eb"></div>Lag Blå – samling</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#f1f5f9;border-left:3px solid #64748b"></div>Lag Vit – match</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#cbd5e1;border-left:3px dashed #64748b"></div>Lag Vit – samling</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#fef3c7;border-left:3px solid #f59e0b"></div>Mat</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#ede9fe;border-left:3px solid #8b5cf6"></div>Boende</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#d1fae5;border-left:3px solid #10b981"></div>Aktivitet</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#fee2e2;border-left:3px solid #ef4444"></div>Resa</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#cffafe;border-left:3px solid #0891b2"></div>Övrigt</div>
+</div>
+
+<div class="calendar" id="calendar">
+  <div class="day-column" id="day-fri">
+    <div class="day-header">Fredag 17 april</div>
+    <div class="day-body" id="body-fri"></div>
+  </div>
+  <div class="day-column" id="day-sat">
+    <div class="day-header">Lördag 18 april</div>
+    <div class="day-body" id="body-sat"></div>
+  </div>
+  <div class="day-column" id="day-sun">
+    <div class="day-header">Söndag 19 april</div>
+    <div class="day-body" id="body-sun"></div>
+  </div>
+</div>
+
+<!-- Modal: Edit Match -->
+<div class="modal-overlay" id="matchModal">
+  <div class="modal">
+    <h2 id="matchModalTitle">Redigera match</h2>
+    <input type="hidden" id="matchId">
+    <label>Motståndare</label>
+    <input type="text" id="matchOpponent">
+    <label>Dag</label>
+    <select id="matchDay">
+      <option value="fri">Fredag 17 april</option>
+      <option value="sat">Lördag 18 april</option>
+      <option value="sun">Söndag 19 april</option>
+    </select>
+    <label>Matchstart (HH:MM)</label>
+    <input type="time" id="matchTime">
+    <label>Hall</label>
+    <input type="text" id="matchVenue">
+    <label>Lag</label>
+    <select id="matchTeam">
+      <option value="blue">Lag Blå</option>
+      <option value="white">Lag Vit</option>
+    </select>
+    <label>Hem/Borta</label>
+    <select id="matchHomeAway">
+      <option value="home">Hemma</option>
+      <option value="away">Borta</option>
+    </select>
+    <div class="modal-buttons">
+      <button class="btn-cancel" onclick="closeModal('matchModal')">Avbryt</button>
+      <button class="btn-save" onclick="saveMatch()">Spara</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Add/Edit Event -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <h2 id="eventModalTitle">Lägg till händelse</h2>
+    <input type="hidden" id="eventId">
+    <label>Typ</label>
+    <select id="eventType">
+      <option value="meal">Mat</option>
+      <option value="accommodation">Boende</option>
+      <option value="activity">Aktivitet</option>
+      <option value="travel">Resa</option>
+      <option value="other">Övrigt</option>
+    </select>
+    <label>Lag</label>
+    <select id="eventTeam">
+      <option value="both">Båda lagen</option>
+      <option value="blue">Lag Blå</option>
+      <option value="white">Lag Vit</option>
+    </select>
+    <label>Dag</label>
+    <select id="eventDay">
+      <option value="fri">Fredag 17 april</option>
+      <option value="sat">Lördag 18 april</option>
+      <option value="sun">Söndag 19 april</option>
+    </select>
+    <label>Starttid</label>
+    <input type="time" id="eventStart">
+    <label>Sluttid</label>
+    <input type="time" id="eventEnd">
+    <label>Beskrivning</label>
+    <textarea id="eventDesc" placeholder="T.ex. Lunch på hotellet, Incheckning..."></textarea>
+    <div class="modal-buttons">
+      <button class="btn-delete" id="eventDeleteBtn" onclick="deleteEvent()" style="display:none;margin-right:auto">Radera</button>
+      <button class="btn-cancel" onclick="closeModal('eventModal')">Avbryt</button>
+      <button class="btn-save" onclick="saveEvent()">Spara</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Collaboration -->
+<div class="modal-overlay" id="collabModal">
+  <div class="modal" style="max-width:520px">
+    <h2>Samarbeta online</h2>
+
+    <div id="collabConnected" style="display:none">
+      <div class="online-indicator online" style="margin-bottom:0.75rem;display:inline-flex"><span class="status-dot"></span> Ansluten</div>
+      <p style="margin-bottom:0.25rem">Rum: <strong id="collabRoomName"></strong></p>
+      <p style="font-size:0.85rem;color:#64748b">Alla som är anslutna till samma rum ser ändringar i realtid.</p>
+      <div class="modal-buttons">
+        <button class="btn-delete" onclick="disconnectFromRoom()" style="margin-right:auto">Koppla från</button>
+        <button class="btn-cancel" onclick="closeModal('collabModal')">Stäng</button>
+      </div>
+    </div>
+
+    <div id="collabSetup">
+      <label>Firebase-konfiguration (JSON)</label>
+      <textarea id="firebaseConfigInput" rows="6" style="font-family:monospace;font-size:0.8rem" placeholder='{&#10;  &quot;apiKey&quot;: &quot;...&quot;,&#10;  &quot;authDomain&quot;: &quot;...&quot;,&#10;  &quot;databaseURL&quot;: &quot;https://xxx.firebaseio.com&quot;,&#10;  &quot;projectId&quot;: &quot;...&quot;&#10;}'></textarea>
+
+      <label>Rumsnamn</label>
+      <input type="text" id="roomNameInput" placeholder="t.ex. segeltorps-cup-2026" value="segeltorps-cup-2026">
+
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closeModal('collabModal')">Avbryt</button>
+        <button class="btn-save" onclick="startCollab()">Anslut</button>
+      </div>
+
+      <details class="collab-instructions" style="margin-top:1.25rem;font-size:0.8rem;color:#64748b">
+        <summary>Hur gör jag? (steg-för-steg)</summary>
+        <ol>
+          <li>Gå till <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">console.firebase.google.com</a> och logga in med ett Google-konto</li>
+          <li>Klicka <strong>“Lägg till projekt”</strong> &rarr; ge det ett namn (t.ex. “orebrocupen”) &rarr; Fortsätt &rarr; Skapa projekt</li>
+          <li>I vänstermenyn: <strong>Build &rarr; Realtime Database &rarr; Skapa databas</strong></li>
+          <li>Välj plats (europe-west1) &rarr; <strong>Starta i testläge</strong> &rarr; Aktivera</li>
+          <li>Gå till <strong>Projektinställningar</strong> (kugghjulet uppe till vänster)</li>
+          <li>Scrolla ner till <strong>“Dina appar”</strong> &rarr; klicka på webbikonen <strong>&lt;/&gt;</strong></li>
+          <li>Ge appen ett namn &rarr; <strong>Registrera app</strong></li>
+          <li>Kopiera <code>firebaseConfig</code>-objektet (allt mellan <code>{</code> och <code>}</code>) och klistra in ovan</li>
+          <li>Alla som ska samarbeta klistrar in <strong>samma konfiguration</strong> och <strong>samma rumsnamn</strong></li>
+        </ol>
+      </details>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+  const SAVED_FIREBASE_CONFIG = {
+    "apiKey": "AIzaSyB3i97Uls9GZkuP3bxHKwZLfqWWqKGIPuU",
+    "authDomain": "orebrocupen-2026.firebaseapp.com",
+    "databaseURL": "https://orebrocupen-2026-default-rtdb.europe-west1.firebasedatabase.app",
+    "projectId": "orebrocupen-2026",
+    "storageBucket": "orebrocupen-2026.firebasestorage.app",
+    "messagingSenderId": "953715494179",
+    "appId": "1:953715494179:web:32c96d70ea7c8c215d1096",
+    "measurementId": "G-6HM3BFTH3J"
+  };
+  const SAVED_ROOM_NAME = "segeltorps-cup-2026";
+
+  // ── Embedded data (populated when exported via "Dela som HTML") ──
+  const EMBEDDED_DATA = null;
+
+  // ── Default match data ──
+  const DEFAULT_MATCHES = [
+    { id: 'm1', team: 'white', day: 'fri', time: '19:45', opponent: 'Sundborns GoIF Röd', venue: 'Almbyskolan', homeAway: 'away' },
+    { id: 'm2', team: 'white', day: 'sat', time: '12:15', opponent: 'Örebro SK Ungdom 1', venue: 'Almbyskolan', homeAway: 'home' },
+    { id: 'm3', team: 'white', day: 'sat', time: '16:00', opponent: 'Strängnäs IBK', venue: 'Almbyskolan', homeAway: 'home' },
+    { id: 'm4', team: 'white', day: 'sun', time: '09:30', opponent: 'Lillån IBK P2016', venue: 'Almbyskolan', homeAway: 'away' },
+    { id: 'm5', team: 'white', day: 'sun', time: '13:15', opponent: 'Frillesås FF', venue: 'Almbyskolan', homeAway: 'home' },
+    { id: 'm6', team: 'blue', day: 'fri', time: '17:30', opponent: 'Lillån IBK P-2017 1', venue: 'Tegelbruket 2', homeAway: 'home' },
+    { id: 'm7', team: 'blue', day: 'sat', time: '12:00', opponent: 'IBF Älvstranden', venue: 'Tullängsgymnasiet', homeAway: 'home' },
+    { id: 'm8', team: 'blue', day: 'sat', time: '18:15', opponent: 'Rönnby Västerås IBK Ungdom', venue: 'Almbyskolan', homeAway: 'away' },
+    { id: 'm9', team: 'blue', day: 'sun', time: '10:15', opponent: 'Örebro SK Ungdom 5', venue: 'Tullängsgymnasiet', homeAway: 'away' },
+    { id: 'm10', team: 'blue', day: 'sun', time: '14:45', opponent: 'Örebro SK Ungdom 2', venue: 'Almbyskolan', homeAway: 'home' },
+  ];
+
+  const MATCH_DURATION = 40; // minutes
+  const ASSEMBLY_BEFORE = 30; // minutes before match
+  const HOUR_HEIGHT = 80;
+  const TIMELINE_START = 7;
+  const TIMELINE_END = 22;
+
+  const TYPE_LABELS = { meal: 'Mat', accommodation: 'Boende', activity: 'Aktivitet', travel: 'Resa', other: 'Övrigt' };
+
+  // ── State ──
+  let matches = [];
+  let events = [];
+  let activeFilter = 'all';
+
+  function setFilter(filter) {
+    activeFilter = filter;
+    document.getElementById('filter-all').className = 'btn-filter' + (filter === 'all' ? ' active-all' : '');
+    document.getElementById('filter-blue').className = 'btn-filter' + (filter === 'blue' ? ' active-blue' : '');
+    document.getElementById('filter-white').className = 'btn-filter' + (filter === 'white' ? ' active-white' : '');
+    render();
+  }
+
+  function loadState() {
+    const savedMatches = localStorage.getItem('orebrocup_matches');
+    const savedEvents = localStorage.getItem('orebrocup_events');
+    if (EMBEDDED_DATA) {
+      matches = savedMatches ? JSON.parse(savedMatches) : EMBEDDED_DATA.matches;
+      events = savedEvents ? JSON.parse(savedEvents) : EMBEDDED_DATA.events;
+    } else {
+      matches = savedMatches ? JSON.parse(savedMatches) : JSON.parse(JSON.stringify(DEFAULT_MATCHES));
+      events = savedEvents ? JSON.parse(savedEvents) : [];
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
+    localStorage.setItem('orebrocup_events', JSON.stringify(events));
+    syncToFirebase();
+  }
+
+  function resetAll() {
+    if (!confirm('Vill du återställa allt? Alla ändringar och tillagda händelser raderas.')) return;
+    localStorage.removeItem('orebrocup_matches');
+    localStorage.removeItem('orebrocup_events');
+    loadState();
+    render();
+  }
+
+  // ── Time helpers ──
+  function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function minutesToTime(m) {
+    const h = Math.floor(m / 60);
+    const mi = m % 60;
+    return `${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}`;
+  }
+
+  function minutesToTop(m) {
+    return ((m / 60) - TIMELINE_START) * HOUR_HEIGHT;
+  }
+
+  function minutesToHeight(dur) {
+    return (dur / 60) * HOUR_HEIGHT;
+  }
+
+  // ── Rendering ──
+  function render() {
+    ['fri','sat','sun'].forEach(day => {
+      const body = document.getElementById('body-' + day);
+      body.innerHTML = '';
+
+      // Hour lines
+      for (let h = TIMELINE_START; h <= TIMELINE_END; h++) {
+        const line = document.createElement('div');
+        line.className = 'hour-line';
+        line.style.top = (h - TIMELINE_START) * HOUR_HEIGHT + 'px';
+        body.appendChild(line);
+
+        if (h < TIMELINE_END) {
+          const label = document.createElement('div');
+          label.className = 'hour-label';
+          label.style.top = (h - TIMELINE_START) * HOUR_HEIGHT + 'px';
+          label.textContent = `${String(h).padStart(2,'0')}:00`;
+          body.appendChild(label);
+        }
+      }
+
+      // Collect all blocks for this day for overlap detection
+      const blocks = [];
+
+      // Matches + assemblies
+      const dayMatches = matches.filter(m => m.day === day && (activeFilter === 'all' || m.team === activeFilter));
+      dayMatches.forEach(match => {
+        const startMin = timeToMinutes(match.time);
+        const assemblyStart = startMin - ASSEMBLY_BEFORE;
+
+        // Assembly block
+        blocks.push({
+          type: 'assembly',
+          team: match.team,
+          startMin: assemblyStart,
+          endMin: startMin,
+          matchId: match.id,
+          label: `Samling ${match.team === 'blue' ? 'Blå' : 'Vit'}`,
+          detail: match.venue,
+        });
+
+        // Match block
+        blocks.push({
+          type: 'match',
+          team: match.team,
+          startMin: startMin,
+          endMin: startMin + MATCH_DURATION,
+          matchId: match.id,
+          label: match.homeAway === 'home'
+            ? `Segeltorps IBK ${match.team === 'blue' ? 'Blå' : 'Vit'} vs ${match.opponent}`
+            : `${match.opponent} vs Segeltorps IBK ${match.team === 'blue' ? 'Blå' : 'Vit'}`,
+          detail: `${match.venue} • ${match.time}–${minutesToTime(startMin + MATCH_DURATION)}`,
+        });
+      });
+
+      // Custom events
+      const dayEvents = events.filter(e => e.day === day && (activeFilter === 'all' || e.team === activeFilter || e.team === 'both'));
+      dayEvents.forEach(ev => {
+        const typeName = TYPE_LABELS[ev.type] || ev.type;
+        const teamSuffix = ev.team !== 'both' ? (' – ' + (ev.team === 'blue' ? 'Blå' : 'Vit')) : '';
+        const title = ev.desc ? `${typeName} – ${ev.desc}` : typeName;
+        blocks.push({
+          type: ev.type,
+          team: ev.team,
+          startMin: timeToMinutes(ev.start),
+          endMin: timeToMinutes(ev.end),
+          eventId: ev.id,
+          label: title,
+          detail: teamSuffix ? teamSuffix.replace(' – ', '') : '',
+        });
+      });
+
+      // Detect overlap & assign columns
+      assignColumns(blocks);
+
+      // Render blocks
+      blocks.forEach(b => {
+        const el = document.createElement('div');
+        const top = minutesToTop(b.startMin);
+        const height = Math.max(minutesToHeight(b.endMin - b.startMin), 20);
+
+        let cssClass = 'event-block';
+        if (b.type === 'match') cssClass += ` team-${b.team}`;
+        else if (b.type === 'assembly') cssClass += ` assembly-${b.team}`;
+        else cssClass += ` type-${b.type}`;
+
+        if (b.col === 'left') cssClass += ' col-left';
+        else if (b.col === 'right') cssClass += ' col-right';
+
+        el.className = cssClass;
+        el.style.top = top + 'px';
+        el.style.height = height + 'px';
+
+        el.innerHTML = `
+          <div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div>
+          <div class="event-title">${escapeHtml(b.label)}</div>
+          ${b.detail ? `<div class="event-detail">${escapeHtml(b.detail)}</div>` : ''}
+        `;
+
+        if (b.type === 'match' || b.type === 'assembly') {
+          el.addEventListener('click', () => openMatchModal(b.matchId));
+        } else {
+          el.addEventListener('click', () => openEditEventModal(b.eventId));
+        }
+
+        body.appendChild(el);
+      });
+    });
+  }
+
+  function assignColumns(blocks) {
+    // Separate blue and white team events for potential overlap
+    const blueBlocks = blocks.filter(b => b.team === 'blue');
+    const whiteBlocks = blocks.filter(b => b.team === 'white');
+    const bothBlocks = blocks.filter(b => b.team === 'both');
+
+    // Check if any blue block overlaps with any white block
+    let hasTeamOverlap = false;
+    for (const bb of blueBlocks) {
+      for (const wb of whiteBlocks) {
+        if (bb.startMin < wb.endMin && wb.startMin < bb.endMin) {
+          hasTeamOverlap = true;
+          break;
+        }
+      }
+      if (hasTeamOverlap) break;
+    }
+
+    if (hasTeamOverlap) {
+      blueBlocks.forEach(b => b.col = 'left');
+      whiteBlocks.forEach(b => b.col = 'right');
+    }
+    // 'both' events and non-overlapping team events stay full-width (no col assigned)
+  }
+
+  function escapeHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  // ── Match Modal ──
+  function openMatchModal(matchId) {
+    const match = matches.find(m => m.id === matchId);
+    if (!match) return;
+    document.getElementById('matchId').value = match.id;
+    document.getElementById('matchOpponent').value = match.opponent;
+    document.getElementById('matchDay').value = match.day;
+    document.getElementById('matchTime').value = match.time;
+    document.getElementById('matchVenue').value = match.venue;
+    document.getElementById('matchTeam').value = match.team;
+    document.getElementById('matchHomeAway').value = match.homeAway;
+    document.getElementById('matchModalTitle').textContent = `Redigera: ${match.team === 'blue' ? 'Lag Blå' : 'Lag Vit'} vs ${match.opponent}`;
+    document.getElementById('matchModal').classList.add('active');
+  }
+
+  function saveMatch() {
+    const id = document.getElementById('matchId').value;
+    const match = matches.find(m => m.id === id);
+    if (!match) return;
+    match.opponent = document.getElementById('matchOpponent').value.trim();
+    match.day = document.getElementById('matchDay').value;
+    match.time = document.getElementById('matchTime').value;
+    match.venue = document.getElementById('matchVenue').value.trim();
+    match.team = document.getElementById('matchTeam').value;
+    match.homeAway = document.getElementById('matchHomeAway').value;
+    saveState();
+    render();
+    closeModal('matchModal');
+  }
+
+  // ── Event Modal ──
+  function openAddEventModal() {
+    document.getElementById('eventId').value = '';
+    document.getElementById('eventType').value = 'meal';
+    document.getElementById('eventTeam').value = 'both';
+    document.getElementById('eventDay').value = 'fri';
+    document.getElementById('eventStart').value = '12:00';
+    document.getElementById('eventEnd').value = '13:00';
+    document.getElementById('eventDesc').value = '';
+    document.getElementById('eventModalTitle').textContent = 'Lägg till händelse';
+    document.getElementById('eventDeleteBtn').style.display = 'none';
+    document.getElementById('eventModal').classList.add('active');
+  }
+
+  function openEditEventModal(eventId) {
+    const ev = events.find(e => e.id === eventId);
+    if (!ev) return;
+    document.getElementById('eventId').value = ev.id;
+    document.getElementById('eventType').value = ev.type;
+    document.getElementById('eventTeam').value = ev.team;
+    document.getElementById('eventDay').value = ev.day;
+    document.getElementById('eventStart').value = ev.start;
+    document.getElementById('eventEnd').value = ev.end;
+    document.getElementById('eventDesc').value = ev.desc || '';
+    document.getElementById('eventModalTitle').textContent = 'Redigera händelse';
+    document.getElementById('eventDeleteBtn').style.display = 'inline-block';
+    document.getElementById('eventModal').classList.add('active');
+  }
+
+  function saveEvent() {
+    const id = document.getElementById('eventId').value;
+    const data = {
+      type: document.getElementById('eventType').value,
+      team: document.getElementById('eventTeam').value,
+      day: document.getElementById('eventDay').value,
+      start: document.getElementById('eventStart').value,
+      end: document.getElementById('eventEnd').value,
+      desc: document.getElementById('eventDesc').value.trim(),
+    };
+
+    if (!data.start || !data.end) {
+      alert('Fyll i start- och sluttid.');
+      return;
+    }
+    if (timeToMinutes(data.start) >= timeToMinutes(data.end)) {
+      alert('Sluttid måste vara efter starttid.');
+      return;
+    }
+
+    if (id) {
+      const ev = events.find(e => e.id === id);
+      if (ev) Object.assign(ev, data);
+    } else {
+      data.id = 'e' + Date.now();
+      events.push(data);
+    }
+
+    saveState();
+    render();
+    closeModal('eventModal');
+  }
+
+  function deleteEvent() {
+    const id = document.getElementById('eventId').value;
+    if (!id) return;
+    if (!confirm('Vill du radera denna händelse?')) return;
+    events = events.filter(e => e.id !== id);
+    saveState();
+    render();
+    closeModal('eventModal');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  // Close modals on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('active');
+    });
+  });
+
+  // ── Export as self-contained HTML ──
+  function exportAsHtml() {
+    const html = document.documentElement.outerHTML;
+    const dataObj = JSON.stringify({ matches, events });
+    const patched = html.replace(
+      /const EMBEDDED_DATA = .*?;/,
+      'const EMBEDDED_DATA = ' + dataObj + ';'
+    );
+    const fullHtml = '<!DOCTYPE html>\n' + patched;
+    const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'orebrocupen-2026-kalender.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // ── Export / Import ──
+  function exportData() {
+    const data = { matches, events };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'orebrocupen-2026-kalender.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importData(evt) {
+    const file = evt.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.matches) matches = data.matches;
+        if (data.events) events = data.events;
+        saveState();
+        render();
+        alert('Data laddad!');
+      } catch {
+        alert('Kunde inte l\u00e4sa filen. Kontrollera att det \u00e4r en giltig JSON-fil.');
+      }
+      evt.target.value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  // ── Collaboration (Firebase) ──
+  let firebaseApp = null;
+  let firebaseDb = null;
+  let roomRef = null;
+  let isOnline = false;
+  let lastSyncTime = 0;
+
+  function openCollabModal() {
+    const config = localStorage.getItem('orebrocup_firebase_config') || JSON.stringify(SAVED_FIREBASE_CONFIG, null, 2);
+    if (config) document.getElementById('firebaseConfigInput').value = config;
+    const room = localStorage.getItem('orebrocup_room') || SAVED_ROOM_NAME;
+    if (room) document.getElementById('roomNameInput').value = room;
+
+    if (isOnline) {
+      document.getElementById('collabConnected').style.display = 'block';
+      document.getElementById('collabSetup').style.display = 'none';
+      document.getElementById('collabRoomName').textContent = localStorage.getItem('orebrocup_room') || '';
+    } else {
+      document.getElementById('collabConnected').style.display = 'none';
+      document.getElementById('collabSetup').style.display = 'block';
+    }
+    document.getElementById('collabModal').classList.add('active');
+  }
+
+  async function startCollab() {
+    const configStr = document.getElementById('firebaseConfigInput').value.trim();
+    const roomName = document.getElementById('roomNameInput').value.trim();
+    if (!configStr || !roomName) {
+      alert('Fyll i Firebase-konfiguration och rumsnamn.');
+      return;
+    }
+    let config;
+    try {
+      config = JSON.parse(configStr);
+    } catch {
+      alert('Ogiltig JSON i Firebase-konfigurationen. Kopiera hela objektet fr\u00e5n Firebase.');
+      return;
+    }
+    if (!config.databaseURL) {
+      alert('Firebase-konfigurationen saknar databaseURL. Se till att kopiera hela config-objektet.');
+      return;
+    }
+    try {
+      localStorage.setItem('orebrocup_firebase_config', configStr);
+      localStorage.setItem('orebrocup_room', roomName);
+      await connectToRoom(config, roomName);
+      closeModal('collabModal');
+    } catch (err) {
+      alert('Kunde inte ansluta: ' + err.message);
+    }
+  }
+
+  async function connectToRoom(config, roomName) {
+    if (firebaseApp) {
+      try { await firebaseApp.delete(); } catch {}
+    }
+    firebaseApp = firebase.initializeApp(config);
+    firebaseDb = firebase.database();
+    roomRef = firebaseDb.ref('rooms/' + roomName);
+
+    const snapshot = await roomRef.once('value');
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      matches = data.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
+      events = data.events || [];
+      localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
+      localStorage.setItem('orebrocup_events', JSON.stringify(events));
+      render();
+    } else {
+      await roomRef.set({ matches, events, lastUpdated: Date.now() });
+    }
+
+    roomRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+      // Skip if this is our own write (within 2 seconds)
+      if (data.lastUpdated && Math.abs(data.lastUpdated - lastSyncTime) < 2000) return;
+      matches = data.matches || [];
+      events = data.events || [];
+      localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
+      localStorage.setItem('orebrocup_events', JSON.stringify(events));
+      render();
+    });
+
+    isOnline = true;
+    updateOnlineIndicator();
+  }
+
+  function disconnectFromRoom() {
+    if (roomRef) roomRef.off();
+    if (firebaseApp) {
+      try { firebaseApp.delete(); } catch {}
+      firebaseApp = null;
+    }
+    firebaseDb = null;
+    roomRef = null;
+    isOnline = false;
+    updateOnlineIndicator();
+    closeModal('collabModal');
+  }
+
+  function syncToFirebase() {
+    if (isOnline && roomRef) {
+      lastSyncTime = Date.now();
+      roomRef.set({ matches, events, lastUpdated: lastSyncTime })
+        .catch((err) => { console.error('Firebase sync failed:', err); });
+    }
+  }
+
+  function updateOnlineIndicator() {
+    const el = document.getElementById('onlineIndicator');
+    if (isOnline) {
+      const room = localStorage.getItem('orebrocup_room') || '';
+      el.className = 'online-indicator online';
+      el.innerHTML = '<span class="status-dot"></span> Online: ' + escapeHtml(room);
+    } else {
+      el.className = 'online-indicator offline';
+      el.innerHTML = '<span class="status-dot"></span> Lokal';
+    }
+  }
+
+  // ── Init ──
+  loadState();
+  render();
+
+  // Auto-reconnect on page load
+  (async function autoReconnect() {
+    const config = SAVED_FIREBASE_CONFIG;
+    const room = SAVED_ROOM_NAME;
+    if (config && room) {
+      try {
+        await connectToRoom(config, room);
+      } catch {
+        // Firebase not available, stay offline
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

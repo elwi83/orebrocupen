@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="sv"><head>
+<html lang="sv">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Örebrocupen 2026 — Segeltorps IBK</title>
@@ -396,7 +397,7 @@
   </div>
   <button class="btn-add" onclick="openAddEventModal()">+ Lägg till händelse</button>
   <button class="btn-collab" onclick="openCollabModal()">Samarbeta online</button>
-  <div class="online-indicator online" id="onlineIndicator"><span class="status-dot"></span> Online: segeltorps-cup-2026</div>
+  <div class="online-indicator offline" id="onlineIndicator"><span class="status-dot"></span> Lokal</div>
   <button class="btn-share" onclick="exportAsHtml()">Dela som HTML</button>
   <button class="btn-export" onclick="exportData()">Spara till fil</button>
   <button class="btn-import" onclick="document.getElementById('importFile').click()">Ladda från fil</button>
@@ -419,239 +420,15 @@
 <div class="calendar" id="calendar">
   <div class="day-column" id="day-fri">
     <div class="day-header">Fredag 17 april</div>
-    <div class="day-body" id="body-fri"><div class="hour-line" style="top: 0px;"></div><div class="hour-label" style="top: 0px;">07:00</div><div class="hour-line" style="top: 80px;"></div><div class="hour-label" style="top: 80px;">08:00</div><div class="hour-line" style="top: 160px;"></div><div class="hour-label" style="top: 160px;">09:00</div><div class="hour-line" style="top: 240px;"></div><div class="hour-label" style="top: 240px;">10:00</div><div class="hour-line" style="top: 320px;"></div><div class="hour-label" style="top: 320px;">11:00</div><div class="hour-line" style="top: 400px;"></div><div class="hour-label" style="top: 400px;">12:00</div><div class="hour-line" style="top: 480px;"></div><div class="hour-label" style="top: 480px;">13:00</div><div class="hour-line" style="top: 560px;"></div><div class="hour-label" style="top: 560px;">14:00</div><div class="hour-line" style="top: 640px;"></div><div class="hour-label" style="top: 640px;">15:00</div><div class="hour-line" style="top: 720px;"></div><div class="hour-label" style="top: 720px;">16:00</div><div class="hour-line" style="top: 800px;"></div><div class="hour-label" style="top: 800px;">17:00</div><div class="hour-line" style="top: 880px;"></div><div class="hour-label" style="top: 880px;">18:00</div><div class="hour-line" style="top: 960px;"></div><div class="hour-label" style="top: 960px;">19:00</div><div class="hour-line" style="top: 1040px;"></div><div class="hour-label" style="top: 1040px;">20:00</div><div class="hour-line" style="top: 1120px;"></div><div class="hour-label" style="top: 1120px;">21:00</div><div class="hour-line" style="top: 1200px;"></div><div class="event-block assembly-white col-right" style="top: 980px; height: 40px;">
-          <div class="event-time">19:15–19:45</div>
-          <div class="event-title">Samling Vit</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-white col-right" style="top: 1020px; height: 53.333333px;">
-          <div class="event-time">19:45–20:25</div>
-          <div class="event-title">Sundborns GoIF Röd vs Segeltorps IBK Vit</div>
-          <div class="event-detail">Almbyskolan • 19:45–20:25</div>
-        </div><div class="event-block assembly-blue col-left" style="top: 800px; height: 40px;">
-          <div class="event-time">17:00–17:30</div>
-          <div class="event-title">Samling Blå</div>
-          <div class="event-detail">Tegelbruket 2</div>
-        </div><div class="event-block team-blue col-left" style="top: 840px; height: 53.333333px;">
-          <div class="event-time">17:30–18:10</div>
-          <div class="event-title">Segeltorps IBK Blå vs Lillån IBK P-2017 1</div>
-          <div class="event-detail">Tegelbruket 2 • 17:30–18:10</div>
-        </div><div class="event-block type-meal" style="top: 920px; height: 40px;">
-          <div class="event-time">18:30–19:00</div>
-          <div class="event-title">Mat – Middag på Almby skola</div>
-          
-        </div><div class="event-block type-other" style="top: 960px; height: 20px;">
-          <div class="event-time">19:00–19:15</div>
-          <div class="event-title">Övrigt – Incheckning boende</div>
-          
-        </div><div class="event-block type-travel col-left" style="top: 600px; height: 200px;">
-          <div class="event-time">14:30–17:00</div>
-          <div class="event-title">Resa – Resa från Segeltorp</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-travel col-right" style="top: 720px; height: 200px;">
-          <div class="event-time">16:00–18:30</div>
-          <div class="event-title">Resa – Resa från Segeltorp</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-activity col-left" style="top: 1020px; height: 53.333333px;">
-          <div class="event-time">19:45–20:25</div>
-          <div class="event-title">Aktivitet – Heja på Lag vit</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-travel col-left" style="top: 900px; height: 20px;">
-          <div class="event-time">18:15–18:30</div>
-          <div class="event-title">Resa – Resa till Almbyskolan</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-other" style="top: 1120px; height: 80px;">
-          <div class="event-time">21:00–22:00</div>
-          <div class="event-title">Övrigt – Dags att sova</div>
-          
-        </div><div class="event-block type-other" style="top: 1080px; height: 40px;">
-          <div class="event-time">20:30–21:00</div>
-          <div class="event-title">Övrigt – Packa upp och varva ner</div>
-          
-        </div></div>
+    <div class="day-body" id="body-fri"></div>
   </div>
   <div class="day-column" id="day-sat">
     <div class="day-header">Lördag 18 april</div>
-    <div class="day-body" id="body-sat"><div class="hour-line" style="top: 0px;"></div><div class="hour-label" style="top: 0px;">07:00</div><div class="hour-line" style="top: 80px;"></div><div class="hour-label" style="top: 80px;">08:00</div><div class="hour-line" style="top: 160px;"></div><div class="hour-label" style="top: 160px;">09:00</div><div class="hour-line" style="top: 240px;"></div><div class="hour-label" style="top: 240px;">10:00</div><div class="hour-line" style="top: 320px;"></div><div class="hour-label" style="top: 320px;">11:00</div><div class="hour-line" style="top: 400px;"></div><div class="hour-label" style="top: 400px;">12:00</div><div class="hour-line" style="top: 480px;"></div><div class="hour-label" style="top: 480px;">13:00</div><div class="hour-line" style="top: 560px;"></div><div class="hour-label" style="top: 560px;">14:00</div><div class="hour-line" style="top: 640px;"></div><div class="hour-label" style="top: 640px;">15:00</div><div class="hour-line" style="top: 720px;"></div><div class="hour-label" style="top: 720px;">16:00</div><div class="hour-line" style="top: 800px;"></div><div class="hour-label" style="top: 800px;">17:00</div><div class="hour-line" style="top: 880px;"></div><div class="hour-label" style="top: 880px;">18:00</div><div class="hour-line" style="top: 960px;"></div><div class="hour-label" style="top: 960px;">19:00</div><div class="hour-line" style="top: 1040px;"></div><div class="hour-label" style="top: 1040px;">20:00</div><div class="hour-line" style="top: 1120px;"></div><div class="hour-label" style="top: 1120px;">21:00</div><div class="hour-line" style="top: 1200px;"></div><div class="event-block assembly-white col-right" style="top: 380px; height: 40px;">
-          <div class="event-time">11:45–12:15</div>
-          <div class="event-title">Samling Vit</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-white col-right" style="top: 420px; height: 53.333333px;">
-          <div class="event-time">12:15–12:55</div>
-          <div class="event-title">Segeltorps IBK Vit vs Örebro SK Ungdom 1</div>
-          <div class="event-detail">Almbyskolan • 12:15–12:55</div>
-        </div><div class="event-block assembly-white col-right" style="top: 680px; height: 40px;">
-          <div class="event-time">15:30–16:00</div>
-          <div class="event-title">Samling Vit</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-white col-right" style="top: 720px; height: 53.333333px;">
-          <div class="event-time">16:00–16:40</div>
-          <div class="event-title">Segeltorps IBK Vit vs Strängnäs IBK</div>
-          <div class="event-detail">Almbyskolan • 16:00–16:40</div>
-        </div><div class="event-block assembly-blue col-left" style="top: 360px; height: 40px;">
-          <div class="event-time">11:30–12:00</div>
-          <div class="event-title">Samling Blå</div>
-          <div class="event-detail">Tullängsgymnasiet</div>
-        </div><div class="event-block team-blue col-left" style="top: 400px; height: 53.333333px;">
-          <div class="event-time">12:00–12:40</div>
-          <div class="event-title">Segeltorps IBK Blå vs IBF Älvstranden</div>
-          <div class="event-detail">Tullängsgymnasiet • 12:00–12:40</div>
-        </div><div class="event-block assembly-blue col-left" style="top: 860px; height: 40px;">
-          <div class="event-time">17:45–18:15</div>
-          <div class="event-title">Samling Blå</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-blue col-left" style="top: 900px; height: 53.333333px;">
-          <div class="event-time">18:15–18:55</div>
-          <div class="event-title">Rönnby Västerås IBK Ungdom vs Segeltorps IBK Blå</div>
-          <div class="event-detail">Almbyskolan • 18:15–18:55</div>
-        </div><div class="event-block type-meal" style="top: 0px; height: 80px;">
-          <div class="event-time">07:00–08:00</div>
-          <div class="event-title">Mat – Frukost</div>
-          
-        </div><div class="event-block type-travel" style="top: 480px; height: 20px;">
-          <div class="event-time">13:00–13:15</div>
-          <div class="event-title">Resa – Resa till Lost City</div>
-          
-        </div><div class="event-block type-travel col-right" style="top: 640px; height: 20px;">
-          <div class="event-time">15:00–15:15</div>
-          <div class="event-title">Resa – Från Lost City</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-meal col-right" style="top: 660px; height: 20px;">
-          <div class="event-time">15:15–15:30</div>
-          <div class="event-title">Mat – Mellis</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-activity" style="top: 500px; height: 140px;">
-          <div class="event-time">13:15–15:00</div>
-          <div class="event-title">Aktivitet – Lost City - Äventyrsbad</div>
-          
-        </div><div class="event-block type-activity col-left" style="top: 720px; height: 53.333333px;">
-          <div class="event-time">16:00–16:40</div>
-          <div class="event-title">Aktivitet – Heja på lag vit</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-activity col-right" style="top: 900px; height: 53.333333px;">
-          <div class="event-time">18:15–18:55</div>
-          <div class="event-title">Aktivitet – Heja på Lag blå</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-other col-right" style="top: 773.333333px; height: 26.666667px;">
-          <div class="event-time">16:40–17:00</div>
-          <div class="event-title">Övrigt – Dusch i omklädningsrum</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-meal col-right" style="top: 840px; height: 40px;">
-          <div class="event-time">17:30–18:00</div>
-          <div class="event-title">Mat – Middag på Almbyskolan</div>
-          <div class="event-detail">Vit</div>
-        </div><div class="event-block type-meal col-left" style="top: 840px; height: 20px;">
-          <div class="event-time">17:30–17:45</div>
-          <div class="event-title">Mat – Middag på Almbyskolan</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-other col-left" style="top: 953.333333px; height: 20px;">
-          <div class="event-time">18:55–19:10</div>
-          <div class="event-title">Övrigt – Dusch</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-travel col-left" style="top: 346.666667px; height: 20px;">
-          <div class="event-time">11:20–11:30</div>
-          <div class="event-title">Resa – Resa till Tullängsgymnasiet</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-meal" style="top: 300px; height: 40px;">
-          <div class="event-time">10:45–11:15</div>
-          <div class="event-title">Mat – Lunch på Almbyskolan</div>
-          
-        </div><div class="event-block type-other" style="top: 1120px; height: 80px;">
-          <div class="event-time">21:00–22:00</div>
-          <div class="event-title">Övrigt – Dags att sova</div>
-          
-        </div><div class="event-block type-activity" style="top: 980px; height: 140px;">
-          <div class="event-time">19:15–21:00</div>
-          <div class="event-title">Aktivitet – Häng på Almbyskolan</div>
-          
-        </div><div class="event-block type-travel col-left" style="top: 680px; height: 20px;">
-          <div class="event-time">15:30–15:45</div>
-          <div class="event-title">Resa – Resa från äventyrsbad</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-meal col-left" style="top: 700px; height: 20px;">
-          <div class="event-time">15:45–16:00</div>
-          <div class="event-title">Mat – Mellis</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-activity" style="top: 80px; height: 220px;">
-          <div class="event-time">08:00–10:45</div>
-          <div class="event-title">Aktivitet – Lugnare aktivitet behöver planeras</div>
-          
-        </div></div>
+    <div class="day-body" id="body-sat"></div>
   </div>
   <div class="day-column" id="day-sun">
     <div class="day-header">Söndag 19 april</div>
-    <div class="day-body" id="body-sun"><div class="hour-line" style="top: 0px;"></div><div class="hour-label" style="top: 0px;">07:00</div><div class="hour-line" style="top: 80px;"></div><div class="hour-label" style="top: 80px;">08:00</div><div class="hour-line" style="top: 160px;"></div><div class="hour-label" style="top: 160px;">09:00</div><div class="hour-line" style="top: 240px;"></div><div class="hour-label" style="top: 240px;">10:00</div><div class="hour-line" style="top: 320px;"></div><div class="hour-label" style="top: 320px;">11:00</div><div class="hour-line" style="top: 400px;"></div><div class="hour-label" style="top: 400px;">12:00</div><div class="hour-line" style="top: 480px;"></div><div class="hour-label" style="top: 480px;">13:00</div><div class="hour-line" style="top: 560px;"></div><div class="hour-label" style="top: 560px;">14:00</div><div class="hour-line" style="top: 640px;"></div><div class="hour-label" style="top: 640px;">15:00</div><div class="hour-line" style="top: 720px;"></div><div class="hour-label" style="top: 720px;">16:00</div><div class="hour-line" style="top: 800px;"></div><div class="hour-label" style="top: 800px;">17:00</div><div class="hour-line" style="top: 880px;"></div><div class="hour-label" style="top: 880px;">18:00</div><div class="hour-line" style="top: 960px;"></div><div class="hour-label" style="top: 960px;">19:00</div><div class="hour-line" style="top: 1040px;"></div><div class="hour-label" style="top: 1040px;">20:00</div><div class="hour-line" style="top: 1120px;"></div><div class="hour-label" style="top: 1120px;">21:00</div><div class="hour-line" style="top: 1200px;"></div><div class="event-block assembly-white col-right" style="top: 160px; height: 40px;">
-          <div class="event-time">09:00–09:30</div>
-          <div class="event-title">Samling Vit</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-white col-right" style="top: 200px; height: 53.333333px;">
-          <div class="event-time">09:30–10:10</div>
-          <div class="event-title">Lillån IBK P2016 vs Segeltorps IBK Vit</div>
-          <div class="event-detail">Almbyskolan • 09:30–10:10</div>
-        </div><div class="event-block assembly-white col-right" style="top: 460px; height: 40px;">
-          <div class="event-time">12:45–13:15</div>
-          <div class="event-title">Samling Vit</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-white col-right" style="top: 500px; height: 53.333333px;">
-          <div class="event-time">13:15–13:55</div>
-          <div class="event-title">Segeltorps IBK Vit vs Frillesås FF</div>
-          <div class="event-detail">Almbyskolan • 13:15–13:55</div>
-        </div><div class="event-block assembly-blue col-left" style="top: 220px; height: 40px;">
-          <div class="event-time">09:45–10:15</div>
-          <div class="event-title">Samling Blå</div>
-          <div class="event-detail">Tullängsgymnasiet</div>
-        </div><div class="event-block team-blue col-left" style="top: 260px; height: 53.333333px;">
-          <div class="event-time">10:15–10:55</div>
-          <div class="event-title">Örebro SK Ungdom 5 vs Segeltorps IBK Blå</div>
-          <div class="event-detail">Tullängsgymnasiet • 10:15–10:55</div>
-        </div><div class="event-block assembly-blue col-left" style="top: 580px; height: 40px;">
-          <div class="event-time">14:15–14:45</div>
-          <div class="event-title">Samling Blå</div>
-          <div class="event-detail">Almbyskolan</div>
-        </div><div class="event-block team-blue col-left" style="top: 620px; height: 53.333333px;">
-          <div class="event-time">14:45–15:25</div>
-          <div class="event-title">Segeltorps IBK Blå vs Örebro SK Ungdom 2</div>
-          <div class="event-detail">Almbyskolan • 14:45–15:25</div>
-        </div><div class="event-block type-travel" style="top: 720px; height: 200px;">
-          <div class="event-time">16:00–18:30</div>
-          <div class="event-title">Resa – Resa hem</div>
-          
-        </div><div class="event-block type-other" style="top: 680px; height: 20px;">
-          <div class="event-time">15:30–15:45</div>
-          <div class="event-title">Övrigt – Medaljutdelning och tack och hej</div>
-          
-        </div><div class="event-block type-meal" style="top: 0px; height: 80px;">
-          <div class="event-time">07:00–08:00</div>
-          <div class="event-title">Mat – Frukost</div>
-          
-        </div><div class="event-block type-travel col-left" style="top: 206.666667px; height: 20px;">
-          <div class="event-time">09:35–09:45</div>
-          <div class="event-title">Resa – Resa till Tullängsgymnasiet</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-travel col-left" style="top: 320px; height: 20px;">
-          <div class="event-time">11:00–11:10</div>
-          <div class="event-title">Resa – Resa till Almbyskolan</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-meal" style="top: 360px; height: 40px;">
-          <div class="event-time">11:30–12:00</div>
-          <div class="event-title">Mat – Lunch på Almbyskolan</div>
-          
-        </div><div class="event-block type-other" style="top: 400px; height: 60px;">
-          <div class="event-time">12:00–12:45</div>
-          <div class="event-title">Övrigt – Packa ihop och städa</div>
-          
-        </div><div class="event-block type-activity col-left" style="top: 500px; height: 53.333333px;">
-          <div class="event-time">13:15–13:55</div>
-          <div class="event-title">Aktivitet – Heja på Lag Vit</div>
-          <div class="event-detail">Blå</div>
-        </div><div class="event-block type-meal" style="top: 560px; height: 20px;">
-          <div class="event-time">14:00–14:15</div>
-          <div class="event-title">Mat – Mellis</div>
-          
-        </div><div class="event-block type-activity col-right" style="top: 620px; height: 53.333333px;">
-          <div class="event-time">14:45–15:25</div>
-          <div class="event-title">Aktivitet – Heja på Lag blå</div>
-          <div class="event-detail">Vit</div>
-        </div></div>
+    <div class="day-body" id="body-sun"></div>
   </div>
 </div>
 
@@ -692,8 +469,8 @@
 <!-- Modal: Add/Edit Event -->
 <div class="modal-overlay" id="eventModal">
   <div class="modal">
-    <h2 id="eventModalTitle">Redigera händelse</h2>
-    <input type="hidden" id="eventId" value="e1775218356575">
+    <h2 id="eventModalTitle">Lägg till händelse</h2>
+    <input type="hidden" id="eventId">
     <label>Typ</label>
     <select id="eventType">
       <option value="meal">Mat</option>
@@ -721,7 +498,7 @@
     <label>Beskrivning</label>
     <textarea id="eventDesc" placeholder="T.ex. Lunch på hotellet, Incheckning..."></textarea>
     <div class="modal-buttons">
-      <button class="btn-delete" id="eventDeleteBtn" onclick="deleteEvent()" style="display: inline-block; margin-right: auto;">Radera</button>
+      <button class="btn-delete" id="eventDeleteBtn" onclick="deleteEvent()" style="display:none;margin-right:auto">Radera</button>
       <button class="btn-cancel" onclick="closeModal('eventModal')">Avbryt</button>
       <button class="btn-save" onclick="saveEvent()">Spara</button>
     </div>
@@ -745,12 +522,7 @@
 
     <div id="collabSetup">
       <label>Firebase-konfiguration (JSON)</label>
-      <textarea id="firebaseConfigInput" rows="6" style="font-family:monospace;font-size:0.8rem" placeholder="{
-  &quot;apiKey&quot;: &quot;...&quot;,
-  &quot;authDomain&quot;: &quot;...&quot;,
-  &quot;databaseURL&quot;: &quot;https://xxx.firebaseio.com&quot;,
-  &quot;projectId&quot;: &quot;...&quot;
-}"></textarea>
+      <textarea id="firebaseConfigInput" rows="6" style="font-family:monospace;font-size:0.8rem" placeholder='{&#10;  &quot;apiKey&quot;: &quot;...&quot;,&#10;  &quot;authDomain&quot;: &quot;...&quot;,&#10;  &quot;databaseURL&quot;: &quot;https://xxx.firebaseio.com&quot;,&#10;  &quot;projectId&quot;: &quot;...&quot;&#10;}'></textarea>
 
       <label>Rumsnamn</label>
       <input type="text" id="roomNameInput" placeholder="t.ex. segeltorps-cup-2026" value="segeltorps-cup-2026">
@@ -764,12 +536,12 @@
         <summary>Hur gör jag? (steg-för-steg)</summary>
         <ol>
           <li>Gå till <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">console.firebase.google.com</a> och logga in med ett Google-konto</li>
-          <li>Klicka <strong>“Lägg till projekt”</strong> → ge det ett namn (t.ex. “orebrocupen”) → Fortsätt → Skapa projekt</li>
-          <li>I vänstermenyn: <strong>Build → Realtime Database → Skapa databas</strong></li>
-          <li>Välj plats (europe-west1) → <strong>Starta i testläge</strong> → Aktivera</li>
+          <li>Klicka <strong>“Lägg till projekt”</strong> &rarr; ge det ett namn (t.ex. “orebrocupen”) &rarr; Fortsätt &rarr; Skapa projekt</li>
+          <li>I vänstermenyn: <strong>Build &rarr; Realtime Database &rarr; Skapa databas</strong></li>
+          <li>Välj plats (europe-west1) &rarr; <strong>Starta i testläge</strong> &rarr; Aktivera</li>
           <li>Gå till <strong>Projektinställningar</strong> (kugghjulet uppe till vänster)</li>
-          <li>Scrolla ner till <strong>“Dina appar”</strong> → klicka på webbikonen <strong>&lt;/&gt;</strong></li>
-          <li>Ge appen ett namn → <strong>Registrera app</strong></li>
+          <li>Scrolla ner till <strong>“Dina appar”</strong> &rarr; klicka på webbikonen <strong>&lt;/&gt;</strong></li>
+          <li>Ge appen ett namn &rarr; <strong>Registrera app</strong></li>
           <li>Kopiera <code>firebaseConfig</code>-objektet (allt mellan <code>{</code> och <code>}</code>) och klistra in ovan</li>
           <li>Alla som ska samarbeta klistrar in <strong>samma konfiguration</strong> och <strong>samma rumsnamn</strong></li>
         </ol>
@@ -781,8 +553,20 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
+  const SAVED_FIREBASE_CONFIG = {
+    "apiKey": "AIzaSyB3i97Uls9GZkuP3bxHKwZLfqWWqKGIPuU",
+    "authDomain": "orebrocupen-2026.firebaseapp.com",
+    "databaseURL": "https://orebrocupen-2026-default-rtdb.europe-west1.firebasedatabase.app",
+    "projectId": "orebrocupen-2026",
+    "storageBucket": "orebrocupen-2026.firebasestorage.app",
+    "messagingSenderId": "953715494179",
+    "appId": "1:953715494179:web:32c96d70ea7c8c215d1096",
+    "measurementId": "G-6HM3BFTH3J"
+  };
+  const SAVED_ROOM_NAME = "segeltorps-cup-2026";
+
   // ── Embedded data (populated when exported via "Dela som HTML") ──
-  const EMBEDDED_DATA = {"matches":[{"id":"m1","team":"white","day":"fri","time":"19:45","opponent":"Sundborns GoIF Röd","venue":"Almbyskolan","homeAway":"away"},{"id":"m2","team":"white","day":"sat","time":"12:15","opponent":"Örebro SK Ungdom 1","venue":"Almbyskolan","homeAway":"home"},{"id":"m3","team":"white","day":"sat","time":"16:00","opponent":"Strängnäs IBK","venue":"Almbyskolan","homeAway":"home"},{"id":"m4","team":"white","day":"sun","time":"09:30","opponent":"Lillån IBK P2016","venue":"Almbyskolan","homeAway":"away"},{"id":"m5","team":"white","day":"sun","time":"13:15","opponent":"Frillesås FF","venue":"Almbyskolan","homeAway":"home"},{"id":"m6","team":"blue","day":"fri","time":"17:30","opponent":"Lillån IBK P-2017 1","venue":"Tegelbruket 2","homeAway":"home"},{"id":"m7","team":"blue","day":"sat","time":"12:00","opponent":"IBF Älvstranden","venue":"Tullängsgymnasiet","homeAway":"home"},{"id":"m8","team":"blue","day":"sat","time":"18:15","opponent":"Rönnby Västerås IBK Ungdom","venue":"Almbyskolan","homeAway":"away"},{"id":"m9","team":"blue","day":"sun","time":"10:15","opponent":"Örebro SK Ungdom 5","venue":"Tullängsgymnasiet","homeAway":"away"},{"id":"m10","team":"blue","day":"sun","time":"14:45","opponent":"Örebro SK Ungdom 2","venue":"Almbyskolan","homeAway":"home"}],"events":[{"type":"meal","team":"both","day":"fri","start":"18:30","end":"19:00","desc":"Middag på Almby skola","id":"e1775216222584"},{"type":"other","team":"both","day":"fri","start":"19:00","end":"19:15","desc":"Incheckning boende","id":"e1775216385511"},{"type":"travel","team":"blue","day":"fri","start":"14:30","end":"17:00","desc":"Resa från Segeltorp","id":"e1775216768833"},{"type":"travel","team":"white","day":"fri","start":"16:00","end":"18:30","desc":"Resa från Segeltorp","id":"e1775216814433"},{"type":"activity","team":"blue","day":"fri","start":"19:45","end":"20:25","desc":"Heja på Lag vit","id":"e1775216874506"},{"type":"meal","team":"both","day":"sat","start":"07:00","end":"08:00","desc":"Frukost","id":"e1775216917699"},{"type":"travel","team":"blue","day":"fri","start":"18:15","end":"18:30","desc":"Resa till Almbyskolan","id":"e1775217109503"},{"type":"travel","team":"both","day":"sat","start":"13:00","end":"13:15","desc":"Resa till Lost City","id":"e1775217273902"},{"type":"travel","team":"white","day":"sat","start":"15:00","end":"15:15","desc":"Från Lost City","id":"e1775217335946"},{"type":"meal","team":"white","day":"sat","start":"15:15","end":"15:30","desc":"Mellis","id":"e1775217370963"},{"type":"activity","team":"both","day":"sat","start":"13:15","end":"15:00","desc":"Lost City - Äventyrsbad","id":"e1775217424996"},{"type":"activity","team":"blue","day":"sat","start":"16:00","end":"16:40","desc":"Heja på lag vit","id":"e1775217526079"},{"type":"activity","team":"white","day":"sat","start":"18:15","end":"18:55","desc":"Heja på Lag blå","id":"e1775217576062"},{"type":"other","team":"white","day":"sat","start":"16:40","end":"17:00","desc":"Dusch i omklädningsrum","id":"e1775217746944"},{"type":"meal","team":"white","day":"sat","start":"17:30","end":"18:00","desc":"Middag på Almbyskolan","id":"e1775217794961"},{"type":"meal","team":"blue","day":"sat","start":"17:30","end":"17:45","desc":"Middag på Almbyskolan","id":"e1775217841427"},{"type":"other","team":"blue","day":"sat","start":"18:55","end":"19:10","desc":"Dusch","id":"e1775217872110"},{"type":"other","team":"both","day":"fri","start":"21:00","end":"22:00","desc":"Dags att sova","id":"e1775217898543"},{"type":"travel","team":"blue","day":"sat","start":"11:20","end":"11:30","desc":"Resa till Tullängsgymnasiet","id":"e1775218108308"},{"type":"meal","team":"both","day":"sat","start":"10:45","end":"11:15","desc":"Lunch på Almbyskolan","id":"e1775218145159"},{"type":"other","team":"both","day":"sat","start":"21:00","end":"22:00","desc":"Dags att sova","id":"e1775218232592"},{"type":"activity","team":"both","day":"sat","start":"19:15","end":"21:00","desc":"Häng på Almbyskolan","id":"e1775218265325"},{"type":"travel","team":"both","day":"sun","start":"16:00","end":"18:30","desc":"Resa hem","id":"e1775218314408"},{"type":"other","team":"both","day":"sun","start":"15:30","end":"15:45","desc":"Medaljutdelning och tack och hej","id":"e1775218356575"},{"type":"meal","team":"both","day":"sun","start":"07:00","end":"08:00","desc":"Frukost","id":"e1775218422891"},{"type":"other","team":"both","day":"fri","start":"20:30","end":"21:00","desc":"Packa upp och varva ner","id":"e1775218473541"},{"type":"travel","team":"blue","day":"sat","start":"15:30","end":"15:45","desc":"Resa från äventyrsbad","id":"e1775218599132"},{"type":"meal","team":"blue","day":"sat","start":"15:45","end":"16:00","desc":"Mellis","id":"e1775218624091"},{"type":"travel","team":"blue","day":"sun","start":"09:35","end":"09:45","desc":"Resa till Tullängsgymnasiet","id":"e1775218748144"},{"type":"travel","team":"blue","day":"sun","start":"11:00","end":"11:10","desc":"Resa till Almbyskolan","id":"e1775218837473"},{"type":"meal","team":"both","day":"sun","start":"11:30","end":"12:00","desc":"Lunch på Almbyskolan","id":"e1775218881489"},{"type":"other","team":"both","day":"sun","start":"12:00","end":"12:45","desc":"Packa ihop och städa","id":"e1775218938839"},{"type":"activity","team":"blue","day":"sun","start":"13:15","end":"13:55","desc":"Heja på Lag Vit","id":"e1775218988972"},{"type":"meal","team":"both","day":"sun","start":"14:00","end":"14:15","desc":"Mellis","id":"e1775219022439"},{"type":"activity","team":"white","day":"sun","start":"14:45","end":"15:25","desc":"Heja på Lag blå","id":"e1775219073788"},{"type":"activity","team":"both","day":"sat","start":"08:00","end":"10:45","desc":"Lugnare aktivitet behöver planeras","id":"e1775219197489"}]};
+  const EMBEDDED_DATA = null;
 
   // ── Default match data ──
   const DEFAULT_MATCHES = [
@@ -1175,12 +959,12 @@
   let firebaseDb = null;
   let roomRef = null;
   let isOnline = false;
-  let isSyncing = false;
+  let lastSyncTime = 0;
 
   function openCollabModal() {
-    const config = localStorage.getItem('orebrocup_firebase_config');
+    const config = localStorage.getItem('orebrocup_firebase_config') || JSON.stringify(SAVED_FIREBASE_CONFIG, null, 2);
     if (config) document.getElementById('firebaseConfigInput').value = config;
-    const room = localStorage.getItem('orebrocup_room');
+    const room = localStorage.getItem('orebrocup_room') || SAVED_ROOM_NAME;
     if (room) document.getElementById('roomNameInput').value = room;
 
     if (isOnline) {
@@ -1232,28 +1016,9 @@
 
     const snapshot = await roomRef.once('value');
     if (snapshot.exists()) {
-      const remoteData = snapshot.val();
-      const remoteEvents = remoteData.events || [];
-      const localEvents = events || [];
-      // If local has events that remote doesn't, ask user
-      if (localEvents.length > 0 && remoteEvents.length === 0) {
-        if (confirm('Du har lokala händelser. Vill du ladda upp dem till det delade rummet?\n\nJa = Ladda upp dina händelser\nNej = Hämta från rummet (tomt)')) {
-          await roomRef.set({ matches, events, lastUpdated: Date.now() });
-        } else {
-          matches = remoteData.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-          events = remoteEvents;
-        }
-      } else if (localEvents.length > 0 && remoteEvents.length > 0) {
-        if (confirm('Det finns händelser både lokalt och i rummet. Vill du använda dina lokala händelser?\n\nJa = Ladda upp dina\nNej = Hämta från rummet')) {
-          await roomRef.set({ matches, events, lastUpdated: Date.now() });
-        } else {
-          matches = remoteData.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-          events = remoteEvents;
-        }
-      } else {
-        matches = remoteData.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-        events = remoteEvents;
-      }
+      const data = snapshot.val();
+      matches = data.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
+      events = data.events || [];
       localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
       localStorage.setItem('orebrocup_events', JSON.stringify(events));
       render();
@@ -1262,15 +1027,15 @@
     }
 
     roomRef.on('value', (snapshot) => {
-      if (isSyncing) return;
       const data = snapshot.val();
-      if (data) {
-        matches = data.matches || [];
-        events = data.events || [];
-        localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
-        localStorage.setItem('orebrocup_events', JSON.stringify(events));
-        render();
-      }
+      if (!data) return;
+      // Skip if this is our own write (within 2 seconds)
+      if (data.lastUpdated && Math.abs(data.lastUpdated - lastSyncTime) < 2000) return;
+      matches = data.matches || [];
+      events = data.events || [];
+      localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
+      localStorage.setItem('orebrocup_events', JSON.stringify(events));
+      render();
     });
 
     isOnline = true;
@@ -1292,10 +1057,9 @@
 
   function syncToFirebase() {
     if (isOnline && roomRef) {
-      isSyncing = true;
-      roomRef.set({ matches, events, lastUpdated: Date.now() })
-        .then(() => { isSyncing = false; })
-        .catch(() => { isSyncing = false; });
+      lastSyncTime = Date.now();
+      roomRef.set({ matches, events, lastUpdated: lastSyncTime })
+        .catch((err) => { console.error('Firebase sync failed:', err); });
     }
   }
 
@@ -1315,13 +1079,13 @@
   loadState();
   render();
 
-  // Auto-reconnect if previously connected
+  // Auto-reconnect on page load
   (async function autoReconnect() {
-    const savedConfig = localStorage.getItem('orebrocup_firebase_config');
-    const savedRoom = localStorage.getItem('orebrocup_room');
-    if (savedConfig && savedRoom) {
+    const config = SAVED_FIREBASE_CONFIG;
+    const room = SAVED_ROOM_NAME;
+    if (config && room) {
       try {
-        await connectToRoom(JSON.parse(savedConfig), savedRoom);
+        await connectToRoom(config, room);
       } catch {
         // Firebase not available, stay offline
       }
@@ -1329,6 +1093,5 @@
   })();
 </script>
 
-
-
-</body></html>
+</body>
+</html>

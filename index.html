@@ -295,6 +295,17 @@
   .event-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .event-detail { font-size: 0.65rem; opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+  .event-block.compact { padding: 2px 8px; }
+  .event-block.compact .event-inline {
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .event-block.compact .event-inline .event-time { flex-shrink: 0; }
+  .event-block.compact .event-inline .event-title { overflow: hidden; text-overflow: ellipsis; }
+
   /* Split events into left/right when overlapping for same day */
   .event-block.col-left { right: 52%; }
   .event-block.col-right { left: calc(48% + 20px); }
@@ -731,7 +742,11 @@
         const top = minutesToTop(b.startMin);
         const height = Math.max(minutesToHeight(b.endMin - b.startMin), 20);
 
+        const durationMin = b.endMin - b.startMin;
+        const isCompact = durationMin <= 25;
+
         let cssClass = 'event-block';
+        if (isCompact) cssClass += ' compact';
         if (b.type === 'match') cssClass += ` team-${b.team}`;
         else if (b.type === 'assembly') cssClass += ` assembly-${b.team}`;
         else cssClass += ` type-${b.type}`;
@@ -743,11 +758,20 @@
         el.style.top = top + 'px';
         el.style.height = height + 'px';
 
-        el.innerHTML = `
-          <div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div>
-          <div class="event-title">${escapeHtml(b.label)}</div>
-          ${b.detail ? `<div class="event-detail">${escapeHtml(b.detail)}</div>` : ''}
-        `;
+        if (isCompact) {
+          el.innerHTML = `
+            <div class="event-inline">
+              <span class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</span>
+              <span class="event-title">${escapeHtml(b.label)}</span>
+            </div>
+          `;
+        } else {
+          el.innerHTML = `
+            <div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div>
+            <div class="event-title">${escapeHtml(b.label)}</div>
+            ${b.detail ? `<div class="event-detail">${escapeHtml(b.detail)}</div>` : ''}
+          `;
+        }
 
         if (b.type === 'match' || b.type === 'assembly') {
           el.addEventListener('click', () => openMatchModal(b.matchId));

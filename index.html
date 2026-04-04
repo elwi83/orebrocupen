@@ -14,14 +14,12 @@
     --color-white-assembly: #cbd5e1;
     --color-meal: #f59e0b;
     --color-meal-light: #fef3c7;
-    --color-accommodation: #8b5cf6;
-    --color-accommodation-light: #ede9fe;
     --color-activity: #10b981;
     --color-activity-light: #d1fae5;
     --color-travel: #ef4444;
     --color-travel-light: #fee2e2;
-    --color-other: #a855f7;
-    --color-other-light: #f3e8ff;
+    --color-other: #9333ea;
+    --color-other-light: #faf5ff;
     --hour-height: 90px;
     --timeline-start: 7;
     --timeline-end: 23;
@@ -291,24 +289,19 @@
     border-left: 4px solid var(--color-meal);
     color: #92400e;
   }
-  .event-block.type-accommodation {
-    background: var(--color-accommodation-light);
-    border-left: 4px solid var(--color-accommodation);
-    color: #5b21b6;
-  }
   .event-block.type-activity {
     background: var(--color-activity-light);
     border-left: 4px solid var(--color-activity);
     color: #065f46;
   }
   .event-block.type-activity-blue {
-    background: #dbeafe;
-    border-left: 4px solid #2563eb;
+    background: #bfdbfe;
+    border-left: 4px solid #3b82f6;
     color: #1e3a5f;
   }
   .event-block.type-activity-white {
-    background: #f1f5f9;
-    border-left: 4px solid #64748b;
+    background: #e2e8f0;
+    border-left: 4px solid #94a3b8;
     color: #334155;
   }
   .event-block.type-travel {
@@ -319,7 +312,7 @@
   .event-block.type-other {
     background: var(--color-other-light);
     border-left: 4px solid var(--color-other);
-    color: #6b21a8;
+    color: #7e22ce;
   }
 
   .event-time { font-weight: 700; font-size: 0.7rem; }
@@ -458,12 +451,11 @@
   <div class="legend-item"><div class="legend-swatch" style="background:#f1f5f9;border-left:3px solid #64748b"></div>Lag Vit – match</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#cbd5e1;border-left:3px dashed #64748b"></div>Lag Vit – samling</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#fef3c7;border-left:3px solid #f59e0b"></div>Mat</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#ede9fe;border-left:3px solid #8b5cf6"></div>Boende</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#d1fae5;border-left:3px solid #10b981"></div>Aktivitet</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#dbeafe;border-left:3px solid #2563eb"></div>Aktivitet Blå</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#f1f5f9;border-left:3px solid #64748b"></div>Aktivitet Vit</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#bfdbfe;border-left:3px solid #3b82f6"></div>Aktivitet Blå</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e2e8f0;border-left:3px solid #94a3b8"></div>Aktivitet Vit</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#fee2e2;border-left:3px solid #ef4444"></div>Resa</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#f3e8ff;border-left:3px solid #a855f7"></div>Övrigt</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#faf5ff;border-left:3px solid #9333ea"></div>Övrigt</div>
 </div>
 
 <div class="calendar" id="calendar">
@@ -523,7 +515,6 @@
     <label>Typ</label>
     <select id="eventType">
       <option value="meal">Mat</option>
-      <option value="accommodation">Boende</option>
       <option value="activity">Aktivitet</option>
       <option value="activity-blue">Aktivitet Lag Blå</option>
       <option value="activity-white">Aktivitet Lag Vit</option>
@@ -639,7 +630,7 @@
   const TIMELINE_START = 7;
   const TIMELINE_END = 23;
 
-  const TYPE_LABELS = { meal: 'Mat', accommodation: 'Boende', activity: 'Aktivitet', 'activity-blue': 'Aktivitet Blå', 'activity-white': 'Aktivitet Vit', travel: 'Resa', other: 'Övrigt' };
+  const TYPE_LABELS = { meal: 'Mat', activity: 'Aktivitet', 'activity-blue': 'Aktivitet Blå', 'activity-white': 'Aktivitet Vit', travel: 'Resa', other: 'Övrigt' };
 
   // ── State ──
   let matches = [];

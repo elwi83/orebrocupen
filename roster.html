@@ -218,7 +218,7 @@
           <thead>
             <tr>
               <th>Spelare</th>
-              <th>Medresande</th>
+              <th>Förälder sover med laget</th>
               <th>Åker med</th>
               <th>Kommentar</th>
               <th></th>
@@ -237,7 +237,7 @@
           <thead>
             <tr>
               <th>Spelare</th>
-              <th>Medresande</th>
+              <th>Förälder sover med laget</th>
               <th>Åker med</th>
               <th>Kommentar</th>
               <th></th>
@@ -291,7 +291,7 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="text" value="${escapeAttr(player.name)}" onchange="updatePlayer('${team}',${i},'name',this.value)" placeholder="Namn"></td>
-        <td><input type="text" value="${escapeAttr(player.parent)}" onchange="updatePlayer('${team}',${i},'parent',this.value)" placeholder="Förälder"></td>
+        <td><input type="text" value="${escapeAttr(player.parent)}" onchange="updatePlayer('${team}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
         <td><input type="text" value="${escapeAttr(player.ridesWith)}" onchange="updatePlayer('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
         <td><input type="text" value="${escapeAttr(player.comment)}" onchange="updatePlayer('${team}',${i},'comment',this.value)" placeholder="Kommentar"></td>
         <td><button class="btn-delete-row" onclick="removeRow('${team}',${i})" title="Ta bort">×</button></td>

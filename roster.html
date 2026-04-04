@@ -205,8 +205,7 @@
 </nav>
 
 <div class="toolbar-roster">
-  <button class="btn-save-roster" onclick="saveRoster()">Spara</button>
-  <div class="save-status" id="saveStatus">✓ Sparat</div>
+  <div class="save-status" id="saveStatus">✓ Sparas automatiskt</div>
 </div>
 
 <div class="container">
@@ -290,10 +289,10 @@
     roster[team].forEach((player, i) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td><input type="text" value="${escapeAttr(player.name)}" onchange="updatePlayer('${team}',${i},'name',this.value)" placeholder="Namn"></td>
-        <td><input type="text" value="${escapeAttr(player.parent)}" onchange="updatePlayer('${team}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
-        <td><input type="text" value="${escapeAttr(player.ridesWith)}" onchange="updatePlayer('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
-        <td><input type="text" value="${escapeAttr(player.comment)}" onchange="updatePlayer('${team}',${i},'comment',this.value)" placeholder="Kommentar"></td>
+        <td><input type="text" value="${escapeAttr(player.name)}" oninput="autoSave('${team}',${i},'name',this.value)" placeholder="Namn"></td>
+        <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${team}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
+        <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
+        <td><input type="text" value="${escapeAttr(player.comment)}" oninput="autoSave('${team}',${i},'comment',this.value)" placeholder="Kommentar"></td>
         <td><button class="btn-delete-row" onclick="removeRow('${team}',${i})" title="Ta bort">×</button></td>
       `;
       tbody.appendChild(tr);
@@ -325,12 +324,21 @@
     syncToFirebase();
   }
 
-  function saveRoster() {
+  let saveTimer = null;
+  function autoSave(team, index, field, value) {
+    roster[team][index][field] = value;
     saveRosterLocal();
-    syncToFirebase();
     const status = document.getElementById('saveStatus');
+    status.textContent = 'Sparar...';
     status.style.display = 'inline-flex';
-    setTimeout(() => { status.style.display = 'none'; }, 2000);
+    status.style.color = '#f59e0b';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      syncToFirebase();
+      status.textContent = '✓ Sparat';
+      status.style.color = '#10b981';
+      setTimeout(() => { status.textContent = '✓ Sparas automatiskt'; status.style.color = '#10b981'; }, 2000);
+    }, 500);
   }
 
   function escapeAttr(str) {

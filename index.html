@@ -35,12 +35,23 @@
   }
 
   header {
-    background: linear-gradient(135deg, #1e40af, #2563eb);
+    background: linear-gradient(135deg, #0f1d45, #1a2a5e);
     color: white;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 2rem;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
+  .header-logo {
+    width: 55px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  .header-text { text-align: left; }
   header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
   header p { opacity: 0.85; font-size: 0.95rem; }
 
@@ -408,7 +419,7 @@
 
   @media print {
     body { background: white; font-size: 11px; }
-    header { padding: 0.75rem; background: #1e40af !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header { padding: 0.75rem; background: #0f1d45 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .toolbar, .legend { display: none !important; }
     .calendar { max-width: 100%; padding: 0; }
     .event-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -420,8 +431,11 @@
 <body>
 
 <header>
-  <h1>🏑 Örebrocupen 2026 — Segeltorps IBK</h1>
-  <p>P15/16 • 17–19 april 2026 • Örebro</p>
+  <img src="logo.png" alt="Segeltorps IF" class="header-logo">
+  <div class="header-text">
+    <h1>Örebrocupen 2026 — Segeltorps IBK</h1>
+    <p>P15/16 • 17–19 april 2026 • Örebro</p>
+  </div>
 </header>
 
 <nav>

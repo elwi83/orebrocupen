@@ -46,6 +46,27 @@
   header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
   header p { opacity: 0.85; font-size: 0.95rem; }
 
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  nav a {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #2563eb;
+    background: #dbeafe;
+    transition: all 0.15s;
+  }
+  nav a:hover { background: #bfdbfe; }
+  nav a.active { background: #2563eb; color: white; }
+
   .toolbar {
     display: flex;
     justify-content: center;
@@ -409,6 +430,11 @@
   <h1>🏑 Örebrocupen 2026 — Segeltorps IBK</h1>
   <p>P15/16 • 17–19 april 2026 • Örebro</p>
 </header>
+
+<nav>
+  <a href="index.html" class="active">Kalender</a>
+  <a href="roster.html">Laguppställning</a>
+</nav>
 
 <div class="toolbar">
   <div class="filter-group">

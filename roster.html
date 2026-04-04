@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laguppställning — Örebrocupen 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+  header p { opacity: 0.85; font-size: 0.95rem; }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  nav a {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #2563eb;
+    background: #dbeafe;
+    transition: all 0.15s;
+  }
+  nav a:hover { background: #bfdbfe; }
+  nav a.active { background: #2563eb; color: white; }
+
+  .container {
+    max-width: 900px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+  }
+
+  .teams {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .team-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .team-card-header {
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+  }
+  .team-blue .team-card-header { background: #2563eb; }
+  .team-white .team-card-header { background: #64748b; }
+
+  .team-card-body { padding: 0.75rem 1rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  th {
+    text-align: left;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  td {
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .btn-add-row {
+    margin-top: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .btn-add-row:hover { background: #059669; }
+
+  .btn-delete-row {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 0.25rem;
+    line-height: 1;
+  }
+  .btn-delete-row:hover { color: #dc2626; }
+
+  td input {
+    width: 100%;
+    border: 1px solid transparent;
+    padding: 0.2rem 0.3rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    border-radius: 4px;
+    background: transparent;
+  }
+  td input:focus {
+    border-color: #2563eb;
+    outline: none;
+    background: #f8fafc;
+  }
+
+  .toolbar-roster {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+  }
+  .toolbar-roster button {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .btn-save-roster { background: #2563eb; color: white; }
+  .btn-save-roster:hover { background: #1d4ed8; }
+
+  .save-status {
+    font-size: 0.8rem;
+    color: #10b981;
+    display: none;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .teams { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.2rem; }
+  }
+
+  @media print {
+    body { background: white; font-size: 11px; }
+    header { padding: 0.75rem; background: #1e40af !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    nav, .toolbar-roster { display: none !important; }
+    .btn-add-row, .btn-delete-row { display: none !important; }
+    td input { border: none; padding: 0; }
+    .team-card-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏑 Örebrocupen 2026 — Segeltorps IBK</h1>
+  <p>P15/16 • 17–19 april 2026 • Örebro</p>
+</header>
+
+<nav>
+  <a href="index.html">Kalender</a>
+  <a href="roster.html" class="active">Laguppställning</a>
+</nav>
+
+<div class="toolbar-roster">
+  <button class="btn-save-roster" onclick="saveRoster()">Spara</button>
+  <div class="save-status" id="saveStatus">✓ Sparat</div>
+</div>
+
+<div class="container">
+  <div class="teams">
+    <div class="team-card team-blue">
+      <div class="team-card-header">Lag Blå</div>
+      <div class="team-card-body">
+        <table id="table-blue">
+          <thead>
+            <tr>
+              <th>Spelare</th>
+              <th>Medresande</th>
+              <th>Åker med</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-blue"></tbody>
+        </table>
+        <button class="btn-add-row" onclick="addRow('blue')">+ Lägg till</button>
+      </div>
+    </div>
+
+    <div class="team-card team-white">
+      <div class="team-card-header">Lag Vit</div>
+      <div class="team-card-body">
+        <table id="table-white">
+          <thead>
+            <tr>
+              <th>Spelare</th>
+              <th>Medresande</th>
+              <th>Åker med</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-white"></tbody>
+        </table>
+        <button class="btn-add-row" onclick="addRow('white')">+ Lägg till</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+  const SAVED_FIREBASE_CONFIG = {
+    "apiKey": "AIzaSyB3i97Uls9GZkuP3bxHKwZLfqWWqKGIPuU",
+    "authDomain": "orebrocupen-2026.firebaseapp.com",
+    "databaseURL": "https://orebrocupen-2026-default-rtdb.europe-west1.firebasedatabase.app",
+    "projectId": "orebrocupen-2026",
+    "storageBucket": "orebrocupen-2026.firebasestorage.app",
+    "messagingSenderId": "953715494179",
+    "appId": "1:953715494179:web:32c96d70ea7c8c215d1096",
+    "measurementId": "G-6HM3BFTH3J"
+  };
+  const SAVED_ROOM_NAME = "segeltorps-cup-2026";
+
+  let roster = {
+    blue: [],
+    white: []
+  };
+
+  let firebaseApp = null;
+  let rosterRef = null;
+  let lastSyncTime = 0;
+
+  function loadRoster() {
+    const saved = localStorage.getItem('orebrocup_roster');
+    if (saved) roster = JSON.parse(saved);
+  }
+
+  function saveRosterLocal() {
+    localStorage.setItem('orebrocup_roster', JSON.stringify(roster));
+  }
+
+  function renderTeam(team) {
+    const tbody = document.getElementById('tbody-' + team);
+    tbody.innerHTML = '';
+    roster[team].forEach((player, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" value="${escapeAttr(player.name)}" onchange="updatePlayer('${team}',${i},'name',this.value)" placeholder="Namn"></td>
+        <td><input type="text" value="${escapeAttr(player.parent)}" onchange="updatePlayer('${team}',${i},'parent',this.value)" placeholder="Förälder"></td>
+        <td><input type="text" value="${escapeAttr(player.ridesWith)}" onchange="updatePlayer('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
+        <td><button class="btn-delete-row" onclick="removeRow('${team}',${i})" title="Ta bort">×</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function render() {
+    renderTeam('blue');
+    renderTeam('white');
+  }
+
+  function addRow(team) {
+    roster[team].push({ name: '', parent: '', ridesWith: '' });
+    saveRosterLocal();
+    syncToFirebase();
+    render();
+  }
+
+  function removeRow(team, index) {
+    roster[team].splice(index, 1);
+    saveRosterLocal();
+    syncToFirebase();
+    render();
+  }
+
+  function updatePlayer(team, index, field, value) {
+    roster[team][index][field] = value;
+    saveRosterLocal();
+    syncToFirebase();
+  }
+
+  function saveRoster() {
+    saveRosterLocal();
+    syncToFirebase();
+    const status = document.getElementById('saveStatus');
+    status.style.display = 'inline-flex';
+    setTimeout(() => { status.style.display = 'none'; }, 2000);
+  }
+
+  function escapeAttr(str) {
+    return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ── Firebase sync ──
+  async function connectFirebase() {
+    try {
+      firebaseApp = firebase.initializeApp(SAVED_FIREBASE_CONFIG);
+      const db = firebase.database();
+      rosterRef = db.ref('rooms/' + SAVED_ROOM_NAME + '/roster');
+
+      const snapshot = await rosterRef.once('value');
+      if (snapshot.exists()) {
+        roster = snapshot.val();
+        if (!roster.blue) roster.blue = [];
+        if (!roster.white) roster.white = [];
+        saveRosterLocal();
+        render();
+      } else {
+        await rosterRef.set(roster);
+      }
+
+      rosterRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+        if (data._lastUpdated && Math.abs(data._lastUpdated - lastSyncTime) < 2000) return;
+        roster.blue = data.blue || [];
+        roster.white = data.white || [];
+        saveRosterLocal();
+        render();
+      });
+    } catch {
+      // Firebase not available, work offline
+    }
+  }
+
+  function syncToFirebase() {
+    if (rosterRef) {
+      lastSyncTime = Date.now();
+      rosterRef.set({ ...roster, _lastUpdated: lastSyncTime })
+        .catch((err) => { console.error('Firebase sync failed:', err); });
+    }
+  }
+
+  // ── Init ──
+  loadRoster();
+  render();
+  connectFirebase();
+</script>
+
+</body>
+</html>

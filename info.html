@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Övrig info — Örebrocupen 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+  }
+
+  header {
+    background: linear-gradient(135deg, #0f1d45, #1a2a5e);
+    color: white;
+    padding: 1.25rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .header-logo {
+    width: 55px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  .header-text { text-align: left; }
+  header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+  header p { opacity: 0.85; font-size: 0.95rem; }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem 2rem;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  nav a {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #0f1d45;
+    background: #d6dce8;
+    transition: all 0.15s;
+  }
+  nav a:hover { background: #bcc5d6; }
+  nav a.active { background: #0f1d45; color: white; }
+
+  .container {
+    max-width: 800px;
+    margin: 1.5rem auto;
+    padding: 0 1rem 3rem;
+  }
+
+  .section {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .section-header {
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: white;
+    background: #0f1d45;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-body {
+    padding: 1rem 1.25rem;
+  }
+
+  .section-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .section-body ul li {
+    padding: 0.35rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    font-size: 0.92rem;
+  }
+
+  .section-body ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #0f1d45;
+    font-weight: 700;
+  }
+
+  .section-body ul li.important {
+    font-weight: 600;
+    color: #b91c1c;
+  }
+
+  .address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .address-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .address-card strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #0f1d45;
+    margin-bottom: 0.15rem;
+  }
+  .address-card span {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+  .address-card a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: #2563eb;
+    text-decoration: none;
+  }
+  .address-card a:hover { text-decoration: underline; }
+
+  .packlist {
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .packlist-group {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  .packlist-group h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #0f1d45;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .packlist-group ul {
+    list-style: none;
+    padding: 0;
+  }
+  .packlist-group ul li {
+    padding: 0.2rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    font-size: 0.88rem;
+  }
+  .packlist-group ul li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: #94a3b8;
+  }
+
+  @media (max-width: 600px) {
+    .packlist { columns: 1; }
+    .address-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.2rem; }
+  }
+
+  @media print {
+    body { background: white; font-size: 11px; }
+    header { padding: 0.75rem; background: #0f1d45 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    nav { display: none !important; }
+    .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Segeltorps IF" class="header-logo">
+  <div class="header-text">
+    <h1>Örebrocupen 2026 — Segeltorps P15</h1>
+    <p>17–19 april 2026 • Örebro</p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Kalender</a>
+  <a href="roster.html">Laguppställning</a>
+  <a href="info.html" class="active">Övrig info</a>
+</nav>
+
+<div class="container">
+
+  <!-- Boende -->
+  <div class="section">
+    <div class="section-header">🏠 Boende</div>
+    <div class="section-body">
+      <ul>
+        <li><strong>Vi bor på Almbyskolan</strong></li>
+        <li>Max 90 cm madrass</li>
+        <li>Boendevärdar på plats hela tiden</li>
+        <li class="important">Ingen alkohol</li>
+        <li class="important">Ingen person utan deltagararmband släpps in på skolorna — gäller även personer som vill hjälpa till att bära packning</li>
+        <li>Vi ska städa boendet innan avfärd — städutrustning finns på plats</li>
+        <li class="important">Senaste utcheckning kl 14:00</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Adresser -->
+  <div class="section">
+    <div class="section-header">📍 Adresser</div>
+    <div class="section-body">
+      <div class="address-grid">
+        <div class="address-card">
+          <strong>Almbyskolan</strong>
+          <span>Kyrkoherdegatan 7, Örebro</span>
+          <a href="https://maps.google.com/?q=Kyrkoherdegatan+7+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
+        </div>
+        <div class="address-card">
+          <strong>Tegelbruket</strong>
+          <span>Lertagsgatan 1, Örebro</span>
+          <a href="https://maps.google.com/?q=Lertagsgatan+1+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
+        </div>
+        <div class="address-card">
+          <strong>Tullängsgymnasiet</strong>
+          <span>Tullängsgatan 7, Örebro</span>
+          <a href="https://maps.google.com/?q=Tull%C3%A4ngsgatan+7+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Förhållningsregler -->
+  <div class="section">
+    <div class="section-header">🤝 Förhållningsregler</div>
+    <div class="section-body">
+      <ul>
+        <li><strong>Vi ska ha roligt och hålla ihop som ett lag</strong> — även mellan matcherna!</li>
+        <li>Vi äter tillsammans</li>
+        <li>Vi undviker mobiltelefoner</li>
+        <li>Vi har en god ton mot domare, kompisar, motståndare och tränare!</li>
+        <li>Ju fler av ditt barns saker som är märkta med namn, desto större sannolikhet att vi får med grejerna hem</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Packlista -->
+  <div class="section">
+    <div class="section-header">🎒 Packlista</div>
+    <div class="section-body">
+      <div class="packlist">
+        <div class="packlist-group">
+          <h3>Matchkläder</h3>
+          <ul>
+            <li>Segeltorp matchtröja</li>
+            <li>Vita shorts</li>
+            <li>Vita strumpor (gärna två par)</li>
+            <li>Inneskor</li>
+            <li>Innebandyklubba</li>
+            <li>Glasögon</li>
+            <li>Vattenflaska med namn på!</li>
+          </ul>
+        </div>
+        <div class="packlist-group">
+          <h3>Kläder</h3>
+          <ul>
+            <li>Överdragsbyxor och överdragströja</li>
+            <li>Vanliga kläder</li>
+            <li>Extra underkläder</li>
+            <li>Extra strumpor</li>
+            <li>Pyjamas / nattkläder</li>
+            <li>Lämpliga ytterkläder efter väder</li>
+            <li>Skor för utomhusbruk</li>
+          </ul>
+        </div>
+        <div class="packlist-group">
+          <h3>Hygien</h3>
+          <ul>
+            <li>Handduk</li>
+            <li>Tandborste och tandkräm</li>
+            <li>Tvål / schampo / deodorant</li>
+          </ul>
+        </div>
+        <div class="packlist-group">
+          <h3>Sovande</h3>
+          <ul>
+            <li>Madrass — max 90 cm</li>
+            <li>Sovsäck</li>
+            <li>Kudde</li>
+          </ul>
+        </div>
+        <div class="packlist-group">
+          <h3>Övrigt</h3>
+          <ul>
+            <li>Ryggsäck</li>
+            <li>Tofflor (bra på boendet / mellan matcher)</li>
+            <li>Klädhängare / galge (märkt med namn)</li>
+            <li>Ev. snacks / mellis (ej kylskåpskrävande)</li>
+            <li>Pengar för snacks / drycker / souvenirer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

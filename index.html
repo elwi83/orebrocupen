@@ -69,12 +69,12 @@
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
-    color: #2563eb;
-    background: #dbeafe;
+    color: #0f1d45;
+    background: #d6dce8;
     transition: all 0.15s;
   }
-  nav a:hover { background: #bfdbfe; }
-  nav a.active { background: #2563eb; color: white; }
+  nav a:hover { background: #bcc5d6; }
+  nav a.active { background: #0f1d45; color: white; }
 
   .toolbar {
     display: flex;
@@ -441,6 +441,7 @@
 <nav>
   <a href="index.html" class="active">Kalender</a>
   <a href="roster.html">Laguppställning</a>
+  <a href="info.html">Övrig info</a>
 </nav>
 
 <div class="toolbar">
@@ -459,8 +460,8 @@
   <div class="legend-item"><div class="legend-swatch" style="background:#cbd5e1;border-left:3px dashed #64748b"></div>Lag Vit – samling</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#fef3c7;border-left:3px solid #f59e0b"></div>Mat</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#d1fae5;border-left:3px solid #10b981"></div>Aktivitet</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#bfdbfe;border-left:3px solid #3b82f6"></div>Aktivitet Blå</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#e2e8f0;border-left:3px solid #94a3b8"></div>Aktivitet Vit</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#bfdbfe;border-left:3px solid #3b82f6"></div>Heja på Lag Vit</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e2e8f0;border-left:3px solid #94a3b8"></div>Heja på Lag Blå</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#fee2e2;border-left:3px solid #ef4444"></div>Resa</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#faf5ff;border-left:3px solid #9333ea"></div>Övrigt</div>
 </div>
@@ -523,8 +524,8 @@
     <select id="eventType">
       <option value="meal">Mat</option>
       <option value="activity">Aktivitet</option>
-      <option value="activity-blue">Aktivitet Lag Blå</option>
-      <option value="activity-white">Aktivitet Lag Vit</option>
+      <option value="activity-blue">Heja på Lag Vit</option>
+      <option value="activity-white">Heja på Lag Blå</option>
       <option value="travel">Resa</option>
       <option value="other">Övrigt</option>
     </select>
@@ -637,7 +638,7 @@
   const TIMELINE_START = 7;
   const TIMELINE_END = 23;
 
-  const TYPE_LABELS = { meal: 'Mat', activity: 'Aktivitet', 'activity-blue': 'Aktivitet Blå', 'activity-white': 'Aktivitet Vit', travel: 'Resa', other: 'Övrigt' };
+  const TYPE_LABELS = { meal: 'Mat', activity: 'Aktivitet', 'activity-blue': 'Heja på Lag Vit', 'activity-white': 'Heja på Lag Blå', travel: 'Resa', other: 'Övrigt' };
 
   // ── State ──
   let matches = [];

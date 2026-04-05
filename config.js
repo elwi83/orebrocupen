@@ -59,6 +59,16 @@ const CONFIG = {
   // ── Matchinställningar ──
   matchDuration: 40,     // Matchlängd i minuter
   assemblyBefore: 30,    // Samling antal minuter före match
+  clubDisplayName: "Segeltorps IBK",  // Klubbens namn i matchblocket (t.ex. "Segeltorps IBK Blå vs ...")
+
+  // ── Etiketter ──
+  // Texter som visas i kalenderns block och legend.
+  labels: {
+    assembly: "Samling",        // Text för samlingsblocket (visas som "Samling Blå")
+    match: "match",             // Visas i legenden som "Lag Blå – match"
+    assemblyLegend: "samling",  // Visas i legenden som "Lag Blå – samling"
+    cheerPrefix: "Heja på",     // Prefix för "Heja på Lag Vit"
+  },
 
   // ── Kalender-vy ──
   timelineStart: 7,      // Kalendern börjar kl 07:00

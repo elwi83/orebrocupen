@@ -336,7 +336,7 @@
   CONFIG.teams.forEach(team => {
     const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
     if (otherTeams.length > 0) {
-      TYPE_LABELS['activity-' + team.id] = 'Heja på ' + otherTeams.map(t => t.name).join('/');
+      TYPE_LABELS['activity-' + team.id] = CONFIG.labels.cheerPrefix + ' ' + otherTeams.map(t => t.name).join('/');
     }
   });
 
@@ -371,12 +371,12 @@
   const legendContainer = document.getElementById('legendContainer');
   let legendRow1 = '<div class="legend">';
   CONFIG.teams.forEach(team => {
-    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.assemblyBg};border-left:3px dashed ${team.color}"></div>${escapeHtml(team.name)} – samling</div>`;
-    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.lightBg};border-left:3px solid ${team.color}"></div>${escapeHtml(team.name)} – match</div>`;
+    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.assemblyBg};border-left:3px dashed ${team.color}"></div>${escapeHtml(team.name)} – ${escapeHtml(CONFIG.labels.assemblyLegend)}</div>`;
+    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.lightBg};border-left:3px solid ${team.color}"></div>${escapeHtml(team.name)} – ${escapeHtml(CONFIG.labels.match)}</div>`;
     // Heja-på for this team's cheer
     const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
     if (otherTeams.length > 0) {
-      legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.cheerBg};border-left:3px solid ${team.cheerBorder}"></div>Heja på ${otherTeams.map(t => escapeHtml(t.name)).join('/')}</div>`;
+      legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.cheerBg};border-left:3px solid ${team.cheerBorder}"></div>${escapeHtml(CONFIG.labels.cheerPrefix)} ${otherTeams.map(t => escapeHtml(t.name)).join('/')}</div>`;
     }
   });
   legendRow1 += '</div>';
@@ -429,7 +429,7 @@
   CONFIG.teams.forEach(team => {
     const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
     if (otherTeams.length > 0) {
-      eventTypeOptions.push({ value: 'activity-' + team.id, label: 'Heja på ' + otherTeams.map(t => t.name).join('/') });
+      eventTypeOptions.push({ value: 'activity-' + team.id, label: CONFIG.labels.cheerPrefix + ' ' + otherTeams.map(t => t.name).join('/') });
     }
   });
   populateSelect('eventType', eventTypeOptions);
@@ -540,7 +540,7 @@
           type: 'assembly', team: match.team,
           startMin: assemblyStart, endMin: startMin,
           matchId: match.id,
-          label: `Samling ${shortName}`,
+          label: `${CONFIG.labels.assembly} ${shortName}`,
           detail: match.venue,
         });
 
@@ -549,8 +549,8 @@
           startMin: startMin, endMin: startMin + MATCH_DURATION,
           matchId: match.id,
           label: match.homeAway === 'home'
-            ? `Segeltorps IBK ${shortName} vs ${match.opponent}`
-            : `${match.opponent} vs Segeltorps IBK ${shortName}`,
+            ? `${CONFIG.clubDisplayName} ${shortName} vs ${match.opponent}`
+            : `${match.opponent} vs ${CONFIG.clubDisplayName} ${shortName}`,
           detail: `${match.venue} • ${match.time}–${minutesToTime(startMin + MATCH_DURATION)}`,
         });
       });

@@ -176,9 +176,9 @@
   <p>Hitta <code>defaultEvents</code>. Ändra till årets matcher, samlingar och andra händelser:</p>
   <pre><span class="key">defaultEvents</span>: [
   { <span class="key">id</span>: <span class="string">'e1'</span>, <span class="key">type</span>: <span class="string">'assembly'</span>, <span class="key">team</span>: <span class="string">'blue'</span>, <span class="key">day</span>: <span class="string">'fri'</span>,
-    <span class="key">start</span>: <span class="string">'17:00'</span>, <span class="key">end</span>: <span class="string">'17:30'</span>, <span class="key">desc</span>: <span class="string">'Hallnamn'</span> },
+    <span class="key">start</span>: <span class="string">'17:00'</span>, <span class="key">end</span>: <span class="string">'17:30'</span>, <span class="key">venue</span>: <span class="string">'Hallnamn'</span>, <span class="key">desc</span>: <span class="string">''</span> },
   { <span class="key">id</span>: <span class="string">'e2'</span>, <span class="key">type</span>: <span class="string">'match'</span>, <span class="key">team</span>: <span class="string">'blue'</span>, <span class="key">day</span>: <span class="string">'fri'</span>,
-    <span class="key">start</span>: <span class="string">'17:30'</span>, <span class="key">end</span>: <span class="string">'18:10'</span>, <span class="key">desc</span>: <span class="string">'Motståndare (hemma) • Hallnamn'</span> },
+    <span class="key">start</span>: <span class="string">'17:30'</span>, <span class="key">end</span>: <span class="string">'18:10'</span>, <span class="key">venue</span>: <span class="string">'Hallnamn'</span>, <span class="key">desc</span>: <span class="string">'Motståndare (hemma)'</span> },
   <span class="comment">// ... fler händelser</span>
 ],</pre>
   <ul>
@@ -187,6 +187,7 @@
     <li><code>team</code> — lag-id som matchar teams (t.ex. <code>'blue'</code>), eller <code>'both'</code></li>
     <li><code>day</code> — dag-id som matchar dates (t.ex. <code>'fri'</code>)</li>
     <li><code>start</code> / <code>end</code> — start- och sluttid i format <code>'HH:MM'</code></li>
+    <li><code>venue</code> — valfri plats (t.ex. hallnamn)</li>
     <li><code>desc</code> — valfri beskrivning</li>
   </ul>
   <div class="tip">💡 <strong>Inga händelser än?</strong> Skriv <code>defaultEvents: [],</code> (tom lista). Du kan lägga till allt via kalendervyn senare.</div>
@@ -261,8 +262,8 @@
   <h3>Kan jag ha fler än 2 lag?</h3>
   <p>Ja! Lägg till fler objekt i <code>teams</code>-listan i config.js. Du behöver välja unika färger för varje lag.</p>
 
-  <h3>Kan jag ändra matchlängd eller samling?</h3>
-  <p>Matcher och samlingar är vanliga händelser med start- och sluttid. Ändra tiderna direkt i <code>defaultEvents</code> i config.js, eller klicka på händelsen i kalendervyn och redigera.</p>
+  <h3>Kan jag lägga till händelser utan att ändra config.js?</h3>
+  <p>Ja! Klicka på <strong>"+ Lägg till händelse"</strong> i kalendervyn. Alla händelser (matcher, samlingar, mat, etc.) kan skapas och redigeras direkt i appen.</p>
 </div>
 
 <h2>✅ Checklista för ny turnering</h2>

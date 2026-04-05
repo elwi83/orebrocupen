@@ -166,8 +166,8 @@
   }
   .event-block.compact .event-inline .event-time { flex-shrink: 0; }
   .event-block.compact .event-inline .event-title { overflow: hidden; text-overflow: ellipsis; }
-  .event-block.col-left { right: 52%; }
-  .event-block.col-right { left: calc(48% + 20px); }
+  .event-block.col-left { left: 40px; right: calc(50% - 16px); }
+  .event-block.col-right { left: calc(50% + 24px); right: 4px; }
 
   .collab-instructions ol {
     margin-top: 0.5rem;
@@ -183,8 +183,8 @@
   @media (max-width: 768px) {
     .calendar { grid-template-columns: 1fr !important; }
     .day-column { border-left: 1px solid #e2e8f0; }
-    .event-block.col-left { right: 52%; }
-    .event-block.col-right { left: calc(48% + 20px); }
+    .event-block.col-left { left: 40px; right: calc(50% - 16px); }
+    .event-block.col-right { left: calc(50% + 24px); right: 4px; }
   }
 
   @media print {
@@ -610,7 +610,7 @@
       const dayEvents = events.filter(e => e.day === day && (activeFilter === 'all' || e.team === activeFilter || e.team === 'both'));
       dayEvents.forEach(ev => {
         const typeName = TYPE_LABELS[ev.type] || ev.type;
-        const title = ev.desc ? `${typeName} – ${ev.desc}` : typeName;
+        const title = ev.desc || typeName;
         const detailParts = [];
         if (ev.venue) detailParts.push(ev.venue);
         if (ev.team !== 'both') detailParts.push(getTeamName(ev.team));
@@ -1004,7 +1004,7 @@
         if (next) {
           const countdown = formatCountdown(next);
           const typeName = TYPE_LABELS[next.type] || next.type;
-          const label = next.desc ? `${typeName} – ${next.desc}` : typeName;
+          const label = next.desc || typeName;
           cards += `<div class="next-event-card"><span class="next-team" style="background:${team.lightBg};color:${team.textColor}">${escapeHtml(team.name)}</span><span class="next-countdown">${escapeHtml(countdown)}</span><span class="next-label">${escapeHtml(label)}${next.venue ? ' • ' + escapeHtml(next.venue) : ''}</span></div>`;
         }
       });
@@ -1015,7 +1015,7 @@
         if (next) {
           const countdown = formatCountdown(next);
           const typeName = TYPE_LABELS[next.type] || next.type;
-          const label = next.desc ? `${typeName} – ${next.desc}` : typeName;
+          const label = next.desc || typeName;
           cards += `<div class="next-event-card"><span class="next-team" style="background:${team.lightBg};color:${team.textColor}">${escapeHtml(team.name)}</span><span class="next-countdown">${escapeHtml(countdown)}</span><span class="next-label">${escapeHtml(label)}${next.venue ? ' • ' + escapeHtml(next.venue) : ''}</span></div>`;
         }
       }

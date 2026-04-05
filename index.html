@@ -231,6 +231,8 @@
     <input type="time" id="eventStart">
     <label>Sluttid</label>
     <input type="time" id="eventEnd">
+    <label>Plats</label>
+    <input type="text" id="eventVenue" placeholder="T.ex. Almbyskolan, Hotellet...">
     <label>Beskrivning</label>
     <textarea id="eventDesc" placeholder="T.ex. Lunch på hotellet, Incheckning..."></textarea>
     <div class="modal-buttons">
@@ -495,12 +497,15 @@
       dayEvents.forEach(ev => {
         const typeName = TYPE_LABELS[ev.type] || ev.type;
         const title = ev.desc ? `${typeName} – ${ev.desc}` : typeName;
+        const detailParts = [];
+        if (ev.venue) detailParts.push(ev.venue);
+        if (ev.team !== 'both') detailParts.push(getTeamName(ev.team));
         blocks.push({
           type: ev.type, team: ev.team,
           startMin: timeToMinutes(ev.start), endMin: timeToMinutes(ev.end),
           eventId: ev.id,
           label: title,
-          detail: ev.team !== 'both' ? getTeamName(ev.team) : '',
+          detail: detailParts.join(' • '),
         });
       });
 
@@ -583,6 +588,7 @@
     document.getElementById('eventDay').value = CONFIG.dates[0].id;
     document.getElementById('eventStart').value = '12:00';
     document.getElementById('eventEnd').value = '13:00';
+    document.getElementById('eventVenue').value = '';
     document.getElementById('eventDesc').value = '';
     document.getElementById('eventModalTitle').textContent = 'Lägg till händelse';
     document.getElementById('eventDeleteBtn').style.display = 'none';
@@ -598,6 +604,7 @@
     document.getElementById('eventDay').value = ev.day;
     document.getElementById('eventStart').value = ev.start;
     document.getElementById('eventEnd').value = ev.end;
+    document.getElementById('eventVenue').value = ev.venue || '';
     document.getElementById('eventDesc').value = ev.desc || '';
     document.getElementById('eventModalTitle').textContent = 'Redigera händelse';
     document.getElementById('eventDeleteBtn').style.display = 'inline-block';
@@ -612,6 +619,7 @@
       day: document.getElementById('eventDay').value,
       start: document.getElementById('eventStart').value,
       end: document.getElementById('eventEnd').value,
+      venue: document.getElementById('eventVenue').value.trim(),
       desc: document.getElementById('eventDesc').value.trim(),
     };
     if (!data.start || !data.end) { alert('Fyll i start- och sluttid.'); return; }

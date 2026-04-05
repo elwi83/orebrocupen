@@ -106,6 +106,21 @@
   }
   tr:last-child td { border-bottom: none; }
 
+  .btn-edit-mode {
+    margin-top: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .btn-edit-mode:hover { background: #4b5563; }
+  .btn-edit-mode.active { background: #0f1d45; }
+  .btn-edit-mode.active:hover { background: #1a2d5c; }
+
   .btn-add-row {
     margin-top: 0.5rem;
     padding: 0.35rem 0.75rem;
@@ -116,8 +131,24 @@
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 500;
+    display: none;
   }
   .btn-add-row:hover { background: #059669; }
+
+  .btn-delete-row {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 0.25rem;
+    line-height: 1;
+    display: none;
+  }
+  .btn-delete-row:hover { color: #dc2626; }
+
+  .team-card.editing .btn-add-row { display: inline-block; }
+  .team-card.editing .btn-delete-row { display: inline-block; }
 
 
 
@@ -174,7 +205,7 @@
     body { background: white; font-size: 11px; }
     header { padding: 0.75rem; background: #1e40af !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     nav, .toolbar-roster { display: none !important; }
-    .btn-add-row { display: none !important; }
+    .btn-add-row, .btn-delete-row, .btn-edit-mode { display: none !important; }
     td input { border: none; padding: 0; }
     .team-card-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
@@ -216,7 +247,8 @@
           </thead>
           <tbody id="tbody-blue"></tbody>
         </table>
-        <button class="btn-add-row" onclick="addRow('blue')">+ Lägg till</button>
+        <button class="btn-edit-mode" onclick="toggleEdit('blue')" id="btn-edit-blue">Ändra</button>
+        <button class="btn-add-row" onclick="addRow('blue')">+ Lägg till rad</button>
       </div>
     </div>
 
@@ -234,7 +266,8 @@
           </thead>
           <tbody id="tbody-white"></tbody>
         </table>
-        <button class="btn-add-row" onclick="addRow('white')">+ Lägg till</button>
+        <button class="btn-edit-mode" onclick="toggleEdit('white')" id="btn-edit-white">Ändra</button>
+        <button class="btn-add-row" onclick="addRow('white')">+ Lägg till rad</button>
       </div>
     </div>
   </div>
@@ -283,6 +316,7 @@
         <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${team}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
         <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
         <td><input type="text" value="${escapeAttr(player.comment)}" oninput="autoSave('${team}',${i},'comment',this.value)" placeholder="Kommentar"></td>
+        <td><button class="btn-delete-row" onclick="removeRow('${team}',${i})" title="Ta bort">×</button></td>
       `;
       tbody.appendChild(tr);
     });
@@ -298,6 +332,26 @@
     saveRosterLocal();
     syncToFirebase();
     render();
+  }
+
+  function removeRow(team, index) {
+    roster[team].splice(index, 1);
+    saveRosterLocal();
+    syncToFirebase();
+    render();
+  }
+
+  function toggleEdit(team) {
+    const card = document.querySelector('.team-' + team);
+    const btn = document.getElementById('btn-edit-' + team);
+    card.classList.toggle('editing');
+    if (card.classList.contains('editing')) {
+      btn.textContent = 'Klar';
+      btn.classList.add('active');
+    } else {
+      btn.textContent = 'Ändra';
+      btn.classList.remove('active');
+    }
   }
 
 

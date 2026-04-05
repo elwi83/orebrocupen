@@ -183,17 +183,108 @@
   @media (max-width: 768px) {
     .calendar { grid-template-columns: 1fr !important; }
     .day-column { border-left: 1px solid #e2e8f0; }
-    .event-block.col-left { right: auto; }
-    .event-block.col-right { left: 42px; }
+    .event-block.col-left { right: 52%; }
+    .event-block.col-right { left: calc(48% + 20px); }
   }
 
   @media print {
-    .toolbar, .legend { display: none !important; }
+    .toolbar, .legend, .next-event-banner, .btn-share { display: none !important; }
     .calendar { max-width: 100%; padding: 0; }
     .event-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .modal-overlay { display: none !important; }
     .day-column { break-inside: avoid; }
   }
+
+  /* Next event banner */
+  .next-event-banner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .next-event-card {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    min-width: 200px;
+  }
+  .next-event-card .next-team {
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .next-event-card .next-countdown {
+    font-weight: 700;
+    color: #0f1d45;
+    white-space: nowrap;
+  }
+  .next-event-card .next-label {
+    color: #475569;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .next-event-card.no-events {
+    color: #94a3b8;
+    font-style: italic;
+    justify-content: center;
+  }
+
+  /* Now line */
+  .now-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ef4444;
+    z-index: 8;
+    pointer-events: none;
+  }
+  .now-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ef4444;
+  }
+
+  /* Result badge */
+  .event-result {
+    font-weight: 700;
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.6);
+    padding: 0 0.3rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 1px;
+  }
+
+  /* Share button */
+  .btn-share {
+    background: #6366f1;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .btn-share:hover { background: #4f46e5; }
 </style>
 </head>
 <body>
@@ -213,6 +304,7 @@
 </nav>
 
 <div class="toolbar" id="toolbar"></div>
+<div class="next-event-banner" id="nextEventBanner"></div>
 <div id="legendContainer"></div>
 <div class="calendar" id="calendar"></div>
 
@@ -235,6 +327,8 @@
     <input type="text" id="eventVenue" placeholder="T.ex. Almbyskolan, Hotellet...">
     <label>Beskrivning</label>
     <textarea id="eventDesc" placeholder="T.ex. Lunch på hotellet, Incheckning..."></textarea>
+    <label id="eventResultLabel" style="display:none">Resultat</label>
+    <input type="text" id="eventResult" placeholder="T.ex. 3–1" style="display:none">
     <div class="modal-buttons">
       <button class="btn-delete" id="eventDeleteBtn" onclick="deleteEvent()" style="display:none;margin-right:auto">Radera</button>
       <button class="btn-cancel" onclick="closeModal('eventModal')">Avbryt</button>
@@ -341,6 +435,9 @@
   filterHtml += '</div>';
   filterHtml += '<div class="online-indicator offline" id="onlineIndicator"><span class="status-dot"></span> Lokal</div>';
   filterHtml += '<button class="btn-add" onclick="openAddEventModal()">+ Lägg till händelse</button>';
+  if (navigator.share) {
+    filterHtml += '<button class="btn-share" onclick="sharePage()">📤 Dela</button>';
+  }
   toolbar.innerHTML = filterHtml;
 
   // ── Build legend ──
@@ -425,13 +522,21 @@
   let events = [];
   let activeFilter = 'all';
 
+  // Restore saved team filter
+  const savedFilter = localStorage.getItem('orebrocup_filter');
+  if (savedFilter && (savedFilter === 'all' || CONFIG.teams.some(t => t.id === savedFilter))) {
+    activeFilter = savedFilter;
+  }
+
   function setFilter(filter) {
     activeFilter = filter;
+    localStorage.setItem('orebrocup_filter', filter);
     document.getElementById('filter-all').className = 'btn-filter' + (filter === 'all' ? ' active-all' : '');
     CONFIG.teams.forEach(t => {
       document.getElementById('filter-' + t.id).className = 'btn-filter' + (filter === t.id ? ' active-' + t.id : '');
     });
     render();
+    updateNextEventBanner();
   }
 
   function loadState() {
@@ -515,6 +620,8 @@
           eventId: ev.id,
           label: title,
           detail: detailParts.join(' • '),
+          result: ev.result || '',
+          venue: ev.venue || '',
         });
       });
 
@@ -544,15 +651,51 @@
         el.style.height = height + 'px';
 
         if (isCompact) {
-          el.innerHTML = `<div class="event-inline"><span class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</span><span class="event-title">${escapeHtml(b.label)}</span></div>`;
+          el.innerHTML = `<div class="event-inline"><span class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</span><span class="event-title">${escapeHtml(b.label)}</span>${b.result ? `<span class="event-result">${escapeHtml(b.result)}</span>` : ''}</div>`;
         } else {
-          el.innerHTML = `<div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div><div class="event-title">${escapeHtml(b.label)}</div>${b.detail ? `<div class="event-detail">${escapeHtml(b.detail)}</div>` : ''}`;
+          let detailHtml = '';
+          if (b.detail) {
+            // Make venue part a map link
+            const parts = b.detail.split(' • ');
+            const linkedParts = parts.map(p => {
+              if (b.venue && p === b.venue) {
+                const q = encodeURIComponent(b.venue);
+                return `<a href="https://maps.google.com/?q=${q}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline" onclick="event.stopPropagation()">${escapeHtml(p)}</a>`;
+              }
+              return escapeHtml(p);
+            });
+            detailHtml = `<div class="event-detail">${linkedParts.join(' • ')}</div>`;
+          }
+          el.innerHTML = `<div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div><div class="event-title">${escapeHtml(b.label)}</div>${b.result ? `<div class="event-result">${escapeHtml(b.result)}</div>` : ''}${detailHtml}`;
         }
 
         el.addEventListener('click', () => openEditEventModal(b.eventId));
         body.appendChild(el);
       });
+
+      // Now line
+      drawNowLine(body, dateObj);
     });
+    updateNextEventBanner();
+  }
+
+  function drawNowLine(body, dateObj) {
+    if (!dateObj.date) return;
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    if (dateObj.date !== today) return;
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    if (nowMin < TIMELINE_START * 60 || nowMin > TIMELINE_END * 60) return;
+    const line = document.createElement('div');
+    line.className = 'now-line';
+    line.style.top = minutesToTop(nowMin) + 'px';
+    body.appendChild(line);
+  }
+
+  function getTodayDayId() {
+    const today = new Date().toISOString().slice(0, 10);
+    const match = CONFIG.dates.find(d => d.date === today);
+    return match ? match.id : null;
   }
 
   function assignColumns(blocks) {
@@ -590,6 +733,15 @@
   }
 
   // ── Event Modal ──
+  function updateResultVisibility() {
+    const type = document.getElementById('eventType').value;
+    const show = type === 'match';
+    document.getElementById('eventResult').style.display = show ? '' : 'none';
+    document.getElementById('eventResultLabel').style.display = show ? '' : 'none';
+  }
+
+  document.getElementById('eventType').addEventListener('change', updateResultVisibility);
+
   function openAddEventModal(prefillDay, prefillTime) {
     const type = Object.keys(CONFIG.eventCategories)[0];
     const cat = CONFIG.eventCategories[type];
@@ -603,6 +755,8 @@
     document.getElementById('eventEnd').value = minutesToTime(Math.min(endMin, TIMELINE_END * 60));
     document.getElementById('eventVenue').value = '';
     document.getElementById('eventDesc').value = '';
+    document.getElementById('eventResult').value = '';
+    updateResultVisibility();
     document.getElementById('eventModalTitle').textContent = 'Lägg till händelse';
     document.getElementById('eventDeleteBtn').style.display = 'none';
     document.getElementById('eventModal').classList.add('active');
@@ -619,6 +773,8 @@
     document.getElementById('eventEnd').value = ev.end;
     document.getElementById('eventVenue').value = ev.venue || '';
     document.getElementById('eventDesc').value = ev.desc || '';
+    document.getElementById('eventResult').value = ev.result || '';
+    updateResultVisibility();
     document.getElementById('eventModalTitle').textContent = 'Redigera händelse';
     document.getElementById('eventDeleteBtn').style.display = 'inline-block';
     document.getElementById('eventModal').classList.add('active');
@@ -634,6 +790,7 @@
       end: document.getElementById('eventEnd').value,
       venue: document.getElementById('eventVenue').value.trim(),
       desc: document.getElementById('eventDesc').value.trim(),
+      result: document.getElementById('eventResult').value.trim(),
     };
     if (!data.start || !data.end) { alert('Fyll i start- och sluttid.'); return; }
     if (timeToMinutes(data.start) >= timeToMinutes(data.end)) { alert('Sluttid måste vara efter starttid.'); return; }
@@ -803,9 +960,90 @@
     }
   }
 
+  // ── Next event banner ──
+  function updateNextEventBanner() {
+    const banner = document.getElementById('nextEventBanner');
+    const now = new Date();
+    const todayId = getTodayDayId();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const todayDate = now.toISOString().slice(0, 10);
+    const dayOrder = CONFIG.dates.map(d => d.id);
+    const todayIndex = dayOrder.indexOf(todayId);
+
+    function getNextForTeam(teamId) {
+      // Search all days in order; for today, skip events that have ended
+      for (let i = 0; i < dayOrder.length; i++) {
+        const dayId = dayOrder[i];
+        const dateObj = CONFIG.dates[i];
+        const isToday = dayId === todayId;
+        // Skip past days using actual dates
+        if (dateObj.date && dateObj.date < todayDate) continue;
+        const candidates = events
+          .filter(e => e.day === dayId && (e.team === teamId || e.team === 'both') && (!isToday || timeToMinutes(e.end) > nowMin))
+          .sort((a, b) => timeToMinutes(a.start) - timeToMinutes(b.start));
+        if (candidates.length > 0) return candidates[0];
+      }
+      return null;
+    }
+
+    function formatCountdown(ev) {
+      const isToday = ev.day === todayId;
+      const startMin = timeToMinutes(ev.start);
+      if (isToday) {
+        const diff = startMin - nowMin;
+        return diff > 0 ? `om ${diff} min` : 'nu';
+      }
+      const dayLabel = CONFIG.dates.find(d => d.id === ev.day);
+      return dayLabel ? `${dayLabel.label.split(' ')[0]} ${ev.start}` : ev.start;
+    }
+
+    let cards = '';
+    if (activeFilter === 'all') {
+      CONFIG.teams.forEach(team => {
+        const next = getNextForTeam(team.id);
+        if (next) {
+          const countdown = formatCountdown(next);
+          const typeName = TYPE_LABELS[next.type] || next.type;
+          const label = next.desc ? `${typeName} – ${next.desc}` : typeName;
+          cards += `<div class="next-event-card"><span class="next-team" style="background:${team.lightBg};color:${team.textColor}">${escapeHtml(team.name)}</span><span class="next-countdown">${escapeHtml(countdown)}</span><span class="next-label">${escapeHtml(label)}${next.venue ? ' • ' + escapeHtml(next.venue) : ''}</span></div>`;
+        }
+      });
+    } else {
+      const team = getTeam(activeFilter);
+      if (team) {
+        const next = getNextForTeam(team.id);
+        if (next) {
+          const countdown = formatCountdown(next);
+          const typeName = TYPE_LABELS[next.type] || next.type;
+          const label = next.desc ? `${typeName} – ${next.desc}` : typeName;
+          cards += `<div class="next-event-card"><span class="next-team" style="background:${team.lightBg};color:${team.textColor}">${escapeHtml(team.name)}</span><span class="next-countdown">${escapeHtml(countdown)}</span><span class="next-label">${escapeHtml(label)}${next.venue ? ' • ' + escapeHtml(next.venue) : ''}</span></div>`;
+        }
+      }
+    }
+
+    if (!cards && events.length > 0) {
+      cards = '<div class="next-event-card no-events">Inga fler händelser</div>';
+    }
+    banner.innerHTML = cards;
+  }
+
+  // ── Share ──
+  function sharePage() {
+    if (navigator.share) {
+      navigator.share({
+        title: getHeaderTitle(),
+        text: CONFIG.subtitle,
+        url: window.location.href,
+      }).catch(() => {});
+    }
+  }
+
   // ── Init ──
   loadState();
-  render();
+  setFilter(activeFilter);
+
+  // Refresh now-line and next-event banner every minute
+  setInterval(() => { render(); }, 60000);
 
   (async function autoReconnect() {
     const config = CONFIG.firebase;

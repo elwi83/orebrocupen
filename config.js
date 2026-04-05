@@ -19,9 +19,9 @@ const CONFIG = {
   // ── Dagar ──
   // Lägg till eller ta bort dagar. id = kort namn, label = visas i kalendern.
   dates: [
-    { id: "fri", label: "Fredag 17 april" },
-    { id: "sat", label: "Lördag 18 april" },
-    { id: "sun", label: "Söndag 19 april" }
+    { id: "fri", label: "Fredag 17 april", date: "2026-04-17" },
+    { id: "sat", label: "Lördag 18 april", date: "2026-04-18" },
+    { id: "sun", label: "Söndag 19 april", date: "2026-04-19" }
   ],
 
   // ── Lag ──

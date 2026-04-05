@@ -143,11 +143,11 @@
   <div class="step-title"><span class="step-number">3</span> Ändra dagar</div>
   <p>Hitta <code>dates</code>-sektionen. Ändra, lägg till eller ta bort dagar:</p>
   <pre><span class="key">dates</span>: [
-  { <span class="key">id</span>: <span class="string">"fri"</span>, <span class="key">label</span>: <span class="string">"Fredag 17 april"</span> },
-  { <span class="key">id</span>: <span class="string">"sat"</span>, <span class="key">label</span>: <span class="string">"Lördag 18 april"</span> },
-  { <span class="key">id</span>: <span class="string">"sun"</span>, <span class="key">label</span>: <span class="string">"Söndag 19 april"</span> }
+  { <span class="key">id</span>: <span class="string">"fri"</span>, <span class="key">label</span>: <span class="string">"Fredag 17 april"</span>, <span class="key">date</span>: <span class="string">"2026-04-17"</span> },
+  { <span class="key">id</span>: <span class="string">"sat"</span>, <span class="key">label</span>: <span class="string">"Lördag 18 april"</span>, <span class="key">date</span>: <span class="string">"2026-04-18"</span> },
+  { <span class="key">id</span>: <span class="string">"sun"</span>, <span class="key">label</span>: <span class="string">"Söndag 19 april"</span>, <span class="key">date</span>: <span class="string">"2026-04-19"</span> }
 ],</pre>
-  <p><strong>Vill du lägga till en dag?</strong> Kopiera en rad och ändra <code>id</code> och <code>label</code>. Varje dag måste ha ett unikt <code>id</code> (kort namn, inga mellanslag).</p>
+  <p><strong>Vill du lägga till en dag?</strong> Kopiera en rad och ändra <code>id</code>, <code>label</code> och <code>date</code>. Varje dag måste ha ett unikt <code>id</code> (kort namn, inga mellanslag). <code>date</code> ska vara i format <code>"ÅÅÅÅ-MM-DD"</code>.</p>
   <p><strong>Vill du ha färre dagar?</strong> Ta bort hela raden (inkl. kommatecken). Se till att sista raden INTE har kommatecken.</p>
 </div>
 

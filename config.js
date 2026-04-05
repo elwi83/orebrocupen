@@ -56,42 +56,16 @@ const CONFIG = {
     }
   ],
 
-  // ── Matchinställningar ──
-  matchDuration: 40,     // Matchlängd i minuter
-  assemblyBefore: 30,    // Samling antal minuter före match
-  clubDisplayName: "Segeltorps IBK",  // Klubbens namn i matchblocket (t.ex. "Segeltorps IBK Blå vs ...")
-
-  // ── Etiketter ──
-  // Texter som visas i kalenderns block och legend.
-  labels: {
-    assembly: "Samling",        // Text för samlingsblocket (visas som "Samling Blå")
-    match: "match",             // Visas i legenden som "Lag Blå – match"
-    assemblyLegend: "samling",  // Visas i legenden som "Lag Blå – samling"
-    cheerPrefix: "Heja på",     // Prefix för "Heja på Lag Vit"
-  },
-
   // ── Kalender-vy ──
   timelineStart: 7,      // Kalendern börjar kl 07:00
   timelineEnd: 23,       // Kalendern slutar kl 23:00
   hourHeight: 90,        // Pixelhöjd per timme
 
-  // ── Matcher ──
-  // Alla matcher. Ändra, lägg till eller ta bort efter behov.
-  // id = unikt id, team = lag-id (matchar teams ovan),
-  // day = dag-id (matchar dates ovan), time = matchstart HH:MM,
-  // opponent = motståndare, venue = hall, homeAway = "home" eller "away"
-  defaultMatches: [
-    { id: 'm1', team: 'white', day: 'fri', time: '19:45', opponent: 'Sundborns GoIF Röd', venue: 'Almbyskolan', homeAway: 'away' },
-    { id: 'm2', team: 'white', day: 'sat', time: '12:15', opponent: 'Örebro SK Ungdom 1', venue: 'Almbyskolan', homeAway: 'home' },
-    { id: 'm3', team: 'white', day: 'sat', time: '16:00', opponent: 'Strängnäs IBK', venue: 'Almbyskolan', homeAway: 'home' },
-    { id: 'm4', team: 'white', day: 'sun', time: '09:30', opponent: 'Lillån IBK P2016', venue: 'Almbyskolan', homeAway: 'away' },
-    { id: 'm5', team: 'white', day: 'sun', time: '13:15', opponent: 'Frillesås FF', venue: 'Almbyskolan', homeAway: 'home' },
-    { id: 'm6', team: 'blue', day: 'fri', time: '17:30', opponent: 'Lillån IBK P-2017 1', venue: 'Tegelbruket 2', homeAway: 'home' },
-    { id: 'm7', team: 'blue', day: 'sat', time: '12:00', opponent: 'IBF Älvstranden', venue: 'Tullängsgymnasiet', homeAway: 'home' },
-    { id: 'm8', team: 'blue', day: 'sat', time: '18:15', opponent: 'Rönnby Västerås IBK Ungdom', venue: 'Almbyskolan', homeAway: 'away' },
-    { id: 'm9', team: 'blue', day: 'sun', time: '10:15', opponent: 'Örebro SK Ungdom 5', venue: 'Tullängsgymnasiet', homeAway: 'away' },
-    { id: 'm10', team: 'blue', day: 'sun', time: '14:45', opponent: 'Örebro SK Ungdom 2', venue: 'Almbyskolan', homeAway: 'home' },
-  ],
+  // ── Standardhändelser ──
+  // Alla matcher, samlingar och andra händelser som ska vara förifyllda.
+  // type = kategori (matchar eventCategories), team = lag-id, day = dag-id,
+  // start/end = tid HH:MM, desc = beskrivning
+  defaultEvents: [],
 
   // ── Firebase (för realtidssynk mellan telefoner/datorer) ──
   // Följ instruktionerna i setup.html för att skapa ett Firebase-projekt.
@@ -112,8 +86,12 @@ const CONFIG = {
   roomName: "segeltorps-cup-2026",
 
   // ── Händelsekategorier ──
-  // Färger och namn för egna händelser (mat, resa, etc.)
+  // Kategorier med useTeamColor: true färgas efter lagets färger.
+  // Övriga har egna fasta färger.
   eventCategories: {
+    match:    { label: "Match",    useTeamColor: true },
+    assembly: { label: "Samling",  useTeamColor: true, dashed: true, opacity: 0.75 },
+    cheer:    { label: "Heja på",  useTeamCheerColor: true },
     meal:     { label: "Mat",       color: "#f59e0b", lightBg: "#fef3c7", textColor: "#92400e" },
     activity: { label: "Aktivitet", color: "#10b981", lightBg: "#d1fae5", textColor: "#065f46" },
     travel:   { label: "Resa",      color: "#ef4444", lightBg: "#fee2e2", textColor: "#991b1b" },

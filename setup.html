@@ -172,21 +172,24 @@
 </div>
 
 <div class="step">
-  <div class="step-title"><span class="step-number">5</span> Ändra matcher</div>
-  <p>Hitta <code>defaultMatches</code>. Ändra till årets matcher:</p>
-  <pre><span class="key">defaultMatches</span>: [
-  { <span class="key">id</span>: <span class="string">'m1'</span>, <span class="key">team</span>: <span class="string">'blue'</span>, <span class="key">day</span>: <span class="string">'fri'</span>, <span class="key">time</span>: <span class="string">'17:30'</span>,
-    <span class="key">opponent</span>: <span class="string">'Motståndare'</span>, <span class="key">venue</span>: <span class="string">'Hallnamn'</span>, <span class="key">homeAway</span>: <span class="string">'home'</span> },
-  <span class="comment">// ... fler matcher</span>
+  <div class="step-title"><span class="step-number">5</span> Ändra standardhändelser</div>
+  <p>Hitta <code>defaultEvents</code>. Ändra till årets matcher, samlingar och andra händelser:</p>
+  <pre><span class="key">defaultEvents</span>: [
+  { <span class="key">id</span>: <span class="string">'e1'</span>, <span class="key">type</span>: <span class="string">'assembly'</span>, <span class="key">team</span>: <span class="string">'blue'</span>, <span class="key">day</span>: <span class="string">'fri'</span>,
+    <span class="key">start</span>: <span class="string">'17:00'</span>, <span class="key">end</span>: <span class="string">'17:30'</span>, <span class="key">desc</span>: <span class="string">'Hallnamn'</span> },
+  { <span class="key">id</span>: <span class="string">'e2'</span>, <span class="key">type</span>: <span class="string">'match'</span>, <span class="key">team</span>: <span class="string">'blue'</span>, <span class="key">day</span>: <span class="string">'fri'</span>,
+    <span class="key">start</span>: <span class="string">'17:30'</span>, <span class="key">end</span>: <span class="string">'18:10'</span>, <span class="key">desc</span>: <span class="string">'Motståndare (hemma) • Hallnamn'</span> },
+  <span class="comment">// ... fler händelser</span>
 ],</pre>
   <ul>
-    <li><code>id</code> — unikt id per match, t.ex. <code>'m1'</code>, <code>'m2'</code>, osv.</li>
-    <li><code>team</code> — måste matcha ett <code>id</code> från teams-sektionen (t.ex. <code>'blue'</code>)</li>
-    <li><code>day</code> — måste matcha ett <code>id</code> från dates-sektionen (t.ex. <code>'fri'</code>)</li>
-    <li><code>time</code> — matchstart i format <code>'HH:MM'</code></li>
-    <li><code>homeAway</code> — <code>'home'</code> eller <code>'away'</code></li>
+    <li><code>id</code> — unikt id per händelse, t.ex. <code>'e1'</code>, <code>'e2'</code>, osv.</li>
+    <li><code>type</code> — kategori: <code>'match'</code>, <code>'assembly'</code>, <code>'cheer'</code>, <code>'meal'</code>, <code>'activity'</code>, <code>'travel'</code>, <code>'other'</code></li>
+    <li><code>team</code> — lag-id som matchar teams (t.ex. <code>'blue'</code>), eller <code>'both'</code></li>
+    <li><code>day</code> — dag-id som matchar dates (t.ex. <code>'fri'</code>)</li>
+    <li><code>start</code> / <code>end</code> — start- och sluttid i format <code>'HH:MM'</code></li>
+    <li><code>desc</code> — valfri beskrivning</li>
   </ul>
-  <div class="tip">💡 <strong>Inga matcher än?</strong> Skriv <code>defaultMatches: [],</code> (tom lista). Du kan lägga till matcher via kalendervyn senare.</div>
+  <div class="tip">💡 <strong>Inga händelser än?</strong> Skriv <code>defaultEvents: [],</code> (tom lista). Du kan lägga till allt via kalendervyn senare.</div>
 </div>
 
 <div class="step">
@@ -258,8 +261,8 @@
   <h3>Kan jag ha fler än 2 lag?</h3>
   <p>Ja! Lägg till fler objekt i <code>teams</code>-listan i config.js. Du behöver välja unika färger för varje lag.</p>
 
-  <h3>Kan jag ändra matchlängd?</h3>
-  <p>Ja, ändra <code>matchDuration</code> (i minuter) och <code>assemblyBefore</code> (samling antal minuter innan match).</p>
+  <h3>Kan jag ändra matchlängd eller samling?</h3>
+  <p>Matcher och samlingar är vanliga händelser med start- och sluttid. Ändra tiderna direkt i <code>defaultEvents</code> i config.js, eller klicka på händelsen i kalendervyn och redigera.</p>
 </div>
 
 <h2>✅ Checklista för ny turnering</h2>
@@ -268,7 +271,7 @@
     <li>☐ Ändra <code>tournamentName</code>, <code>year</code>, <code>clubName</code>, <code>subtitle</code></li>
     <li>☐ Ändra <code>dates</code> (dagar turneringen pågår)</li>
     <li>☐ Ändra <code>teams</code> (lagnamn, ev. färger)</li>
-    <li>☐ Ändra <code>defaultMatches</code> (årets matchschema)</li>
+    <li>☐ Ändra <code>defaultEvents</code> (årets matcher, samlingar och händelser)</li>
     <li>☐ Ändra <code>roomName</code> (nytt namn per turnering!)</li>
     <li>☐ Byt <code>logo.png</code> om det behövs</li>
     <li>☐ Testa: öppna <code>index.html</code> i webbläsaren</li>

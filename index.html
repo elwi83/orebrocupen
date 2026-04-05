@@ -216,33 +216,6 @@
 <div id="legendContainer"></div>
 <div class="calendar" id="calendar"></div>
 
-<!-- Modal: Edit Match -->
-<div class="modal-overlay" id="matchModal">
-  <div class="modal">
-    <h2 id="matchModalTitle">Redigera match</h2>
-    <input type="hidden" id="matchId">
-    <label>Motståndare</label>
-    <input type="text" id="matchOpponent">
-    <label>Dag</label>
-    <select id="matchDay"></select>
-    <label>Matchstart (HH:MM)</label>
-    <input type="time" id="matchTime">
-    <label>Hall</label>
-    <input type="text" id="matchVenue">
-    <label>Lag</label>
-    <select id="matchTeam"></select>
-    <label>Hem/Borta</label>
-    <select id="matchHomeAway">
-      <option value="home">Hemma</option>
-      <option value="away">Borta</option>
-    </select>
-    <div class="modal-buttons">
-      <button class="btn-cancel" onclick="closeModal('matchModal')">Avbryt</button>
-      <button class="btn-save" onclick="saveMatch()">Spara</button>
-    </div>
-  </div>
-</div>
-
 <!-- Modal: Add/Edit Event -->
 <div class="modal-overlay" id="eventModal">
   <div class="modal">
@@ -320,37 +293,38 @@
   const HOUR_HEIGHT = CONFIG.hourHeight;
   const TIMELINE_START = CONFIG.timelineStart;
   const TIMELINE_END = CONFIG.timelineEnd;
-  const MATCH_DURATION = CONFIG.matchDuration;
-  const ASSEMBLY_BEFORE = CONFIG.assemblyBefore;
 
   document.documentElement.style.setProperty('--hour-height', HOUR_HEIGHT + 'px');
   document.documentElement.style.setProperty('--timeline-start', TIMELINE_START);
   document.documentElement.style.setProperty('--timeline-end', TIMELINE_END);
 
-  // ── Build TYPE_LABELS from config (event categories + cheer types) ──
+  // ── Build TYPE_LABELS from config ──
   const TYPE_LABELS = {};
   for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
     TYPE_LABELS[key] = cat.label;
   }
-  // "Heja på" types — activity-{team.id} means watching the OTHER team
-  CONFIG.teams.forEach(team => {
-    const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
-    if (otherTeams.length > 0) {
-      TYPE_LABELS['activity-' + team.id] = CONFIG.labels.cheerPrefix + ' ' + otherTeams.map(t => t.name).join('/');
-    }
-  });
 
-  // ── Inject dynamic CSS for team colors ──
+  // ── Inject dynamic CSS for team colors and categories ──
   const dynamicStyles = document.createElement('style');
   let css = '';
   CONFIG.teams.forEach(team => {
-    css += `.event-block.team-${team.id} { background: ${team.lightBg}; border-left: 4px solid ${team.color}; color: ${team.textColor}; }\n`;
-    css += `.event-block.assembly-${team.id} { background: ${team.assemblyBg}; border-left: 4px dashed ${team.color}; color: ${team.textColor}; opacity: 0.75; }\n`;
     css += `.btn-filter.active-${team.id} { background: ${team.color}; color: white; }\n`;
-    css += `.event-block.type-activity-${team.id} { background: ${team.cheerBg}; border-left: 4px solid ${team.cheerBorder}; color: ${team.textColor}; }\n`;
+    // Team-colored categories (match, assembly, etc.)
+    for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
+      if (cat.useTeamColor) {
+        const border = cat.dashed ? 'dashed' : 'solid';
+        const opacity = cat.opacity ? `opacity: ${cat.opacity};` : '';
+        css += `.event-block.type-${key}.team-${team.id} { background: ${cat.dashed ? team.assemblyBg : team.lightBg}; border-left: 4px ${border} ${team.color}; color: ${team.textColor}; ${opacity} }\n`;
+      }
+      if (cat.useTeamCheerColor) {
+        css += `.event-block.type-${key}.team-${team.id} { background: ${team.cheerBg}; border-left: 4px solid ${team.cheerBorder}; color: ${team.textColor}; }\n`;
+      }
+    }
   });
   for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
-    css += `.event-block.type-${key} { background: ${cat.lightBg}; border-left: 4px solid ${cat.color}; color: ${cat.textColor}; }\n`;
+    if (cat.color) {
+      css += `.event-block.type-${key} { background: ${cat.lightBg}; border-left: 4px solid ${cat.color}; color: ${cat.textColor}; }\n`;
+    }
   }
   dynamicStyles.textContent = css;
   document.head.appendChild(dynamicStyles);
@@ -370,20 +344,23 @@
   // ── Build legend ──
   const legendContainer = document.getElementById('legendContainer');
   let legendRow1 = '<div class="legend">';
-  CONFIG.teams.forEach(team => {
-    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.assemblyBg};border-left:3px dashed ${team.color}"></div>${escapeHtml(team.name)} – ${escapeHtml(CONFIG.labels.assemblyLegend)}</div>`;
-    legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.lightBg};border-left:3px solid ${team.color}"></div>${escapeHtml(team.name)} – ${escapeHtml(CONFIG.labels.match)}</div>`;
-    // Heja-på for this team's cheer
-    const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
-    if (otherTeams.length > 0) {
-      legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${team.cheerBg};border-left:3px solid ${team.cheerBorder}"></div>${escapeHtml(CONFIG.labels.cheerPrefix)} ${otherTeams.map(t => escapeHtml(t.name)).join('/')}</div>`;
+  for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
+    if (cat.useTeamColor || cat.useTeamCheerColor) {
+      CONFIG.teams.forEach(team => {
+        const bg = cat.useTeamCheerColor ? team.cheerBg : (cat.dashed ? team.assemblyBg : team.lightBg);
+        const border = cat.useTeamCheerColor ? team.cheerBorder : team.color;
+        const style = cat.dashed ? 'dashed' : 'solid';
+        legendRow1 += `<div class="legend-item"><div class="legend-swatch" style="background:${bg};border-left:3px ${style} ${border}"></div>${escapeHtml(team.name)} – ${escapeHtml(cat.label.toLowerCase())}</div>`;
+      });
     }
-  });
+  }
   legendRow1 += '</div>';
 
   let legendRow2 = '<div class="legend">';
   for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
-    legendRow2 += `<div class="legend-item"><div class="legend-swatch" style="background:${cat.lightBg};border-left:3px solid ${cat.color}"></div>${escapeHtml(cat.label)}</div>`;
+    if (!cat.useTeamColor && !cat.useTeamCheerColor) {
+      legendRow2 += `<div class="legend-item"><div class="legend-swatch" style="background:${cat.lightBg};border-left:3px solid ${cat.color}"></div>${escapeHtml(cat.label)}</div>`;
+    }
   }
   legendRow2 += '</div>';
   legendContainer.innerHTML = legendRow1 + legendRow2;
@@ -413,12 +390,10 @@
 
   // Day selects
   const dayOptions = CONFIG.dates.map(d => ({ value: d.id, label: d.label }));
-  populateSelect('matchDay', dayOptions);
   populateSelect('eventDay', dayOptions);
 
   // Team selects
   const teamOptions = CONFIG.teams.map(t => ({ value: t.id, label: t.name }));
-  populateSelect('matchTeam', teamOptions);
   populateSelect('eventTeam', [{ value: 'both', label: 'Båda lagen' }, ...teamOptions]);
 
   // Event type select
@@ -426,12 +401,6 @@
   for (const [key, cat] of Object.entries(CONFIG.eventCategories)) {
     eventTypeOptions.push({ value: key, label: cat.label });
   }
-  CONFIG.teams.forEach(team => {
-    const otherTeams = CONFIG.teams.filter(t => t.id !== team.id);
-    if (otherTeams.length > 0) {
-      eventTypeOptions.push({ value: 'activity-' + team.id, label: CONFIG.labels.cheerPrefix + ' ' + otherTeams.map(t => t.name).join('/') });
-    }
-  });
   populateSelect('eventType', eventTypeOptions);
 
   // Room name default
@@ -439,10 +408,9 @@
 
   // ── Embedded data (populated when exported via "Dela som HTML") ──
   const EMBEDDED_DATA = null;
-  const DEFAULT_MATCHES = CONFIG.defaultMatches;
+  const DEFAULT_EVENTS = CONFIG.defaultEvents || [];
 
   // ── State ──
-  let matches = [];
   let events = [];
   let activeFilter = 'all';
 
@@ -456,31 +424,25 @@
   }
 
   function loadState() {
-    const savedMatches = localStorage.getItem('orebrocup_matches');
     const savedEvents = localStorage.getItem('orebrocup_events');
     try {
       if (EMBEDDED_DATA) {
-        matches = savedMatches ? JSON.parse(savedMatches) : EMBEDDED_DATA.matches;
         events = savedEvents ? JSON.parse(savedEvents) : EMBEDDED_DATA.events;
       } else {
-        matches = savedMatches ? JSON.parse(savedMatches) : JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-        events = savedEvents ? JSON.parse(savedEvents) : [];
+        events = savedEvents ? JSON.parse(savedEvents) : JSON.parse(JSON.stringify(DEFAULT_EVENTS));
       }
     } catch {
-      matches = JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-      events = [];
+      events = JSON.parse(JSON.stringify(DEFAULT_EVENTS));
     }
   }
 
   function saveState() {
-    localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
     localStorage.setItem('orebrocup_events', JSON.stringify(events));
     syncToFirebase();
   }
 
   function resetAll() {
     if (!confirm('Vill du återställa allt? Alla ändringar och tillagda händelser raderas.')) return;
-    localStorage.removeItem('orebrocup_matches');
     localStorage.removeItem('orebrocup_events');
     loadState();
     render();
@@ -528,45 +490,17 @@
 
       const blocks = [];
 
-      // Matches + assemblies
-      const dayMatches = matches.filter(m => m.day === day && (activeFilter === 'all' || m.team === activeFilter));
-      dayMatches.forEach(match => {
-        const startMin = timeToMinutes(match.time);
-        const assemblyStart = startMin - ASSEMBLY_BEFORE;
-        const teamName = getTeamName(match.team);
-        const shortName = teamName;
-
-        blocks.push({
-          type: 'assembly', team: match.team,
-          startMin: assemblyStart, endMin: startMin,
-          matchId: match.id,
-          label: `${CONFIG.labels.assembly} ${shortName}`,
-          detail: match.venue,
-        });
-
-        blocks.push({
-          type: 'match', team: match.team,
-          startMin: startMin, endMin: startMin + MATCH_DURATION,
-          matchId: match.id,
-          label: match.homeAway === 'home'
-            ? `${CONFIG.clubDisplayName} ${shortName} vs ${match.opponent}`
-            : `${match.opponent} vs ${CONFIG.clubDisplayName} ${shortName}`,
-          detail: `${match.venue} • ${match.time}–${minutesToTime(startMin + MATCH_DURATION)}`,
-        });
-      });
-
-      // Custom events
+      // All events
       const dayEvents = events.filter(e => e.day === day && (activeFilter === 'all' || e.team === activeFilter || e.team === 'both'));
       dayEvents.forEach(ev => {
         const typeName = TYPE_LABELS[ev.type] || ev.type;
-        const teamSuffix = ev.team !== 'both' ? (' – ' + getTeamName(ev.team)) : '';
         const title = ev.desc ? `${typeName} – ${ev.desc}` : typeName;
         blocks.push({
           type: ev.type, team: ev.team,
           startMin: timeToMinutes(ev.start), endMin: timeToMinutes(ev.end),
           eventId: ev.id,
           label: title,
-          detail: teamSuffix ? teamSuffix.replace(' – ', '') : '',
+          detail: ev.team !== 'both' ? getTeamName(ev.team) : '',
         });
       });
 
@@ -579,11 +513,15 @@
         const durationMin = b.endMin - b.startMin;
         const isCompact = durationMin <= 25;
 
+        const cat = CONFIG.eventCategories[b.type];
         let cssClass = 'event-block';
         if (isCompact) cssClass += ' compact';
-        if (b.type === 'match') cssClass += ` team-${b.team}`;
-        else if (b.type === 'assembly') cssClass += ` assembly-${b.team}`;
-        else cssClass += ` type-${b.type}`;
+        // Team-colored categories get type + team class; others just type class
+        if (cat && (cat.useTeamColor || cat.useTeamCheerColor)) {
+          cssClass += ` type-${b.type} team-${b.team}`;
+        } else {
+          cssClass += ` type-${b.type}`;
+        }
         if (b.col === 'left') cssClass += ' col-left';
         else if (b.col === 'right') cssClass += ' col-right';
 
@@ -597,11 +535,7 @@
           el.innerHTML = `<div class="event-time">${minutesToTime(b.startMin)}–${minutesToTime(b.endMin)}</div><div class="event-title">${escapeHtml(b.label)}</div>${b.detail ? `<div class="event-detail">${escapeHtml(b.detail)}</div>` : ''}`;
         }
 
-        if (b.type === 'match' || b.type === 'assembly') {
-          el.addEventListener('click', () => openMatchModal(b.matchId));
-        } else {
-          el.addEventListener('click', () => openEditEventModal(b.eventId));
-        }
+        el.addEventListener('click', () => openEditEventModal(b.eventId));
         body.appendChild(el);
       });
     });
@@ -639,36 +573,6 @@
     const d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
-  }
-
-  // ── Match Modal ──
-  function openMatchModal(matchId) {
-    const match = matches.find(m => m.id === matchId);
-    if (!match) return;
-    document.getElementById('matchId').value = match.id;
-    document.getElementById('matchOpponent').value = match.opponent;
-    document.getElementById('matchDay').value = match.day;
-    document.getElementById('matchTime').value = match.time;
-    document.getElementById('matchVenue').value = match.venue;
-    document.getElementById('matchTeam').value = match.team;
-    document.getElementById('matchHomeAway').value = match.homeAway;
-    document.getElementById('matchModalTitle').textContent = `Redigera: ${getTeamName(match.team)} vs ${match.opponent}`;
-    document.getElementById('matchModal').classList.add('active');
-  }
-
-  function saveMatch() {
-    const id = document.getElementById('matchId').value;
-    const match = matches.find(m => m.id === id);
-    if (!match) return;
-    match.opponent = document.getElementById('matchOpponent').value.trim();
-    match.day = document.getElementById('matchDay').value;
-    match.time = document.getElementById('matchTime').value;
-    match.venue = document.getElementById('matchVenue').value.trim();
-    match.team = document.getElementById('matchTeam').value;
-    match.homeAway = document.getElementById('matchHomeAway').value;
-    saveState();
-    render();
-    closeModal('matchModal');
   }
 
   // ── Event Modal ──
@@ -752,7 +656,7 @@
   // ── Export as self-contained HTML ──
   function exportAsHtml() {
     const html = document.documentElement.outerHTML;
-    const dataObj = JSON.stringify({ matches, events });
+    const dataObj = JSON.stringify({ events });
     const patched = html.replace(/const EMBEDDED_DATA = .*?;/, 'const EMBEDDED_DATA = ' + dataObj + ';');
     const blob = new Blob(['<!DOCTYPE html>\n' + patched], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -809,21 +713,17 @@
     const snapshot = await roomRef.once('value');
     if (snapshot.exists()) {
       const data = snapshot.val();
-      matches = data.matches || JSON.parse(JSON.stringify(DEFAULT_MATCHES));
-      events = data.events || [];
-      localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
+      events = data.events || JSON.parse(JSON.stringify(DEFAULT_EVENTS));
       localStorage.setItem('orebrocup_events', JSON.stringify(events));
       render();
     } else {
-      await roomRef.set({ matches, events, lastUpdated: Date.now() });
+      await roomRef.set({ events, lastUpdated: Date.now() });
     }
     roomRef.on('value', (snapshot) => {
       const data = snapshot.val();
       if (!data) return;
       if (data.lastUpdated && Math.abs(data.lastUpdated - lastSyncTime) < 2000) return;
-      matches = data.matches || [];
       events = data.events || [];
-      localStorage.setItem('orebrocup_matches', JSON.stringify(matches));
       localStorage.setItem('orebrocup_events', JSON.stringify(events));
       render();
     });
@@ -842,7 +742,7 @@
   function syncToFirebase() {
     if (isOnline && roomRef) {
       lastSyncTime = Date.now();
-      roomRef.set({ matches, events, lastUpdated: lastSyncTime })
+      roomRef.set({ events, lastUpdated: lastSyncTime })
         .catch((err) => {
           console.error('Firebase sync failed:', err);
           const el = document.getElementById('onlineIndicator');

@@ -375,6 +375,15 @@
     col.className = 'day-column';
     col.id = 'day-' + d.id;
     col.innerHTML = `<div class="day-header">${escapeHtml(d.label)}</div><div class="day-body" id="body-${d.id}"></div>`;
+    // Click on empty area to create event at that time
+    col.querySelector('.day-body').addEventListener('click', function(e) {
+      if (e.target !== this) return;
+      const rect = this.getBoundingClientRect();
+      const y = e.clientY - rect.top + this.scrollTop;
+      const minutes = Math.round((y / HOUR_HEIGHT + TIMELINE_START) * 60);
+      const snapped = Math.round(minutes / 15) * 15;
+      openAddEventModal(d.id, minutesToTime(snapped));
+    });
     calendar.appendChild(col);
   });
 
@@ -581,13 +590,17 @@
   }
 
   // ── Event Modal ──
-  function openAddEventModal() {
+  function openAddEventModal(prefillDay, prefillTime) {
+    const type = Object.keys(CONFIG.eventCategories)[0];
+    const cat = CONFIG.eventCategories[type];
+    const startTime = prefillTime || '12:00';
+    const endMin = timeToMinutes(startTime) + (cat.defaultDuration || 60);
     document.getElementById('eventId').value = '';
-    document.getElementById('eventType').value = Object.keys(CONFIG.eventCategories)[0];
-    document.getElementById('eventTeam').value = 'both';
-    document.getElementById('eventDay').value = CONFIG.dates[0].id;
-    document.getElementById('eventStart').value = '12:00';
-    document.getElementById('eventEnd').value = '13:00';
+    document.getElementById('eventType').value = type;
+    document.getElementById('eventTeam').value = activeFilter !== 'all' ? activeFilter : 'both';
+    document.getElementById('eventDay').value = prefillDay || CONFIG.dates[0].id;
+    document.getElementById('eventStart').value = startTime;
+    document.getElementById('eventEnd').value = minutesToTime(Math.min(endMin, TIMELINE_END * 60));
     document.getElementById('eventVenue').value = '';
     document.getElementById('eventDesc').value = '';
     document.getElementById('eventModalTitle').textContent = 'Lägg till händelse';
@@ -659,6 +672,24 @@
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
     }
+  });
+
+  // ── Auto end-time when type changes ──
+  document.getElementById('eventType').addEventListener('change', function() {
+    const cat = CONFIG.eventCategories[this.value];
+    if (!cat || !cat.defaultDuration) return;
+    const startVal = document.getElementById('eventStart').value;
+    if (!startVal) return;
+    const endMin = timeToMinutes(startVal) + cat.defaultDuration;
+    document.getElementById('eventEnd').value = minutesToTime(Math.min(endMin, TIMELINE_END * 60));
+  });
+
+  document.getElementById('eventStart').addEventListener('change', function() {
+    const type = document.getElementById('eventType').value;
+    const cat = CONFIG.eventCategories[type];
+    if (!cat || !cat.defaultDuration) return;
+    const endMin = timeToMinutes(this.value) + cat.defaultDuration;
+    document.getElementById('eventEnd').value = minutesToTime(Math.min(endMin, TIMELINE_END * 60));
   });
 
   // ── Export as self-contained HTML ──

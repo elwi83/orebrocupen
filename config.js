@@ -89,13 +89,13 @@ const CONFIG = {
   // Kategorier med useTeamColor: true färgas efter lagets färger.
   // Övriga har egna fasta färger.
   eventCategories: {
-    match:    { label: "Match",    useTeamColor: true },
-    assembly: { label: "Samling",  useTeamColor: true, dashed: true, opacity: 0.75 },
-    cheer:    { label: "Heja på",  useTeamCheerColor: true },
-    meal:     { label: "Mat",       color: "#f59e0b", lightBg: "#fef3c7", textColor: "#92400e" },
-    activity: { label: "Aktivitet", color: "#10b981", lightBg: "#d1fae5", textColor: "#065f46" },
-    travel:   { label: "Resa",      color: "#ef4444", lightBg: "#fee2e2", textColor: "#991b1b" },
-    other:    { label: "Övrigt",    color: "#9333ea", lightBg: "#faf5ff", textColor: "#7e22ce" }
+    match:    { label: "Match",    useTeamColor: true, defaultDuration: 40 },
+    assembly: { label: "Samling",  useTeamColor: true, dashed: true, opacity: 0.75, defaultDuration: 30 },
+    cheer:    { label: "Heja på",  useTeamCheerColor: true, defaultDuration: 40 },
+    meal:     { label: "Mat",       color: "#f59e0b", lightBg: "#fef3c7", textColor: "#92400e", defaultDuration: 60 },
+    activity: { label: "Aktivitet", color: "#10b981", lightBg: "#d1fae5", textColor: "#065f46", defaultDuration: 60 },
+    travel:   { label: "Resa",      color: "#ef4444", lightBg: "#fee2e2", textColor: "#991b1b", defaultDuration: 60 },
+    other:    { label: "Övrigt",    color: "#9333ea", lightBg: "#faf5ff", textColor: "#7e22ce", defaultDuration: 60 }
   }
 };
 

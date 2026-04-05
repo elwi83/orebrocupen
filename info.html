@@ -160,6 +160,25 @@
   .section.editing .editable-item input { border-color: #e2e8f0; background: #f8fafc; }
   .editable-item input:focus { border-color: #2563eb; outline: none; background: white; }
 
+  .editable-item .item-text {
+    flex: 1;
+    border: 1px solid transparent;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-height: 1.4em;
+    line-height: 1.4;
+  }
+  .item-text.bold { font-weight: 700; }
+  .item-text.important { color: #b91c1c; font-weight: 600; }
+  .section.editing .editable-item .item-text { border-color: #e2e8f0; background: #f8fafc; cursor: text; }
+  .editable-item .item-text:focus { border-color: #2563eb; background: white; }
+
   .editable-item .important-toggle {
     display: none;
     font-size: 0.7rem;
@@ -171,7 +190,7 @@
     color: #94a3b8;
     flex-shrink: 0;
   }
-  .editable-item .important-toggle.on { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+  .editable-item .important-toggle.on { background: #f0f9ff; color: #1e3a5f; border-color: #93c5fd; font-weight: 700; }
   .section.editing .editable-item .important-toggle { display: inline-block; }
 
   .address-edit-fields {
@@ -308,6 +327,10 @@
     return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  function escapeHtml(str) {
+    return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function loadData() {
     const saved = localStorage.getItem('orebrocup_info');
     try {
@@ -323,17 +346,20 @@
 
   function renderList(sectionKey) {
     const body = document.getElementById('body-' + sectionKey);
+    const section = document.getElementById('section-' + sectionKey);
+    const isEditing = section.classList.contains('editing');
     const items = infoData[sectionKey];
     let html = '<ul>';
     items.forEach((item, i) => {
       const cls = item.important ? ' class="important"' : '';
+      const textCls = 'item-text' + (item.bold ? ' bold' : '') + (item.important ? ' important' : '');
       html += `<li${cls}>
         <div class="editable-item">
-          <input type="text" value="${escapeAttr(item.text)}"
-            oninput="updateListItem('${sectionKey}',${i},'text',this.value)"
-            ${item.bold ? 'style="font-weight:700"' : ''}>
-          <button class="important-toggle ${item.important ? 'on' : ''}"
-            onclick="toggleImportant('${sectionKey}',${i})" title="Markera som viktig">!</button>
+          <span class="${textCls}" contenteditable="${isEditing}"
+            oninput="updateListItem('${sectionKey}',${i},'text',this.textContent)"
+            onkeydown="if(event.key==='Enter'){event.preventDefault()}">${escapeHtml(item.text)}</span>
+          <button class="important-toggle ${item.bold ? 'on' : ''}"
+            onclick="toggleBold('${sectionKey}',${i})" title="Fetstil">B</button>
           <button class="btn-delete-item" onclick="deleteListItem('${sectionKey}',${i})" aria-label="Ta bort rad">×</button>
         </div>
       </li>`;
@@ -402,13 +428,17 @@
     const section = document.getElementById('section-' + sectionKey);
     const btn = section.querySelector('.btn-edit-section');
     section.classList.toggle('editing');
-    if (section.classList.contains('editing')) {
+    const isEditing = section.classList.contains('editing');
+    if (isEditing) {
       btn.textContent = 'Klar';
       btn.classList.add('active');
     } else {
       btn.textContent = 'Ändra';
       btn.classList.remove('active');
     }
+    section.querySelectorAll('.item-text').forEach(el => {
+      el.contentEditable = isEditing;
+    });
   }
 
   let saveTimer = null;
@@ -427,7 +457,7 @@
   }
 
   function updateListItem(section, index, field, value) { infoData[section][index][field] = value; triggerSave(); }
-  function toggleImportant(section, index) { infoData[section][index].important = !infoData[section][index].important; triggerSave(); renderList(section); }
+  function toggleBold(section, index) { infoData[section][index].bold = !infoData[section][index].bold; triggerSave(); renderList(section); }
   function addListItem(section) { infoData[section].push({ text: '', bold: false, important: false }); triggerSave(); renderList(section); }
   function deleteListItem(section, index) { if (!confirm('Vill du ta bort denna rad?')) return; infoData[section].splice(index, 1); triggerSave(); renderList(section); }
   function updateAddress(index, field, value) { infoData.adresser[index][field] = value; triggerSave(); }

@@ -3,65 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Övrig info — Örebrocupen 2026</title>
+<title>Övrig info</title>
+<script src="config.js"></script>
+<link rel="stylesheet" href="styles.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f8fafc;
-    color: #1e293b;
-    line-height: 1.6;
-  }
-
-  header {
-    background: linear-gradient(135deg, #0f1d45, #1a2a5e);
-    color: white;
-    padding: 1.25rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .header-logo {
-    width: 55px;
-    height: auto;
-    flex-shrink: 0;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-  .header-text { text-align: left; }
-  header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
-  header p { opacity: 0.85; font-size: 0.95rem; }
-
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0.75rem 2rem;
-    background: white;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  nav a {
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #0f1d45;
-    background: #d6dce8;
-    transition: all 0.15s;
-  }
-  nav a:hover { background: #bcc5d6; }
-  nav a.active { background: #0f1d45; color: white; }
-
   .container {
     max-width: 800px;
     margin: 1.5rem auto;
     padding: 0 1rem 3rem;
   }
-
   .section {
     background: white;
     border-radius: 12px;
@@ -70,7 +20,6 @@
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
-
   .section-header {
     padding: 0.75rem 1.25rem;
     font-weight: 700;
@@ -80,24 +29,16 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    justify-content: space-between;
   }
-
-  .section-body {
-    padding: 1rem 1.25rem;
-  }
-
-  .section-body ul {
-    list-style: none;
-    padding: 0;
-  }
-
+  .section-body { padding: 1rem 1.25rem; }
+  .section-body ul { list-style: none; padding: 0; }
   .section-body ul li {
     padding: 0.35rem 0;
     padding-left: 1.25rem;
     position: relative;
     font-size: 0.92rem;
   }
-
   .section-body ul li::before {
     content: '•';
     position: absolute;
@@ -105,51 +46,26 @@
     color: #0f1d45;
     font-weight: 700;
   }
-
-  .section-body ul li.important {
-    font-weight: 600;
-    color: #b91c1c;
-  }
+  .section-body ul li.important { font-weight: 600; color: #b91c1c; }
 
   .address-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 0.75rem;
   }
-
   .address-card {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 0.75rem 1rem;
   }
-  .address-card strong {
-    display: block;
-    font-size: 0.95rem;
-    color: #0f1d45;
-    margin-bottom: 0.15rem;
-  }
-  .address-card span {
-    font-size: 0.85rem;
-    color: #64748b;
-  }
-  .address-card a {
-    display: inline-block;
-    margin-top: 0.35rem;
-    font-size: 0.8rem;
-    color: #2563eb;
-    text-decoration: none;
-  }
+  .address-card strong { display: block; font-size: 0.95rem; color: #0f1d45; margin-bottom: 0.15rem; }
+  .address-card span { font-size: 0.85rem; color: #64748b; }
+  .address-card a { display: inline-block; margin-top: 0.35rem; font-size: 0.8rem; color: #2563eb; text-decoration: none; }
   .address-card a:hover { text-decoration: underline; }
 
-  .packlist {
-    columns: 2;
-    column-gap: 2rem;
-  }
-  .packlist-group {
-    break-inside: avoid;
-    margin-bottom: 1rem;
-  }
+  .packlist { columns: 2; column-gap: 2rem; }
+  .packlist-group { break-inside: avoid; margin-bottom: 1rem; }
   .packlist-group h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -159,45 +75,158 @@
     padding-bottom: 0.25rem;
     margin-bottom: 0.4rem;
   }
-  .packlist-group ul {
-    list-style: none;
-    padding: 0;
-  }
+  .packlist-group ul { list-style: none; padding: 0; }
   .packlist-group ul li {
     padding: 0.2rem 0;
     padding-left: 1.25rem;
     position: relative;
     font-size: 0.88rem;
   }
-  .packlist-group ul li::before {
-    content: '☐';
-    position: absolute;
-    left: 0;
-    color: #94a3b8;
-  }
+  .packlist-group ul li::before { content: '☐'; position: absolute; left: 0; color: #94a3b8; }
 
   @media (max-width: 600px) {
     .packlist { columns: 1; }
     .address-grid { grid-template-columns: 1fr; }
-    header h1 { font-size: 1.2rem; }
   }
-
   @media print {
-    body { background: white; font-size: 11px; }
-    header { padding: 0.75rem; background: #0f1d45 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    nav { display: none !important; }
     .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .section { break-inside: avoid; }
+    .btn-edit-section, .btn-add-item, .btn-delete-item, .btn-add-group { display: none !important; }
+  }
+
+  /* Edit mode */
+  .btn-edit-section {
+    padding: 0.25rem 0.6rem;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .btn-edit-section:hover { background: rgba(255,255,255,0.3); }
+  .btn-edit-section.active { background: rgba(255,255,255,0.4); }
+
+  .btn-add-item, .btn-add-group {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.65rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+  .btn-add-item { background: #10b981; }
+  .btn-add-item:hover { background: #059669; }
+  .btn-add-group { background: #2563eb; margin-top: 0.75rem; }
+  .btn-add-group:hover { background: #1d4ed8; }
+
+  .btn-delete-item, .btn-delete-group {
+    display: none;
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0 0.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .btn-delete-item:hover, .btn-delete-group:hover { color: #dc2626; }
+  .btn-delete-group { font-size: 0.8rem; padding: 0.15rem 0.3rem; }
+
+  .section.editing .btn-add-item,
+  .section.editing .btn-add-group,
+  .section.editing .btn-delete-item,
+  .section.editing .btn-delete-group { display: inline-block; }
+
+  .editable-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .editable-item input {
+    flex: 1;
+    border: 1px solid transparent;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    border-radius: 4px;
+    background: transparent;
+  }
+  .section.editing .editable-item input { border-color: #e2e8f0; background: #f8fafc; }
+  .editable-item input:focus { border-color: #2563eb; outline: none; background: white; }
+
+  .editable-item .important-toggle {
+    display: none;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.35rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+    color: #94a3b8;
+    flex-shrink: 0;
+  }
+  .editable-item .important-toggle.on { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+  .section.editing .editable-item .important-toggle { display: inline-block; }
+
+  .address-edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+  .address-edit-fields input {
+    border: 1px solid transparent;
+    padding: 0.2rem 0.4rem;
+    font-family: inherit;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 0.85rem;
+  }
+  .section.editing .address-edit-fields input { border-color: #e2e8f0; background: #f8fafc; }
+  .address-edit-fields input:focus { border-color: #2563eb; outline: none; background: white; }
+
+  .packlist-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .packlist-group-header input {
+    border: 1px solid transparent;
+    padding: 0.15rem 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #0f1d45;
+    font-family: inherit;
+    border-radius: 4px;
+    background: transparent;
+    flex: 1;
+  }
+  .section.editing .packlist-group-header input { border-color: #e2e8f0; background: #f8fafc; }
+  .packlist-group-header input:focus { border-color: #2563eb; outline: none; background: white; }
+
+  .save-status-info {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #10b981;
+    padding: 0.5rem;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="Segeltorps IF" class="header-logo">
+  <img src="" alt="" class="header-logo" id="headerLogo">
   <div class="header-text">
-    <h1>Örebrocupen 2026 — Segeltorps P15</h1>
-    <p>17–19 april 2026 • Örebro</p>
+    <h1 id="headerTitle"></h1>
+    <p id="headerSubtitle"></p>
   </div>
 </header>
 
@@ -208,122 +237,263 @@
 </nav>
 
 <div class="container">
-
-  <!-- Boende -->
-  <div class="section">
-    <div class="section-header">🏠 Boende</div>
-    <div class="section-body">
-      <ul>
-        <li><strong>Vi bor på Almbyskolan</strong></li>
-        <li>Incheckning tidigast kl 19:00</li>
-        <li>Max 90 cm madrass</li>
-        <li>Boendevärdar på plats hela tiden</li>
-        <li>Ingen alkohol</li>
-        <li>Under de flesta cuper så tillåts ingen person utan deltagararmband in på skolorna — gäller även personer som vill hjälpa till att bära packning</li>
-        <li>Vi ska städa boendet innan avfärd — städutrustning finns på plats</li>
-        <li class="important">Senaste utcheckning kl 14:00</li>
-      </ul>
-    </div>
+  <div class="section" id="section-boende">
+    <div class="section-header">🏠 Boende <button class="btn-edit-section" onclick="toggleEditSection('boende')">Ändra</button></div>
+    <div class="section-body" id="body-boende"></div>
   </div>
-
-  <!-- Adresser -->
-  <div class="section">
-    <div class="section-header">📍 Adresser</div>
-    <div class="section-body">
-      <div class="address-grid">
-        <div class="address-card">
-          <strong>Almbyskolan</strong>
-          <span>Kyrkoherdegatan 7, Örebro</span>
-          <a href="https://maps.google.com/?q=Kyrkoherdegatan+7+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
-        </div>
-        <div class="address-card">
-          <strong>Tegelbruket</strong>
-          <span>Lertagsgatan 1, Örebro</span>
-          <a href="https://maps.google.com/?q=Lertagsgatan+1+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
-        </div>
-        <div class="address-card">
-          <strong>Tullängsgymnasiet</strong>
-          <span>Tullängsgatan 7, Örebro</span>
-          <a href="https://maps.google.com/?q=Tull%C3%A4ngsgatan+7+%C3%96rebro" target="_blank" rel="noopener">Visa på karta →</a>
-        </div>
-      </div>
-    </div>
+  <div class="section" id="section-adresser">
+    <div class="section-header">📍 Adresser <button class="btn-edit-section" onclick="toggleEditSection('adresser')">Ändra</button></div>
+    <div class="section-body" id="body-adresser"></div>
   </div>
-
-  <!-- Förhållningsregler -->
-  <div class="section">
-    <div class="section-header">🤝 Förhållningsregler</div>
-    <div class="section-body">
-      <ul>
-        <li><strong>Vi ska ha roligt och hålla ihop som ett lag</strong> — även mellan matcherna!</li>
-        <li>Vi äter tillsammans</li>
-        <li>Vi undviker mobiltelefoner</li>
-        <li>Vi har en god ton mot domare, kompisar, motståndare och tränare!</li>
-        <li>Ju fler av ditt barns saker som är märkta med namn, desto större sannolikhet att vi får med grejerna hem</li>
-      </ul>
-    </div>
+  <div class="section" id="section-regler">
+    <div class="section-header">🤝 Förhållningsregler <button class="btn-edit-section" onclick="toggleEditSection('regler')">Ändra</button></div>
+    <div class="section-body" id="body-regler"></div>
   </div>
-
-  <!-- Packlista -->
-  <div class="section">
-    <div class="section-header">🎒 Packlista</div>
-    <div class="section-body">
-      <div class="packlist">
-        <div class="packlist-group">
-          <h3>Matchkläder</h3>
-          <ul>
-            <li>Segeltorp matchtröja</li>
-            <li>Vita shorts</li>
-            <li>Vita strumpor (gärna två par)</li>
-            <li>Inneskor</li>
-            <li>Innebandyklubba</li>
-            <li>Glasögon</li>
-            <li>Vattenflaska med namn på!</li>
-            <li>Överdragsbyxor och överdragströja</li>
-          </ul>
-        </div>
-        <div class="packlist-group">
-          <h3>Kläder</h3>
-          <ul>
-            <li>Vanliga kläder</li>
-            <li>Extra underkläder</li>
-            <li>Extra strumpor</li>
-            <li>Pyjamas / nattkläder</li>
-            <li>Lämpliga ytterkläder efter väder</li>
-            <li>Skor för utomhusbruk</li>
-          </ul>
-        </div>
-        <div class="packlist-group">
-          <h3>Hygien</h3>
-          <ul>
-            <li>Handduk</li>
-            <li>Tandborste och tandkräm</li>
-            <li>Tvål / schampo / deodorant</li>
-          </ul>
-        </div>
-        <div class="packlist-group">
-          <h3>Sovande</h3>
-          <ul>
-            <li>Madrass — max 90 cm</li>
-            <li>Sovsäck</li>
-            <li>Kudde</li>
-          </ul>
-        </div>
-        <div class="packlist-group">
-          <h3>Övrigt</h3>
-          <ul>
-            <li>Ryggsäck</li>
-            <li>Tofflor (bra på boendet / mellan matcher)</li>
-            <li>Klädhängare / galge (märkt med namn)</li>
-            <li>Ev. snacks / mellis (ej kylskåpskrävande)</li>
-            <li>Pengar för snacks / drycker / souvenirer</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="section" id="section-packlista">
+    <div class="section-header">🎒 Packlista <button class="btn-edit-section" onclick="toggleEditSection('packlista')">Ändra</button></div>
+    <div class="section-body" id="body-packlista"></div>
   </div>
-
 </div>
+
+<div class="save-status-info" id="saveStatus">✓ Sparas automatiskt</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+  // ── Apply config ──
+  document.title = getPageTitle('Övrig info');
+  document.getElementById('headerLogo').src = CONFIG.logo;
+  document.getElementById('headerLogo').alt = CONFIG.clubName;
+  document.getElementById('headerTitle').textContent = getHeaderTitle();
+  document.getElementById('headerSubtitle').textContent = CONFIG.subtitle;
+
+  const DEFAULT_DATA = {
+    boende: [
+      { text: "Vi bor på Almbyskolan", bold: true, important: false },
+      { text: "Incheckning tidigast kl 19:00", bold: false, important: false },
+      { text: "Max 90 cm madrass", bold: false, important: false },
+      { text: "Boendevärdar på plats hela tiden", bold: false, important: false },
+      { text: "Ingen alkohol", bold: false, important: false },
+      { text: "Under de flesta cuper så tillåts ingen person utan deltagararmband in på skolorna — gäller även personer som vill hjälpa till att bära packning", bold: false, important: false },
+      { text: "Vi ska städa boendet innan avfärd — städutrustning finns på plats", bold: false, important: false },
+      { text: "Senaste utcheckning kl 14:00", bold: false, important: true }
+    ],
+    adresser: [
+      { name: "Almbyskolan", address: "Kyrkoherdegatan 7, Örebro", mapUrl: "https://maps.google.com/?q=Kyrkoherdegatan+7+%C3%96rebro" },
+      { name: "Tegelbruket", address: "Lertagsgatan 1, Örebro", mapUrl: "https://maps.google.com/?q=Lertagsgatan+1+%C3%96rebro" },
+      { name: "Tullängsgymnasiet", address: "Tullängsgatan 7, Örebro", mapUrl: "https://maps.google.com/?q=Tull%C3%A4ngsgatan+7+%C3%96rebro" }
+    ],
+    regler: [
+      { text: "Vi ska ha roligt och hålla ihop som ett lag — även mellan matcherna!", bold: true, important: false },
+      { text: "Vi äter tillsammans", bold: false, important: false },
+      { text: "Vi undviker mobiltelefoner", bold: false, important: false },
+      { text: "Vi har en god ton mot domare, kompisar, motståndare och tränare!", bold: false, important: false },
+      { text: "Ju fler av ditt barns saker som är märkta med namn, desto större sannolikhet att vi får med grejerna hem", bold: false, important: false }
+    ],
+    packlista: [
+      { group: "Matchkläder", items: ["Segeltorp matchtröja", "Vita shorts", "Vita strumpor (gärna två par)", "Inneskor", "Innebandyklubba", "Glasögon", "Vattenflaska med namn på!", "Överdragsbyxor och överdragströja"] },
+      { group: "Kläder", items: ["Vanliga kläder", "Extra underkläder", "Extra strumpor", "Pyjamas / nattkläder", "Lämpliga ytterkläder efter väder", "Skor för utomhusbruk"] },
+      { group: "Hygien", items: ["Handduk", "Tandborste och tandkräm", "Tvål / schampo / deodorant"] },
+      { group: "Sovande", items: ["Madrass — max 90 cm", "Sovsäck", "Kudde"] },
+      { group: "Övrigt", items: ["Ryggsäck", "Tofflor (bra på boendet / mellan matcher)", "Klädhängare / galge (märkt med namn)", "Ev. snacks / mellis (ej kylskåpskrävande)", "Pengar för snacks / drycker / souvenirer"] }
+    ]
+  };
+
+  let infoData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  let firebaseApp = null;
+  let infoRef = null;
+  let lastSyncTime = 0;
+
+  function escapeAttr(str) {
+    return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function loadData() {
+    const saved = localStorage.getItem('orebrocup_info');
+    try {
+      if (saved) infoData = JSON.parse(saved);
+    } catch {
+      infoData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+  }
+
+  function saveLocal() {
+    localStorage.setItem('orebrocup_info', JSON.stringify(infoData));
+  }
+
+  function renderList(sectionKey) {
+    const body = document.getElementById('body-' + sectionKey);
+    const items = infoData[sectionKey];
+    let html = '<ul>';
+    items.forEach((item, i) => {
+      const cls = item.important ? ' class="important"' : '';
+      html += `<li${cls}>
+        <div class="editable-item">
+          <input type="text" value="${escapeAttr(item.text)}"
+            oninput="updateListItem('${sectionKey}',${i},'text',this.value)"
+            ${item.bold ? 'style="font-weight:700"' : ''}>
+          <button class="important-toggle ${item.important ? 'on' : ''}"
+            onclick="toggleImportant('${sectionKey}',${i})" title="Markera som viktig">!</button>
+          <button class="btn-delete-item" onclick="deleteListItem('${sectionKey}',${i})" aria-label="Ta bort rad">×</button>
+        </div>
+      </li>`;
+    });
+    html += '</ul>';
+    html += `<button class="btn-add-item" onclick="addListItem('${sectionKey}')">+ Lägg till</button>`;
+    body.innerHTML = html;
+  }
+
+  function renderAdresser() {
+    const body = document.getElementById('body-adresser');
+    let html = '<div class="address-grid">';
+    infoData.adresser.forEach((addr, i) => {
+      html += `<div class="address-card">
+        <div class="editable-item" style="margin-bottom:0.25rem">
+          <div class="address-edit-fields">
+            <input type="text" value="${escapeAttr(addr.name)}" oninput="updateAddress(${i},'name',this.value)" placeholder="Namn" style="font-weight:700;color:#0f1d45;font-size:0.95rem">
+            <input type="text" value="${escapeAttr(addr.address)}" oninput="updateAddress(${i},'address',this.value)" placeholder="Adress" style="color:#64748b">
+            <input type="text" value="${escapeAttr(addr.mapUrl)}" oninput="updateAddress(${i},'mapUrl',this.value)" placeholder="Google Maps URL" style="color:#2563eb;font-size:0.8rem">
+          </div>
+          <button class="btn-delete-item" onclick="deleteAddress(${i})" aria-label="Ta bort adress" style="align-self:flex-start">×</button>
+        </div>
+        <a href="${escapeAttr(addr.mapUrl)}" target="_blank" rel="noopener">Visa på karta →</a>
+      </div>`;
+    });
+    html += '</div>';
+    html += `<button class="btn-add-item" onclick="addAddress()">+ Lägg till adress</button>`;
+    body.innerHTML = html;
+  }
+
+  function renderPacklista() {
+    const body = document.getElementById('body-packlista');
+    let html = '<div class="packlist">';
+    infoData.packlista.forEach((group, gi) => {
+      html += `<div class="packlist-group">
+        <div class="packlist-group-header">
+          <input type="text" value="${escapeAttr(group.group)}" oninput="updateGroupName(${gi},this.value)">
+          <button class="btn-delete-group" onclick="deleteGroup(${gi})" aria-label="Ta bort grupp">×</button>
+        </div>
+        <ul>`;
+      group.items.forEach((item, ii) => {
+        html += `<li>
+          <div class="editable-item">
+            <input type="text" value="${escapeAttr(item)}" oninput="updatePackItem(${gi},${ii},this.value)">
+            <button class="btn-delete-item" onclick="deletePackItem(${gi},${ii})" aria-label="Ta bort">×</button>
+          </div>
+        </li>`;
+      });
+      html += `</ul>
+        <button class="btn-add-item" onclick="addPackItem(${gi})">+ Lägg till</button>
+      </div>`;
+    });
+    html += '</div>';
+    html += `<button class="btn-add-group" onclick="addGroup()">+ Lägg till grupp</button>`;
+    body.innerHTML = html;
+  }
+
+  function render() {
+    renderList('boende');
+    renderList('regler');
+    renderAdresser();
+    renderPacklista();
+  }
+
+  function toggleEditSection(sectionKey) {
+    const section = document.getElementById('section-' + sectionKey);
+    const btn = section.querySelector('.btn-edit-section');
+    section.classList.toggle('editing');
+    if (section.classList.contains('editing')) {
+      btn.textContent = 'Klar';
+      btn.classList.add('active');
+    } else {
+      btn.textContent = 'Ändra';
+      btn.classList.remove('active');
+    }
+  }
+
+  let saveTimer = null;
+  function triggerSave() {
+    saveLocal();
+    const status = document.getElementById('saveStatus');
+    status.textContent = 'Sparar...';
+    status.style.color = '#f59e0b';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      syncToFirebase();
+      status.textContent = '✓ Sparat';
+      status.style.color = '#10b981';
+      setTimeout(() => { status.textContent = '✓ Sparas automatiskt'; status.style.color = '#10b981'; }, 2000);
+    }, 500);
+  }
+
+  function updateListItem(section, index, field, value) { infoData[section][index][field] = value; triggerSave(); }
+  function toggleImportant(section, index) { infoData[section][index].important = !infoData[section][index].important; triggerSave(); renderList(section); }
+  function addListItem(section) { infoData[section].push({ text: '', bold: false, important: false }); triggerSave(); renderList(section); }
+  function deleteListItem(section, index) { if (!confirm('Vill du ta bort denna rad?')) return; infoData[section].splice(index, 1); triggerSave(); renderList(section); }
+  function updateAddress(index, field, value) { infoData.adresser[index][field] = value; triggerSave(); }
+  function addAddress() { infoData.adresser.push({ name: '', address: '', mapUrl: '' }); triggerSave(); renderAdresser(); }
+  function deleteAddress(index) { if (!confirm('Vill du ta bort denna adress?')) return; infoData.adresser.splice(index, 1); triggerSave(); renderAdresser(); }
+  function updateGroupName(gi, value) { infoData.packlista[gi].group = value; triggerSave(); }
+  function updatePackItem(gi, ii, value) { infoData.packlista[gi].items[ii] = value; triggerSave(); }
+  function addPackItem(gi) { infoData.packlista[gi].items.push(''); triggerSave(); renderPacklista(); }
+  function deletePackItem(gi, ii) { if (!confirm('Vill du ta bort denna rad?')) return; infoData.packlista[gi].items.splice(ii, 1); triggerSave(); renderPacklista(); }
+  function addGroup() { infoData.packlista.push({ group: '', items: [''] }); triggerSave(); renderPacklista(); }
+  function deleteGroup(gi) { if (!confirm('Vill du ta bort hela gruppen "' + infoData.packlista[gi].group + '"?')) return; infoData.packlista.splice(gi, 1); triggerSave(); renderPacklista(); }
+
+  // ── Firebase sync ──
+  async function connectFirebase() {
+    try {
+      firebaseApp = firebase.initializeApp(CONFIG.firebase);
+      const db = firebase.database();
+      infoRef = db.ref('rooms/' + CONFIG.roomName + '/info');
+
+      const snapshot = await infoRef.once('value');
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        if (data.boende) infoData.boende = data.boende;
+        if (data.adresser) infoData.adresser = data.adresser;
+        if (data.regler) infoData.regler = data.regler;
+        if (data.packlista) infoData.packlista = data.packlista;
+        saveLocal();
+        render();
+      } else {
+        await infoRef.set(infoData);
+      }
+
+      infoRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+        if (data._lastUpdated && Math.abs(data._lastUpdated - lastSyncTime) < 2000) return;
+        if (data.boende) infoData.boende = data.boende;
+        if (data.adresser) infoData.adresser = data.adresser;
+        if (data.regler) infoData.regler = data.regler;
+        if (data.packlista) infoData.packlista = data.packlista;
+        saveLocal();
+        render();
+      });
+    } catch {
+      // Firebase not available, work offline
+    }
+  }
+
+  function syncToFirebase() {
+    if (infoRef) {
+      lastSyncTime = Date.now();
+      infoRef.set({ ...infoData, _lastUpdated: lastSyncTime })
+        .catch((err) => {
+          console.error('Firebase sync failed:', err);
+          const status = document.getElementById('saveStatus');
+          status.textContent = '✗ Synk misslyckades';
+          status.style.color = '#ef4444';
+        });
+    }
+  }
+
+  // ── Init ──
+  loadData();
+  render();
+  connectFirebase();
+</script>
 
 </body>
 </html>

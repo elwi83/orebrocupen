@@ -3,71 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laguppställning — Örebrocupen 2026</title>
+<title>Laguppställning</title>
+<script src="config.js"></script>
+<link rel="stylesheet" href="styles.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f8fafc;
-    color: #1e293b;
-    line-height: 1.5;
-  }
-
-  header {
-    background: linear-gradient(135deg, #0f1d45, #1a2a5e);
-    color: white;
-    padding: 1.25rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .header-logo {
-    width: 55px;
-    height: auto;
-    flex-shrink: 0;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-  .header-text { text-align: left; }
-  header h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
-  header p { opacity: 0.85; font-size: 0.95rem; }
-
-  nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0.75rem 2rem;
-    background: white;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  nav a {
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #0f1d45;
-    background: #d6dce8;
-    transition: all 0.15s;
-  }
-  nav a:hover { background: #bcc5d6; }
-  nav a.active { background: #0f1d45; color: white; }
-
   .container {
     max-width: 1200px;
     margin: 1.5rem auto;
     padding: 0 1rem;
   }
-
   .teams {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-
   .team-card {
     background: white;
     border-radius: 12px;
@@ -80,46 +29,29 @@
     font-weight: 700;
     font-size: 1.1rem;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .team-blue .team-card-header { background: #0f1d45; }
-  .team-white .team-card-header { background: #d6dce8; color: #0f1d45; }
-
   .team-card-body { padding: 0.75rem 1rem; }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-  }
-  th {
-    text-align: left;
-    padding: 0.4rem 0.5rem;
-    border-bottom: 2px solid #e2e8f0;
-    color: #64748b;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-  td {
-    padding: 0.4rem 0.5rem;
-    border-bottom: 1px solid #f1f5f9;
-  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 2px solid #e2e8f0; font-weight: 600; color: #475569; font-size: 0.8rem; }
+  td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; }
   tr:last-child td { border-bottom: none; }
 
   .btn-edit-mode {
-    margin-top: 0.5rem;
-    padding: 0.35rem 0.75rem;
-    background: #6b7280;
+    padding: 0.25rem 0.6rem;
+    background: rgba(255,255,255,0.2);
     color: white;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
   }
-  .btn-edit-mode:hover { background: #4b5563; }
-  .btn-edit-mode.active { background: #0f1d45; }
-  .btn-edit-mode.active:hover { background: #1a2d5c; }
+  .btn-edit-mode:hover { background: rgba(255,255,255,0.3); }
+  .btn-edit-mode.active { background: rgba(255,255,255,0.4); }
 
   .btn-add-row {
     margin-top: 0.5rem;
@@ -150,8 +82,6 @@
   .team-card.editing .btn-add-row { display: inline-block; }
   .team-card.editing .btn-delete-row { display: inline-block; }
 
-
-
   td input {
     width: 100%;
     border: 1px solid transparent;
@@ -176,17 +106,6 @@
     border-bottom: 1px solid #e2e8f0;
     flex-wrap: wrap;
   }
-  .toolbar-roster button {
-    padding: 0.5rem 1.25rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
-  .btn-save-roster { background: #2563eb; color: white; }
-  .btn-save-roster:hover { background: #1d4ed8; }
 
   .save-status {
     font-size: 0.8rem;
@@ -196,15 +115,19 @@
     gap: 0.25rem;
   }
 
+  .empty-state {
+    text-align: center;
+    color: #94a3b8;
+    padding: 1rem;
+    font-style: italic;
+  }
+
   @media (max-width: 768px) {
     .teams { grid-template-columns: 1fr; }
-    header h1 { font-size: 1.2rem; }
   }
 
   @media print {
-    body { background: white; font-size: 11px; }
-    header { padding: 0.75rem; background: #1e40af !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    nav, .toolbar-roster { display: none !important; }
+    .toolbar-roster { display: none !important; }
     .btn-add-row, .btn-delete-row, .btn-edit-mode { display: none !important; }
     td input { border: none; padding: 0; }
     .team-card-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -214,10 +137,10 @@
 <body>
 
 <header>
-  <img src="logo.png" alt="Segeltorps IF" class="header-logo">
+  <img src="" alt="" class="header-logo" id="headerLogo">
   <div class="header-text">
-    <h1>Örebrocupen 2026 — Segeltorps P15</h1>
-    <p>17–19 april 2026 • Örebro</p>
+    <h1 id="headerTitle"></h1>
+    <p id="headerSubtitle"></p>
   </div>
 </header>
 
@@ -232,118 +155,139 @@
 </div>
 
 <div class="container">
-  <div class="teams">
-    <div class="team-card team-blue">
-      <div class="team-card-header">Lag Blå</div>
-      <div class="team-card-body">
-        <table id="table-blue">
-          <thead>
-            <tr>
-              <th>Spelare</th>
-              <th>Förälder sover med laget</th>
-              <th>Åker med</th>
-              <th>Kommentar</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-blue"></tbody>
-        </table>
-        <button class="btn-edit-mode" onclick="toggleEdit('blue')" id="btn-edit-blue">Ändra</button>
-        <button class="btn-add-row" onclick="addRow('blue')">+ Lägg till rad</button>
-      </div>
-    </div>
-
-    <div class="team-card team-white">
-      <div class="team-card-header">Lag Vit</div>
-      <div class="team-card-body">
-        <table id="table-white">
-          <thead>
-            <tr>
-              <th>Spelare</th>
-              <th>Förälder sover med laget</th>
-              <th>Åker med</th>
-              <th>Kommentar</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-white"></tbody>
-        </table>
-        <button class="btn-edit-mode" onclick="toggleEdit('white')" id="btn-edit-white">Ändra</button>
-        <button class="btn-add-row" onclick="addRow('white')">+ Lägg till rad</button>
-      </div>
-    </div>
-  </div>
+  <div class="teams" id="teamsContainer"></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <script>
-  const SAVED_FIREBASE_CONFIG = {
-    "apiKey": "AIzaSyB3i97Uls9GZkuP3bxHKwZLfqWWqKGIPuU",
-    "authDomain": "orebrocupen-2026.firebaseapp.com",
-    "databaseURL": "https://orebrocupen-2026-default-rtdb.europe-west1.firebasedatabase.app",
-    "projectId": "orebrocupen-2026",
-    "storageBucket": "orebrocupen-2026.firebasestorage.app",
-    "messagingSenderId": "953715494179",
-    "appId": "1:953715494179:web:32c96d70ea7c8c215d1096",
-    "measurementId": "G-6HM3BFTH3J"
-  };
-  const SAVED_ROOM_NAME = "segeltorps-cup-2026";
+  // ── Apply config ──
+  document.title = getPageTitle('Laguppställning');
+  document.getElementById('headerLogo').src = CONFIG.logo;
+  document.getElementById('headerLogo').alt = CONFIG.clubName;
+  document.getElementById('headerTitle').textContent = getHeaderTitle();
+  document.getElementById('headerSubtitle').textContent = CONFIG.subtitle;
 
-  let roster = {
-    blue: [],
-    white: []
-  };
+  // ── Build team cards dynamically ──
+  const teamsContainer = document.getElementById('teamsContainer');
+  const teamStyles = document.createElement('style');
+  let teamCss = '';
+
+  CONFIG.teams.forEach((team, idx) => {
+    // First team gets navy bg, others get light grey bg with navy text
+    const isFirst = idx === 0;
+    const headerBg = isFirst ? '#0f1d45' : '#d6dce8';
+    const headerColor = isFirst ? 'white' : '#0f1d45';
+    teamCss += `.team-${team.id} .team-card-header { background: ${headerBg}; color: ${headerColor}; }\n`;
+    teamCss += `.team-${team.id} .btn-edit-mode { color: ${headerColor}; border-color: ${isFirst ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.15)'}; }\n`;
+
+    const card = document.createElement('div');
+    card.className = `team-card team-${team.id}`;
+    card.innerHTML = `
+      <div class="team-card-header">
+        ${escapeHtml(team.name)}
+        <button class="btn-edit-mode" onclick="toggleEdit('${team.id}')" id="btn-edit-${team.id}">Ändra</button>
+      </div>
+      <div class="team-card-body">
+        <table id="table-${team.id}">
+          <thead>
+            <tr>
+              <th>Spelare</th>
+              <th>Förälder sover med laget</th>
+              <th>Åker med</th>
+              <th>Kommentar</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-${team.id}"></tbody>
+        </table>
+        <button class="btn-add-row" onclick="addRow('${team.id}')">+ Lägg till rad</button>
+      </div>
+    `;
+    teamsContainer.appendChild(card);
+  });
+  teamStyles.textContent = teamCss;
+  document.head.appendChild(teamStyles);
+
+  // ── State ──
+  let roster = {};
+  CONFIG.teams.forEach(t => { roster[t.id] = []; });
 
   let firebaseApp = null;
   let rosterRef = null;
   let lastSyncTime = 0;
 
+  function escapeHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function escapeAttr(str) {
+    return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function loadRoster() {
     const saved = localStorage.getItem('orebrocup_roster');
-    if (saved) roster = JSON.parse(saved);
+    try {
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        CONFIG.teams.forEach(t => {
+          roster[t.id] = parsed[t.id] || [];
+        });
+      }
+    } catch {
+      CONFIG.teams.forEach(t => { roster[t.id] = []; });
+    }
   }
 
   function saveRosterLocal() {
     localStorage.setItem('orebrocup_roster', JSON.stringify(roster));
   }
 
-  function renderTeam(team) {
-    const tbody = document.getElementById('tbody-' + team);
+  function renderTeam(teamId) {
+    const tbody = document.getElementById('tbody-' + teamId);
     tbody.innerHTML = '';
-    roster[team].forEach((player, i) => {
+    if (!roster[teamId] || roster[teamId].length === 0) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="5" class="empty-state">Inga spelare ännu — klicka "Ändra" för att lägga till</td>';
+      tbody.appendChild(tr);
+      return;
+    }
+    roster[teamId].forEach((player, i) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td><input type="text" value="${escapeAttr(player.name)}" oninput="autoSave('${team}',${i},'name',this.value)" placeholder="Namn"></td>
-        <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${team}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
-        <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${team}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
-        <td><input type="text" value="${escapeAttr(player.comment)}" oninput="autoSave('${team}',${i},'comment',this.value)" placeholder="Kommentar"></td>
-        <td><button class="btn-delete-row" onclick="removeRow('${team}',${i})" title="Ta bort">×</button></td>
+        <td><input type="text" value="${escapeAttr(player.name)}" oninput="autoSave('${teamId}',${i},'name',this.value)" placeholder="Namn"></td>
+        <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${teamId}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
+        <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${teamId}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
+        <td><input type="text" value="${escapeAttr(player.comment)}" oninput="autoSave('${teamId}',${i},'comment',this.value)" placeholder="Kommentar"></td>
+        <td><button class="btn-delete-row" onclick="removeRow('${teamId}',${i})" title="Ta bort" aria-label="Ta bort spelare">×</button></td>
       `;
       tbody.appendChild(tr);
     });
   }
 
   function render() {
-    renderTeam('blue');
-    renderTeam('white');
+    CONFIG.teams.forEach(t => renderTeam(t.id));
   }
 
-  function addRow(team) {
-    roster[team].push({ name: '', parent: '', ridesWith: '', comment: '' });
+  function addRow(teamId) {
+    roster[teamId].push({ name: '', parent: '', ridesWith: '', comment: '' });
     saveRosterLocal();
     syncToFirebase();
     render();
   }
 
-  function removeRow(team, index) {
-    roster[team].splice(index, 1);
+  function removeRow(teamId, index) {
+    if (!confirm('Vill du ta bort denna spelare?')) return;
+    roster[teamId].splice(index, 1);
     saveRosterLocal();
     syncToFirebase();
     render();
   }
 
-  function toggleEdit(team) {
-    const card = document.querySelector('.team-' + team);
-    const btn = document.getElementById('btn-edit-' + team);
+  function toggleEdit(teamId) {
+    const card = document.querySelector('.team-' + teamId);
+    const btn = document.getElementById('btn-edit-' + teamId);
     card.classList.toggle('editing');
     if (card.classList.contains('editing')) {
       btn.textContent = 'Klar';
@@ -354,17 +298,9 @@
     }
   }
 
-
-
-  function updatePlayer(team, index, field, value) {
-    roster[team][index][field] = value;
-    saveRosterLocal();
-    syncToFirebase();
-  }
-
   let saveTimer = null;
-  function autoSave(team, index, field, value) {
-    roster[team][index][field] = value;
+  function autoSave(teamId, index, field, value) {
+    roster[teamId][index][field] = value;
     saveRosterLocal();
     const status = document.getElementById('saveStatus');
     status.textContent = 'Sparar...';
@@ -379,22 +315,19 @@
     }, 500);
   }
 
-  function escapeAttr(str) {
-    return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
   // ── Firebase sync ──
   async function connectFirebase() {
     try {
-      firebaseApp = firebase.initializeApp(SAVED_FIREBASE_CONFIG);
+      firebaseApp = firebase.initializeApp(CONFIG.firebase);
       const db = firebase.database();
-      rosterRef = db.ref('rooms/' + SAVED_ROOM_NAME + '/roster');
+      rosterRef = db.ref('rooms/' + CONFIG.roomName + '/roster');
 
       const snapshot = await rosterRef.once('value');
       if (snapshot.exists()) {
-        roster = snapshot.val();
-        if (!roster.blue) roster.blue = [];
-        if (!roster.white) roster.white = [];
+        const data = snapshot.val();
+        CONFIG.teams.forEach(t => {
+          roster[t.id] = data[t.id] || [];
+        });
         saveRosterLocal();
         render();
       } else {
@@ -405,8 +338,9 @@
         const data = snapshot.val();
         if (!data) return;
         if (data._lastUpdated && Math.abs(data._lastUpdated - lastSyncTime) < 2000) return;
-        roster.blue = data.blue || [];
-        roster.white = data.white || [];
+        CONFIG.teams.forEach(t => {
+          roster[t.id] = data[t.id] || [];
+        });
         saveRosterLocal();
         render();
       });
@@ -419,7 +353,13 @@
     if (rosterRef) {
       lastSyncTime = Date.now();
       rosterRef.set({ ...roster, _lastUpdated: lastSyncTime })
-        .catch((err) => { console.error('Firebase sync failed:', err); });
+        .catch((err) => {
+          console.error('Firebase sync failed:', err);
+          const status = document.getElementById('saveStatus');
+          status.textContent = '✗ Synk misslyckades';
+          status.style.display = 'inline-flex';
+          status.style.color = '#ef4444';
+        });
     }
   }
 

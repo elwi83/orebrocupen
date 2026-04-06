@@ -36,8 +36,13 @@
   .team-card-body { padding: 0.75rem 1rem; }
 
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  th { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 2px solid #e2e8f0; font-weight: 600; color: #475569; font-size: 0.8rem; }
-  td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; }
+  th { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 2px solid #e2e8f0; font-weight: 600; color: #475569; font-size: 0.8rem; white-space: nowrap; }
+  td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f1f5f9; white-space: nowrap; }
+  th:nth-child(1), td:nth-child(1) { min-width: 12ch; }
+  th:nth-child(2), td:nth-child(2) { min-width: 10ch; white-space: normal; }
+  th:nth-child(3), td:nth-child(3) { min-width: 14ch; white-space: normal; }
+  td:nth-child(5), th:nth-child(5) { white-space: normal; width: 99%; }
+  td:nth-child(6) { width: 30px; }
   tr:last-child td { border-bottom: none; }
 
   .btn-edit-mode {
@@ -198,8 +203,8 @@
           <thead>
             <tr>
               <th>Spelare</th>
-              <th>Sover med laget</th>
-              <th>Förälder sover med laget</th>
+              <th>Sover med<br>laget</th>
+              <th>Förälder sover<br>med laget</th>
               <th>Åker med</th>
               <th>Kommentar</th>
             </tr>

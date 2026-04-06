@@ -82,7 +82,7 @@
   .team-card.editing .btn-add-row { display: inline-block; }
   .team-card.editing .btn-delete-row { display: inline-block; }
 
-  td input {
+  td input, td textarea {
     width: 100%;
     border: 1px solid transparent;
     padding: 0.2rem 0.3rem;
@@ -91,10 +91,15 @@
     border-radius: 4px;
     background: transparent;
   }
-  td input:focus {
+  td input:focus, td textarea:focus {
     border-color: #2563eb;
     outline: none;
     background: #f8fafc;
+  }
+  td textarea {
+    resize: vertical;
+    min-height: 1.6em;
+    line-height: 1.4;
   }
 
   .toolbar-roster {
@@ -193,6 +198,7 @@
           <thead>
             <tr>
               <th>Spelare</th>
+              <th>Sover med laget</th>
               <th>Förälder sover med laget</th>
               <th>Åker med</th>
               <th>Kommentar</th>
@@ -249,7 +255,7 @@
     tbody.innerHTML = '';
     if (!roster[teamId] || roster[teamId].length === 0) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td colspan="5" class="empty-state">Inga spelare ännu — klicka "Ändra" för att lägga till</td>';
+      tr.innerHTML = '<td colspan="6" class="empty-state">Inga spelare ännu — klicka "Ändra" för att lägga till</td>';
       tbody.appendChild(tr);
       return;
     }
@@ -257,9 +263,10 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="text" value="${escapeAttr(player.name)}" oninput="autoSave('${teamId}',${i},'name',this.value)" placeholder="Namn"></td>
+        <td><input type="text" value="${escapeAttr(player.sleeps || '')}" oninput="autoSave('${teamId}',${i},'sleeps',this.value)" placeholder="Ja/Nej"></td>
         <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${teamId}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
         <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${teamId}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
-        <td><input type="text" value="${escapeAttr(player.comment)}" oninput="autoSave('${teamId}',${i},'comment',this.value)" placeholder="Kommentar"></td>
+        <td><textarea oninput="autoSave('${teamId}',${i},'comment',this.value)" placeholder="Kommentar">${escapeHtml(player.comment || '')}</textarea></td>
         <td><button class="btn-delete-row" onclick="removeRow('${teamId}',${i})" title="Ta bort" aria-label="Ta bort spelare">×</button></td>
       `;
       tbody.appendChild(tr);
@@ -271,7 +278,7 @@
   }
 
   function addRow(teamId) {
-    roster[teamId].push({ name: '', parent: '', ridesWith: '', comment: '' });
+    roster[teamId].push({ name: '', sleeps: '', parent: '', ridesWith: '', comment: '' });
     saveRosterLocal();
     syncToFirebase();
     render();

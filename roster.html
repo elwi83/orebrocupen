@@ -38,9 +38,11 @@
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
   th { text-align: left; padding: 1px 5px; border-bottom: 2px solid #e2e8f0; font-weight: 600; color: #475569; font-size: 0.8rem; white-space: nowrap; }
   td { padding: 1px 5px; border-bottom: 1px solid #f1f5f9; white-space: nowrap; }
-  th:nth-child(1), td:nth-child(1) { min-width: 12ch; }
-  th:nth-child(2), td:nth-child(2) { min-width: 10ch; white-space: normal; }
-  th:nth-child(3), td:nth-child(3) { min-width: 14ch; white-space: normal; }
+  th:nth-child(1), td:nth-child(1) { min-width: 10ch; }
+  th:nth-child(2), td:nth-child(2) { white-space: normal; text-align: center; width: 3.5rem; }
+  th:nth-child(3), td:nth-child(3) { white-space: normal; min-width: 10ch; }
+  th:nth-child(4), td:nth-child(4) { min-width: 8ch; }
+  td:nth-child(2) input[type=checkbox] { width: 1rem; height: 1rem; cursor: pointer; }
   td:nth-child(5), th:nth-child(5) { white-space: normal; width: 99%; }
   td:nth-child(6) { width: 30px; }
   tr:last-child td { border-bottom: none; }
@@ -86,6 +88,9 @@
 
   .team-card.editing .btn-add-row { display: inline-block; }
   .team-card.editing .btn-delete-row { display: inline-block; }
+
+  td input[type=checkbox] { pointer-events: none; }
+  .team-card.editing td input[type=checkbox] { pointer-events: auto; }
 
   td input, td textarea {
     width: 100%;
@@ -268,8 +273,8 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="text" value="${escapeAttr(player.name)}" oninput="autoSave('${teamId}',${i},'name',this.value)" placeholder="Namn"></td>
-        <td><input type="text" value="${escapeAttr(player.sleeps || '')}" oninput="autoSave('${teamId}',${i},'sleeps',this.value)" placeholder="Ja/Nej"></td>
-        <td><input type="text" value="${escapeAttr(player.parent)}" oninput="autoSave('${teamId}',${i},'parent',this.value)" placeholder="Ja/Nej"></td>
+        <td><input type="checkbox" ${player.sleeps === true || player.sleeps === 'Ja' ? 'checked' : ''} onchange="autoSave('${teamId}',${i},'sleeps',this.checked)"></td>
+        <td><input type="text" value="${escapeAttr(player.parent || '')}" oninput="autoSave('${teamId}',${i},'parent',this.value)" placeholder="Namn"></td>
         <td><input type="text" value="${escapeAttr(player.ridesWith)}" oninput="autoSave('${teamId}',${i},'ridesWith',this.value)" placeholder="Åker med..."></td>
         <td><textarea oninput="autoSave('${teamId}',${i},'comment',this.value)" placeholder="Kommentar">${escapeHtml(player.comment || '')}</textarea></td>
         <td><button class="btn-delete-row" onclick="removeRow('${teamId}',${i})" title="Ta bort" aria-label="Ta bort spelare">×</button></td>
